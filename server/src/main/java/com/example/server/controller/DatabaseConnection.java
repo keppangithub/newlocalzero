@@ -19,10 +19,10 @@ public class DatabaseConnection {
     private MongoClient mongoClient;
     private MongoDatabase database;
 
-    @Value("${mongo.database.url}")
-    private String url;
 
     private DatabaseConnection() {
+        APIKeys apiKeys = new APIKeys();
+        String url = apiKeys.getDatabaseUrl();
         try {
             mongoClient = MongoClients.create(url);
             database = mongoClient.getDatabase("localzero");
