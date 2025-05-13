@@ -47,7 +47,9 @@ public class AuthAPIHandler {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody String registerInfo) {
+    public ResponseEntity<String> register(@RequestBody Map<String, String> registerInfo) {
+
+
         return ResponseEntity.ok("Register successful for user: " + registerInfo);
     }
 }
