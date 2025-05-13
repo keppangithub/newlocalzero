@@ -11,6 +11,7 @@ function NewAction() {
     if (!actionDate || !actionType || !metricsText) {
       alert("Please fill in all of the fields!");
     } else {
+      //TODO: skicka till APIn
     }
   }
 
@@ -79,6 +80,7 @@ function NewAction() {
         >
           POST
         </button>
+
       </div>
     </div>
   );

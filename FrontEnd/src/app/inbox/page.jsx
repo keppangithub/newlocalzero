@@ -5,6 +5,25 @@ import InboxItem from "../../components/inboxItem";
 import MessageBox from "../../components/messageBox";
 
 function InboxPage() {
+
+  // test data -> ska hämtas från APIn istället
+  const allInbox = ["Mojtaba", "Olivia", "Kevin", "Aleks"];
+  // END OF TEST DATA
+
+  const renderChats = () => {
+    return allInbox.map((inbox, inboxIndex) => (
+      <div key={inboxIndex}>
+        <InboxItem
+          name={inbox}
+        />
+      </div>
+    ));
+  };
+
+  const renderMessages = () => {
+    
+  }
+
   return (
     <div className="flex min-w-screen max-w-screen min-h-screen max-h-screen bg-zinc-100 font-light text-sm">
       <div className="bg-gray-300 w-[10%]">
@@ -26,15 +45,7 @@ function InboxPage() {
         dark:[&::-webkit-scrollbar-track]:bg-white
         dark:[&::-webkit-scrollbar-thumb]:bg-gray-300"
         >
-          <InboxItem />
-          <InboxItem />
-          <InboxItem />
-          <InboxItem />
-          <InboxItem />
-          <InboxItem />
-          <InboxItem />
-          <InboxItem />
-          <InboxItem />
+          {renderChats()}
         </div>
       </div>
 

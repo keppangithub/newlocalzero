@@ -1,11 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 
-function ActionBox() {
-
-  const title = "Biking";
-  const metric = "5 km";
-  const date = "2025-05-09";
+function ActionBox({title, metric, date}) {
 
   return (
     <div>
