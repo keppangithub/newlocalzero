@@ -11,17 +11,17 @@ import java.util.Date;
 public class Initiative implements Activity {
     private String title;
     private String description;
-    private ImageIcon image;
+    private String imgUrl;
     private String location;
     private Date start;
     private Date end;
     private Category category;
     private Comment[] comments;
 
-    public Initiative(String title, String description, ImageIcon image, String location, Date start, Date end, Category category, Comment[] comments) {
+    public Initiative(String title, String description, String imgUrl, String location, Date start, Date end, Category category, Comment[] comments) {
         this.title = title;
         this.description = description;
-        this.image = image;
+        this.imgUrl = imgUrl;
         this.location = location;
         this.start = start;
         this.end = end;
@@ -29,12 +29,12 @@ public class Initiative implements Activity {
         this.comments = comments;
     }
 
-    public ImageIcon getImage() {
-        return image;
+    public String getImage() {
+        return imgUrl;
     }
 
-    public void setImage(ImageIcon image) {
-        this.image = image;
+    public void setImage(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public Category getCategory() {

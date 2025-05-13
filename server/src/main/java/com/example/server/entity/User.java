@@ -3,6 +3,9 @@ package main.java.com.example.server.entity;
 
 
 import main.java.com.example.server.controller.ControllerClient;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +16,11 @@ import java.util.List;
  * @author Olivia Svensson, ...
  */
 
+@Document(collection = "users")
 public class User {
+    @Id
     private String userID;
+    private String username;
     private String password;
     private String email;
     private int locationID;

@@ -1,10 +1,13 @@
 package main.java.com.example.server.controller;
 
 import com.mongodb.client.MongoDatabase;
+import main.java.com.example.server.entity.User;
 import org.bson.Document;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,10 +21,13 @@ public class AuthAPIHandler {
 
     private final DatabaseConnection dbConnection;
     private MongoDatabase database;
+    @Autowired
+    private AuthHandler authHandler;
 
     public AuthAPIHandler() {
          this.dbConnection = DatabaseConnection.getInstance();
          database = dbConnection.getDatabase();
+
     }
 
     @PostMapping("/login") // route/endpoint
@@ -29,14 +35,15 @@ public class AuthAPIHandler {
         String username = loginInfo.get("username");
         String password = loginInfo.get("password");
         try {
-            database.runCommand(new Document("ping", 1));
-            System.out.println("Pinged your deployment. You successfully connected to MongoDB!");
+            List<User> user = authHandler.validateLogin(username, password);
+
+            if (user == null) {
+                return ResponseEntity.status(401).body("Invalid username or password");
+            }
+            return ResponseEntity.ok("Login successful for user: " + username);
         }catch (Exception e) {
             return ResponseEntity.status(500).body("Error: " + e.getMessage());
         }
-
-
-        return ResponseEntity.ok("Login successful for user: " + username);
     }
 
     @PostMapping("/register")

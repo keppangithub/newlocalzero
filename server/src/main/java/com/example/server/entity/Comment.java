@@ -14,14 +14,14 @@ public class Comment implements PostInterface {
     private String content;
     private int senderID;
     private User commenter;
-    private ImageIcon image;
+    private String imgUrl;
 
-    public Comment(Post post, String content, int senderID, User commenter, ImageIcon image) {
+    public Comment(Post post, String content, int senderID, User commenter, String imgUrl) {
         this.post = post;
         this.content = content;
         this.senderID = senderID;
         this.commenter = commenter;
-        this.image = image;
+        this.imgUrl = imgUrl;
     }
 
     public void setPost(Post post) {
@@ -40,12 +40,12 @@ public class Comment implements PostInterface {
         this.commenter = commenter;
     }
 
-    public void setImage(ImageIcon image) {
-        this.image = image;
+    public void setImage(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
-    public ImageIcon getImage() {
-        return image;
+    public String getImage() {
+        return imgUrl;
     }
 
     public int getSenderID() {
