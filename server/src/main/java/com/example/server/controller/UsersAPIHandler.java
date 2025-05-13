@@ -1,5 +1,7 @@
 package main.java.com.example.server.controller;
 
+import com.mongodb.client.MongoDatabase;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +18,17 @@ import org.springframework.web.servlet.HandlerMapping;
 public class UsersAPIHandler {
     private final HandlerMapping resourceHandlerMapping;
 
+    private final DatabaseConnection dbConnection;
+    private MongoDatabase database;
+    @Autowired
+    private UserHandler userHandler;
+
     public UsersAPIHandler(@Qualifier("resourceHandlerMapping") HandlerMapping resourceHandlerMapping) {
         this.resourceHandlerMapping = resourceHandlerMapping;
+        this.dbConnection = DatabaseConnection.getInstance();
+        database = dbConnection.getDatabase();
     }
+
         @GetMapping("/users/{id}")
         public ResponseEntity<String> getUserWithID(@RequestParam String id) {
             return ResponseEntity.ok("got user with request id");
