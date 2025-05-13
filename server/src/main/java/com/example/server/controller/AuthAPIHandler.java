@@ -1,7 +1,9 @@
-package src.main.java.com.example.server.controller;
+package main.java.com.example.server.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * info
@@ -17,8 +19,10 @@ public class AuthAPIHandler {
 
     // Example method
     @PostMapping("/login") // route/endpoint
-    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
-        // Implement your login logic here
+    public ResponseEntity<String> login(@RequestBody Map<String, String> loginInfo) {
+        String username = loginInfo.get("username");
+        String password = loginInfo.get("password");
+
         return ResponseEntity.ok("Login successful for user: " + username);
     }
 

@@ -1,4 +1,4 @@
-package src.main.java.com.example.server.entity;
+package main.java.com.example.server.entity;
 
 /**
  * Class which represents an action. An action can be made by a User.

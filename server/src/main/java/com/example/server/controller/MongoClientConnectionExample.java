@@ -1,4 +1,4 @@
-package src.main.java.com.example.server.controller;
+package main.java.com.example.server.controller;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -9,17 +9,28 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 public class MongoClientConnectionExample {
-    public static void main(String[] args) {
-        String connectionString = "mongodb+srv://user:localzero@cluster0.wox2kxx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
+    private String url;
+
+    public MongoClientConnectionExample() {
+       APIKeys apiKeys = new APIKeys();
+       this.url = apiKeys.getDatabaseUrl();
+    }
+
+    public void connect() {
+        System.out.println("-------------------------------------------------------------------------Connecting to MongoDB with URL: " + url);
         ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
                 .build();
 
         MongoClientSettings settings = MongoClientSettings.builder()
-                .applyConnectionString(new ConnectionString(connectionString))
+                .applyConnectionString(new ConnectionString(url))
                 .serverApi(serverApi)
                 .build();
 

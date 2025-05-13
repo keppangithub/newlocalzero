@@ -1,4 +1,4 @@
-package src.main.java.com.example.server.entity;
+package main.java.com.example.server.entity;
 
 /**
  * This is an enum for the categories an Initiative can be classified as. They are based on the 17 global sustainability

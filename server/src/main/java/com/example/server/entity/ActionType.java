@@ -2,7 +2,7 @@
  * @author Olivia Svensson, ...
  */
 
-package src.main.java.com.example.server.entity;
+package main.java.com.example.server.entity;
 
 public enum ActionType {
     BIKING,

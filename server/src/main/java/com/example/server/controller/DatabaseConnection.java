@@ -1,9 +1,11 @@
-package src.main.java.com.example.server.controller;
+package main.java.com.example.server.controller;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 /**
  * Singleton class to manage the MongoDB connection.
@@ -11,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
  * @author Mojtaba Hauari, Olivia Svensson
  * @version 1.0
  */
-
 public class DatabaseConnection {
 
     private static DatabaseConnection instance;

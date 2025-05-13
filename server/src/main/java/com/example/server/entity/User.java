@@ -1,9 +1,8 @@
-package src.main.java.com.example.server.entity;
+package main.java.com.example.server.entity;
 
 
 
-import src.main.java.com.example.server.controller.ControllerClient;
-
+import main.java.com.example.server.controller.ControllerClient;
 import java.util.ArrayList;
 import java.util.List;
 

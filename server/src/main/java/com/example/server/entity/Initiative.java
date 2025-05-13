@@ -1,4 +1,4 @@
-package src.main.java.com.example.server.entity;
+package main.java.com.example.server.entity;
 
 import javax.swing.*;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package src.main.java.com.example.server.entity;
+package main.java.com.example.server.entity;
 
 // uppfyller Template design pattern - eventuellt kolla om fler uppfylls?
 //

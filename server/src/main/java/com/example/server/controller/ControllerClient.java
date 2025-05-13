@@ -1,5 +1,5 @@
-package src.main.java.com.example.server.controller;
-import src.main.java.com.example.server.entity.*;
+package main.java.com.example.server.controller;
+import main.java.com.example.server.entity.*;
 
 
 import java.util.HashMap;

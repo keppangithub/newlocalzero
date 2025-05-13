@@ -1,4 +1,4 @@
-package src.main.java.com.example.server.controller;
+package main.java.com.example.server.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
