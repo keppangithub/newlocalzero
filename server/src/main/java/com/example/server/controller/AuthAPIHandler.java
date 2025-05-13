@@ -23,10 +23,7 @@ public class AuthAPIHandler {
          this.dbConnection = DatabaseConnection.getInstance();
          database = dbConnection.getDatabase();
     }
-// Add your authentication methods here
-    // For example, login, register, etc.
 
-    // Example method
     @PostMapping("/login") // route/endpoint
     public ResponseEntity<String> login(@RequestBody Map<String, String> loginInfo) {
         String username = loginInfo.get("username");
@@ -46,8 +43,4 @@ public class AuthAPIHandler {
     public ResponseEntity<String> register(@RequestBody String registerInfo) {
         return ResponseEntity.ok("Register successful for user: " + registerInfo);
     }
-
-// maybe add logout??
-
-
 }
