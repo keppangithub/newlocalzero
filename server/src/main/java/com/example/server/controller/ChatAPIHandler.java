@@ -14,6 +14,7 @@ public class ChatAPIHandler {
     @GetMapping("/chats")
     public ResponseEntity<String> getChats(@RequestParam String id) {
         return ResponseEntity.ok("got user chats");
+
     }
 
     @PostMapping("/chats")
