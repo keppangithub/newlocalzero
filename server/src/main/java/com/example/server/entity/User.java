@@ -25,9 +25,9 @@ public class User {
     private String email;
     private Integer locationID;
     private String role;
-    private Action[] actions;
-    private Initiative[] initiatives;
-    private List<User> friendList;
+    private ArrayList<Action> actions;
+    private ArrayList<Initiative> initiatives;
+    private ArrayList<User> friendList;
     private ControllerClient controller;
 
     public User(String username, String password, String email, Integer locationID, String role) {
@@ -88,5 +88,61 @@ public class User {
         controller.createUser();
     }
 
+
+    public String getUserID() {
+        return this.userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUserName(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRole() {
+        return this.role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Integer getLocationID() {
+        return this.locationID;
+    }
+
+    public ArrayList<Action> getActions() {
+        return this.actions;
+    }
+
+    public ArrayList<Initiative> getIniitatives() {
+        return this.initiatives;
+    }
+
+    public ArrayList<User> getFriendList() {
+        return this.friendList;
+    }
 
 }
