@@ -1,11 +1,14 @@
 package main.java.com.example.server.controller;
 
+import main.java.com.example.server.entity.Initiative;
 import main.java.com.example.server.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import main.java.com.example.server.entity.Action;
 @Service
 public class UserHandler {
     @Autowired
@@ -48,8 +51,31 @@ public class UserHandler {
         return true;
     }
 
-    public User getUserID(String userID) {
-        return userRepository.findByUserID(userID);
-    }
+    public ArrayList<ArrayList<String>> getUserID(String userID) {
+        User user = userRepository.findByUserID(userID);
+        ArrayList<ArrayList<String>> userInfo = new ArrayList<ArrayList<String>>();
 
+        ArrayList<String> info = new ArrayList<>();
+        info.add("Username: " + user.getUsername());
+        info.add("Role: " + user.getRole());
+        info.add("Location ID: " + user.getLocationID());
+        userInfo.add(info);
+
+        ArrayList<String> initiatives = new ArrayList<>();
+        if(user.getInitatives() != null) {
+            for(Initiative initiative : user.getInitatives()) {
+                initiatives.add("Initiative: " + initiative.toString());
+            }
+        }
+        userInfo.add(initiatives);
+
+        ArrayList<String> actions = new ArrayList<>();
+        if(user.getActions() != null) {
+            for(Action action : user.getActions()) {
+                actions.add("Initiative: " + action.toString());
+            }
+        }
+        userInfo.add(actions);
+        return userInfo;
+    }
 }

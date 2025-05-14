@@ -137,7 +137,7 @@ public class User {
         return this.actions;
     }
 
-    public ArrayList<Initiative> getIniitatives() {
+    public ArrayList<Initiative> getInitatives() {
         return this.initiatives;
     }
 

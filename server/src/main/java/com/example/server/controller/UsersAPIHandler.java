@@ -7,6 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.HandlerMapping;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 
 /**
  * info
@@ -29,10 +32,16 @@ public class UsersAPIHandler {
         database = dbConnection.getDatabase();
     }
 
-        @GetMapping("/users/{id}")
-        public ResponseEntity<String> getUserWithID(@RequestParam String id) {
-            return ResponseEntity.ok("got user with request id");
-        }
+    @GetMapping("/users/{id}")
+    public ArrayList<ArrayList<String>> getUserWithID(@PathVariable String id) {
+            ArrayList<ArrayList<String>> response = userHandler.getUserID(id);
+            if(response != null) {
+                return response;
+            }
+        else {
+            return new ArrayList<>();
+            }
+     }
 
         @GetMapping("/users/{id}/actions")
         public ResponseEntity<String> getUsersWithIDActions(@RequestParam String id) {
