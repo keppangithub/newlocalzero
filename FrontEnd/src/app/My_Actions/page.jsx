@@ -29,8 +29,8 @@ function MyActions() {
       <div key={actionIndex}>
         <ActionBox
           title={action.title}
-          metric={action.date}
-          date={action.id}
+          metric={action.metric}
+          date={action.date}
         />
       </div>
     ));

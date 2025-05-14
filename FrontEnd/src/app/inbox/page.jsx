@@ -83,6 +83,10 @@ function InboxPage() {
     }
   };
 
+  const sendMessageClicked = () => {
+    //TODO: skicka meddelandet till backend
+  }
+
   return (
     <div className="flex min-w-screen max-w-screen min-h-screen max-h-screen bg-zinc-100 font-light text-sm">
       <div className="bg-gray-300 w-[10%]">
@@ -136,7 +140,8 @@ function InboxPage() {
             className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 "
           />
           <div className="pt-5">
-            <button className="bg-gray-200 text-black px-4 py-2 rounded hover:bg-gray-400">
+            <button className="bg-gray-200 text-black px-4 py-2 rounded hover:bg-gray-400"
+            onClick={sendMessageClicked}>
               Send
             </button>
           </div>
