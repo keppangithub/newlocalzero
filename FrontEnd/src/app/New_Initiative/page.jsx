@@ -1,43 +1,8 @@
 "use client";
 import React, { useRef, useState } from "react";
-import SideBar from "../../components/sidebar";
+import SideBar from "../components/sidebar";
+
 function NewInitiative() {
-  const [notLocationSpecific, setNotLocationSpecific] = useState(false);
-  const [location, setLocation] = useState("");
-  const [title, setTitle] = useState("");
-  const [caption, setCaption] = useState("");
-  const [imgUrl, setImgUrl] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [category, setCategory] = useState("");
-
-
-  const handleNotLocationSpecificClick = () => {
-    setNotLocationSpecific((prev) => {
-      const newValue = !prev;
-      if (newValue) setLocation(""); // Reset location when toggled on
-      return newValue;
-    });
-  };
-
-  const handlePost = (e) => {
-    e.preventDefault();
-    if (startDate && endDate && startDate > endDate) {
-      alert("Start date cannot be after end date.");
-      return;
-    }
-  }
-
-  const handleReset = () => {
-    setTitle("");
-    setCaption("");
-    setImgUrl("");
-    setLocation("");
-    setNotLocationSpecific(false);
-    setStartDate("");
-    setEndDate("");
-    setCategory("");
-  };
 
   return (
     <div className="flex min-w-screen max-w-screen min-h-screen max-h-screen bg-zinc-800 font-light text-sm">
@@ -56,64 +21,44 @@ function NewInitiative() {
             <input
               type="text"
               className="rounded-md border-2 p-1 focus:outline-0 w-full mb-2"
-              placeholder="e.g. Community Garden Project"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Initiative Title"
             ></input>
 
             <p className="text-md">Caption</p>
             <input
               type="text"
               className="rounded-md border-2 p-1 focus:outline-0 w-full mb-2"
-              placeholder="e.g. Bringing neighbors together to grow fresh food and flowers."
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Initiative Title"
             ></input>
 
             <p className="text-md">IMG url</p>
             <input
               type="text"
               className="rounded-md border-2 p-1 focus:outline-0 w-full mb-2"
-              placeholder="e.g. https://images.unsplash.com/photo-1506744038136-46273834b3fb"
-              value={imgUrl}
-              onChange={(e) => setImgUrl(e.target.value)}
-
+              placeholder="Initiative Title"
             ></input>
 
             <p className="text-md">Location</p>
-            <select
-              className="rounded-md border-2 p-1 focus:outline-0 w-full"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              disabled={notLocationSpecific}
-            >
-              <option value="" disabled>
-                Select a location
-              </option>
-              <option value="Malmö">Malmö</option>
-              <option value="Trelleborg">Trelleborg</option>
-              <option value="Lund">Lund</option>
-              <option value="Helsingborg">Helsingborg</option>
-            </select>
+            <input
+              type="text"
+              className="rounded-md border-2 p-1 focus:outline-0 w-full mb-2"
+              placeholder="Initiative Title"
+            ></input>
 
-            <div className="flex items-center mt-4">
-              <button
-                className={`border-2 border-black px-2 py-2 rounded-full ${notLocationSpecific ? "bg-black text-white" : "bg-white"
-                  }`}
-                onClick={handleNotLocationSpecificClick}
-                type="button"
-              />
+            <div className="flex items-center mt-3">
+              <button className="border-2 border-black px-2 py-2 rounded-full hover:bg-gray-200">
+              </button>
               <p className="ml-4 text-md">The initiative is not location specific</p>
+
+
             </div>
 
-            <div className="flex items-center mt-4 gap-4">
+            <div className="flex items-center mt-5 gap-4">
               <div className="flex items-center gap-2">
                 <p className="text-md">Start date:</p>
                 <input
                   type="date"
                   className="rounded-md border-2 p-1 focus:outline-0"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
                 ></input>
               </div>
 
@@ -122,19 +67,15 @@ function NewInitiative() {
                 <input
                   type="date"
                   className="rounded-md border-2 p-1 focus:outline-0"
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
                 ></input>
               </div>
             </div>
 
             <div>
-              <p className="text-md mt-3">Category</p>
+              <p className="text-md mt-5">Category</p>
               <select
                 className="rounded-md border-2 p-1 focus:outline-0 w-full"
                 defaultValue=""
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="" disabled>
                   Select a category
@@ -148,17 +89,9 @@ function NewInitiative() {
 
             </div>
 
-            <div className="mt-3 flex justify-center gap-4">
-              <button className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600"
-                onClick={handlePost}>
+            <div className="mt-6 flex justify-center">
+              <button className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600">
                 Post
-              </button>
-              <button
-                type="button"
-                className="bg-gray-400 text-white px-6 py-2 rounded-md hover:bg-gray-500"
-                onClick={handleReset}
-              >
-                Reset
               </button>
             </div>
 
