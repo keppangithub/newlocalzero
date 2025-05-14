@@ -1,13 +1,17 @@
 package main.java.com.example.server.controller;
 
+import main.java.com.example.server.entity.Chat;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MessageHandler {
-    public String startChatWithUser(String user1Id, String user2Id) {
+    @Autowired
+    private MessageRepository messageRepository;
+    @Autowired
+    private ChatRepository chatRepository;
 
 
-
-        return "Successfully started chat";
-    }
 }

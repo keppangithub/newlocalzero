@@ -1,3 +1,4 @@
+/*
 package main.java.com.example.server.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -5,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * info
  * @author Olivia Svensson, Mojtaba Hauari
- * */
+ *
 
 @RestController
 @RequestMapping("/api")
@@ -31,4 +32,8 @@ public class ChatAPIHandler {
         return ResponseEntity.ok("posted chat with user id");
     }
 }
+
+ */
+
+
 

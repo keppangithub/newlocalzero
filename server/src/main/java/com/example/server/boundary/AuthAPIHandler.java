@@ -50,9 +50,9 @@ public class AuthAPIHandler {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody Map<String, String> registerInfo) {
-        boolean ok = userHandler.registerUser(registerInfo);
-        if(!ok){
-            return ResponseEntity.status(400).body("Registration failed");
+        String response = userHandler.registerUser(registerInfo);
+        if(!response.equals("successfully registered user")) {
+            return ResponseEntity.status(400).body(response);
         }
         return ResponseEntity.ok("Register successful for user: " + registerInfo);
     }
