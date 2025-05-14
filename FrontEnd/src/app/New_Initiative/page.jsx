@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
-import SideBar from "../components/sidebar";
+import SideBar from "../../components/sidebar";
 
 function NewInitiative() {
 

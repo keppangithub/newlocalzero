@@ -5,24 +5,83 @@ import InboxItem from "../../components/inboxItem";
 import MessageBox from "../../components/messageBox";
 
 function InboxPage() {
-
   // test data -> ska hämtas från APIn istället
-  const allInbox = ["Mojtaba", "Olivia", "Kevin", "Aleks"];
+  const allInbox = [
+    {
+      name: "Mojtaba",
+      messages: [
+        { text: "hej mojje", sender: "Ranacita", date: "2025-05-14" },
+        { text: "hej", sender: "Mojtaba", date: "2025-05-14" },
+        { text: "what the frick dude", sender: "Mojtaba", date: "2025-05-14" },
+        { text: "what the sigma dude", sender: "Mojtaba", date: "2025-05-14" },
+        { text: "...", sender: "Ranacita", date: "2025-05-14" },
+        { text: "...", sender: "Ranacita", date: "2025-05-14" },
+        { text: "...", sender: "Ranacita", date: "2025-05-14" },
+        { text: "what the frick dude", sender: "Mojtaba", date: "2025-05-14" },
+        { text: "what the sigma dude", sender: "Mojtaba", date: "2025-05-14" },
+        { text: "what the frick dude", sender: "Mojtaba", date: "2025-05-14" },
+        { text: "what the sigma dude", sender: "Mojtaba", date: "2025-05-14" },
+      ],
+    },
+    {
+      name: "Olivia",
+      messages: [
+        { text: "hej olivia", sender: "Ranacita", date: "2025-05-14" },
+        { text: "hejsan", sender: "Olivia", date: "2025-05-14" },
+      ],
+    },
+    {
+      name: "Kevin",
+      messages: [
+        { text: "hej kevin", sender: "Ranacita", date: "2025-05-14" },
+        { text: "hejhej", sender: "Kevin", date: "2025-05-14" },
+      ],
+    },
+    {
+      name: "Aleks",
+      messages: [
+        { text: "hej aleks", sender: "Ranacita", date: "2025-05-14" },
+        { text: "hejdå", sender: "Aleks", date: "2025-05-14" },
+      ],
+    },
+  ];
   // END OF TEST DATA
+
+  const [selectedChat, setSelectedChat] = useState(allInbox[0].name);
 
   const renderChats = () => {
     return allInbox.map((inbox, inboxIndex) => (
       <div key={inboxIndex}>
-        <InboxItem
-          name={inbox}
-        />
+        <button
+          className="bg-gray-100 mt-6 p-5 rounded w-full justify-items-start
+        hover:bg-gray-300"
+          onClick={() => chatClicked(inbox.name)}
+        >
+          <p>{inbox.name}</p>
+        </button>
       </div>
     ));
   };
 
+  const chatClicked = (clickedName) => {
+    setSelectedChat(clickedName);
+  };
+
   const renderMessages = () => {
-    
-  }
+    const foundInbox = allInbox.find((inbox) => inbox.name === selectedChat);
+
+    if (foundInbox) {
+      return foundInbox.messages.map((message, messageIndex) => (
+        <div key={messageIndex}>
+          <MessageBox
+            messageText={message.text}
+            sender={message.sender}
+            date={message.date}
+          />
+        </div>
+      ));
+    }
+  };
 
   return (
     <div className="flex min-w-screen max-w-screen min-h-screen max-h-screen bg-zinc-100 font-light text-sm">
@@ -52,7 +111,7 @@ function InboxPage() {
       <div className="p-10 bg-white border-r-2 border-black w-[45%] space-y-4">
         {/*Div1: chat header/username */}
         <div>
-          <p>Chat: [Username]</p>
+          <p>Chat: {selectedChat}</p>
         </div>
 
         {/*Div2: chat messages, scrollable*/}
@@ -66,24 +125,7 @@ function InboxPage() {
         dark:[&::-webkit-scrollbar-track]:bg-white
         dark:[&::-webkit-scrollbar-thumb]:bg-gray-300"
         >
-          <MessageBox />
-          <MessageBox />
-          <MessageBox />
-          <MessageBox />
-          <MessageBox />
-          <MessageBox />
-          <MessageBox />
-          <MessageBox />
-          <MessageBox />
-          <MessageBox />
-          <MessageBox />
-          <MessageBox />
-          <MessageBox />
-          <MessageBox />
-          <MessageBox />
-          <MessageBox />
-          <MessageBox />
-          <MessageBox />
+          {renderMessages()}
         </div>
 
         {/*Div3: chat input box*/}

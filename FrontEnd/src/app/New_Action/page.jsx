@@ -36,15 +36,15 @@ function NewAction() {
         </div>
 
         <div className="space-y-1">
-          <label for="type">Action Type:</label>
+          <label htmlFor="type">Action Type:</label>
           <br />
           <select
             id="type"
-            class="rounded-md border-2 p-2 focus:outline-0 w-[90%]"
+            className="rounded-md border-2 p-2 focus:outline-0 w-[90%]"
             onChange={(e) => setActionType(e.target.value)}
             value={actionType}
           >
-            <option selected>Select Type...</option>
+            <option defaultValue={null}>Select Type...</option>
             <option value="RUNNING">Running/Jogging</option>
             <option value="PUBLICTRANSPORT">Public Transport</option>
             <option value="THRIFTING">Thrifting</option>
