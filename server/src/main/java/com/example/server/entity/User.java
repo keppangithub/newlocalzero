@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -147,5 +148,14 @@ public class User {
 
     public void setLocation(int locationID) {
         this.locationID = locationID;
+    }
+
+    public void postAction(ActionType type, int duration, Date date, String name) {
+        Action action = new Action(type, duration, date, name);
+
+        if(this.actions == null) {
+            actions = new ArrayList<>();
+        }
+        actions.add(action);
     }
 }

@@ -1,11 +1,13 @@
 package main.java.com.example.server.controller;
 
+import main.java.com.example.server.entity.ActionType;
 import main.java.com.example.server.entity.Initiative;
 import main.java.com.example.server.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import main.java.com.example.server.entity.Action;
@@ -101,5 +103,23 @@ public class UserHandler {
             }
         }
         return actions;
+    }
+
+    public String postUserAction(String id, ActionType type, int duration, Date date, String name) {
+        User user = userRepository.findByUserID(id);
+
+        if (user == null) {
+            return "User does not exist";
+        }
+
+        if (type == null || name == null || date == null || duration <= 0) {
+            return "Action is empty";
+        }
+
+        // Add the action to the user
+        user.postAction(type, duration, date, name);
+        userRepository.save(user);  // Save the updated user
+
+        return "Action posted successfully";
     }
 }

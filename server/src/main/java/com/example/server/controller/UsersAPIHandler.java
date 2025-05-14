@@ -1,12 +1,15 @@
 package main.java.com.example.server.controller;
 
 import com.mongodb.client.MongoDatabase;
+import main.java.com.example.server.entity.ActionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.HandlerMapping;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -48,7 +51,7 @@ public class UsersAPIHandler {
             if (response.equals("User does not exist, unable to change location")) {
                 return ResponseEntity.status(401).body("User does not exist, unable to change location");
             }
-            return ResponseEntity.ok("Successfylly updated user's location");
+            return ResponseEntity.ok("Successfully updated user's location");
         }catch (Exception e) {
             return ResponseEntity.status(500).body("Error: " + e.getMessage());
         }
@@ -64,10 +67,20 @@ public class UsersAPIHandler {
             return new ArrayList<>();
         }
     }
-    
+
     @PostMapping("/users/{id}/actions")
-    public ResponseEntity<String> postActionWithUserID(@RequestBody String id) {
-        return ResponseEntity.ok("posted user action with request id");
+    public ResponseEntity<String> postActionWithUserID(@PathVariable String id, @RequestParam ActionType type,
+       @RequestParam int duration, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date,
+       @RequestParam String name) {
+        String response = userHandler.postUserAction(id, type, duration, date, name);
+        try {
+            if (response.equals("Action is empty")) {
+                return ResponseEntity.status(401).body("Action is empty");
+            }
+            return ResponseEntity.ok("Successfully posted action");
+        }catch (Exception e) {
+            return ResponseEntity.status(500).body("Error: " + e.getMessage());
+        }
     }
 
     @PostMapping("/users/{id}/inits")
