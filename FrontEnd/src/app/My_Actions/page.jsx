@@ -22,7 +22,7 @@ function MyActions() {
   const publicTransport = 28;
   const itemsThrifted = 12;
   const trashPickedUp = 3;
-  // END DATE
+  // END OF TEST DATA
 
   const renderMyActions = () => {
     return allActions.map((action, actionIndex) => (

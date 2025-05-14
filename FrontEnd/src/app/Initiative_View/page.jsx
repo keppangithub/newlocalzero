@@ -10,7 +10,6 @@ function InitiativeView() {
   const id = params.get("id");
 
   // test data -> ska hämtas från APIn med hjälp av id istället
-
   const allComments = [];
   allComments[0] = {
     content: "nice event",
@@ -40,6 +39,7 @@ function InitiativeView() {
     commenterID: "6374641",
     id: "c04"
   };
+  // END OF TEST DATA
 
   const title = "Event Title";
   const caption =

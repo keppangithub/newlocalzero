@@ -10,7 +10,6 @@ function SideBar() {
     };
 
   const myProfileClicked = () => {
-    //TODO: hämta user ID + append URL
       router.push("/profile");
     };
   
