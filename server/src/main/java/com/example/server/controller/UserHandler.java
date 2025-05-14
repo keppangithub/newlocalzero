@@ -90,4 +90,16 @@ public class UserHandler {
                 return "User does not exist, unable to change location";
             }
     }
+
+    public ArrayList<String> getUserActions(String id) {
+        User user = userRepository.findByUserID(id);
+
+        ArrayList<String> actions = new ArrayList<>();
+        if(user.getActions() != null) {
+            for(Action action : user.getActions()) {
+                actions.add("Initiative: " + action.toString());
+            }
+        }
+        return actions;
+    }
 }

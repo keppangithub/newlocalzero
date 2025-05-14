@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.HandlerMapping;
-
 import java.util.ArrayList;
 import java.util.Map;
-
 
 /**
  * info
@@ -57,10 +55,16 @@ public class UsersAPIHandler {
     }
 
     @GetMapping("/users/{id}/actions")
-    public ResponseEntity<String> getUsersWithIDActions(@RequestParam String id) {
-        return ResponseEntity.ok("got user actions with request id");
+    public ArrayList<String> getUserActions(@PathVariable String id) {
+        ArrayList<String> response = userHandler.getUserActions(id);
+        if(response != null) {
+            return response;
+        }
+        else {
+            return new ArrayList<>();
+        }
     }
-
+    
     @PostMapping("/users/{id}/actions")
     public ResponseEntity<String> postActionWithUserID(@RequestBody String id) {
         return ResponseEntity.ok("posted user action with request id");
