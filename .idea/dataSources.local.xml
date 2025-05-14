@@ -11,5 +11,10 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
+    <data-source name="localZero@cluster0.wox2kxx.mongodb.net" uuid="92d3a38c-bf38-4c92-8796-843149de565b">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MONGO" />
+      <user-name>user</user-name>
+      <schema-mapping />
+    </data-source>
   </component>
 </project>

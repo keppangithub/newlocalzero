@@ -1,8 +1,10 @@
-package main.java.com.example.server.controller;
+package main.java.com.example.server.boundary;
 
 import com.mongodb.client.MongoDatabase;
+import main.java.com.example.server.controller.AuthHandler;
+import main.java.com.example.server.controller.DatabaseConnection;
+import main.java.com.example.server.controller.UserHandler;
 import main.java.com.example.server.entity.User;
-import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,8 @@ import java.util.Map;
 public class AuthAPIHandler {
 
     private final DatabaseConnection dbConnection;
+    @Autowired
+    private UserHandler userHandler;
     private MongoDatabase database;
     @Autowired
     private AuthHandler authHandler;
@@ -27,7 +31,6 @@ public class AuthAPIHandler {
     public AuthAPIHandler() {
          this.dbConnection = DatabaseConnection.getInstance();
          database = dbConnection.getDatabase();
-
     }
 
     @PostMapping("/login") // route/endpoint
@@ -35,9 +38,8 @@ public class AuthAPIHandler {
         String username = loginInfo.get("username");
         String password = loginInfo.get("password");
         try {
-            List<User> user = authHandler.validateLogin(username, password);
-
-            if (user == null) {
+            Boolean ok = authHandler.validateLogin(username, password);
+            if (!ok) {
                 return ResponseEntity.status(401).body("Invalid username or password");
             }
             return ResponseEntity.ok("Login successful for user: " + username);
@@ -47,7 +49,11 @@ public class AuthAPIHandler {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody String registerInfo) {
+    public ResponseEntity<String> register(@RequestBody Map<String, String> registerInfo) {
+        boolean ok = userHandler.registerUser(registerInfo);
+        if(!ok){
+            return ResponseEntity.status(400).body("Registration failed");
+        }
         return ResponseEntity.ok("Register successful for user: " + registerInfo);
     }
 }

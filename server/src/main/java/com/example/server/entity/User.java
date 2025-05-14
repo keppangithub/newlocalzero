@@ -23,17 +23,21 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private int locationID;
+    private Integer locationID;
+    private String role;
     private Action[] actions;
     private Initiative[] initiatives;
     private List<User> friendList;
     private ControllerClient controller;
 
-    public User(String userID, String password, ControllerClient controller) {
-        this.userID = userID;
+    public User(String username, String password, String email, Integer locationID, String role) {
+        this.username = username;
         this.password = password;
+        this.email = email;
+        this.locationID = locationID;
+        this.role = role;
         friendList = new ArrayList<User>();
-        this.controller = controller;
+        //this.controller = controller;
     }
 
     public void login() {
