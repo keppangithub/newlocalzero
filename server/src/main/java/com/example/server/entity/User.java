@@ -145,4 +145,7 @@ public class User {
         return this.friendList;
     }
 
+    public void setLocation(int locationID) {
+        this.locationID = locationID;
+    }
 }

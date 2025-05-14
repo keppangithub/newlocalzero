@@ -43,25 +43,38 @@ public class UsersAPIHandler {
             }
      }
 
-        @GetMapping("/users/{id}/actions")
-        public ResponseEntity<String> getUsersWithIDActions(@RequestParam String id) {
-            return ResponseEntity.ok("got user actions with request id");
+    @PutMapping("/users/{id}/locations")
+    public ResponseEntity<String> putUserLocationID(@PathVariable String id, @RequestParam int locationID) {
+        String response = userHandler.setUserLocation(locationID, id);
+        try {
+            if (response.equals("User does not exist, unable to change location")) {
+                return ResponseEntity.status(401).body("User does not exist, unable to change location");
+            }
+            return ResponseEntity.ok("Successfylly updated user's location");
+        }catch (Exception e) {
+            return ResponseEntity.status(500).body("Error: " + e.getMessage());
         }
+    }
 
-        @PostMapping("/users/{id}/actions")
-        public ResponseEntity<String> postActionWithUserID(@RequestBody String id) {
-            return ResponseEntity.ok("posted user action with request id");
-        }
+    @GetMapping("/users/{id}/actions")
+    public ResponseEntity<String> getUsersWithIDActions(@RequestParam String id) {
+        return ResponseEntity.ok("got user actions with request id");
+    }
 
-        @PostMapping("/users/{id}/inits")
-        public ResponseEntity<String> joinInit(@RequestParam String id) {
-            return ResponseEntity.ok("Joined iniative with user id");
-        }
+    @PostMapping("/users/{id}/actions")
+    public ResponseEntity<String> postActionWithUserID(@RequestBody String id) {
+        return ResponseEntity.ok("posted user action with request id");
+    }
 
-        @GetMapping("/users/{id}/notifications")
-        public ResponseEntity<String> getNotifications(@RequestParam String id) {
-            return ResponseEntity.ok("Got notifications for user id");
-        }
+    @PostMapping("/users/{id}/inits")
+    public ResponseEntity<String> joinInit(@RequestParam String id) {
+        return ResponseEntity.ok("Joined initiative with user id");
+    }
+
+    @GetMapping("/users/{id}/notifications")
+    public ResponseEntity<String> getNotifications(@RequestParam String id) {
+        return ResponseEntity.ok("Got notifications for user id");
+    }
 
     @PostMapping("/users/{id}/notifications")
     public ResponseEntity<String> postNotification(@RequestParam String id) {

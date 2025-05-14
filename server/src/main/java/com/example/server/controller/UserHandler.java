@@ -78,4 +78,16 @@ public class UserHandler {
         userInfo.add(actions);
         return userInfo;
     }
+
+    public String setUserLocation(int locationID, String userID) {
+        User user = userRepository.findByUserID(userID);
+
+            if(user != null) {
+                user.setLocation(locationID);
+                userRepository.save(user);
+                return "Location has been successfully updated";
+            } else {
+                return "User does not exist, unable to change location";
+            }
+    }
 }
