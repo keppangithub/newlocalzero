@@ -4,6 +4,7 @@ import SideBar from "../../components/sidebar";
 
 function NewAction() {
   const [actionDate, setActionDate] = useState("");
+  const [actionName, setActionName] = useState("");
   const [actionType, setActionType] = useState("");
   const [metricsText, setMetricsText] = useState("");
 
@@ -31,6 +32,16 @@ function NewAction() {
             type="date"
             value={actionDate}
             onChange={(e) => setActionDate(e.target.value)}
+            className="rounded-md border-2 p-2 focus:outline-0 w-[90%]"
+          ></input>
+        </div>
+
+        <div className="space-y-1">
+          <p>Action Name: </p>
+          <input
+            type="text"
+            value={actionName}
+            onChange={(e) => setActionName(e.target.value)}
             className="rounded-md border-2 p-2 focus:outline-0 w-[90%]"
           ></input>
         </div>
@@ -80,7 +91,6 @@ function NewAction() {
         >
           POST
         </button>
-
       </div>
     </div>
   );

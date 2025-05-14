@@ -4,18 +4,19 @@ import SideBar from "../../components/sidebar";
 import ActionBox from "../../components/actionBox";
 
 function MyActions() {
-  
   // test data -> ska hämtas från API istället
   const allActions = [];
   allActions[0] = {
-    title : "Biking",
-    metric : "5 km",
-    date : "2025-05-09"
+    title: "My morning route to work",
+    type: "Biking",
+    metric: "5 km",
+    date: "2025-05-09",
   };
-    allActions[1] = {
-    title : "Jogging",
-    metric : "10 km",
-    date : "2025-05-12"
+  allActions[1] = {
+    title: "running with friends",
+    type: "Jogging",
+    metric: "10 km",
+    date: "2025-05-12",
   };
   const carbonWins = 135;
   const kmBiked = 30;
@@ -29,6 +30,7 @@ function MyActions() {
       <div key={actionIndex}>
         <ActionBox
           title={action.title}
+          type={action.type}
           metric={action.metric}
           date={action.date}
         />
@@ -41,7 +43,7 @@ function MyActions() {
       <div className="bg-gray-300 w-[10%]">
         <SideBar />
       </div>
-      
+
       <div className="w-[45%] p-8">
         <p className="text-xl">My Actions</p>
         <hr className="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700"></hr>
@@ -68,7 +70,6 @@ function MyActions() {
         <p>Items thrifted: {itemsThrifted}</p>
         <p>Bags of trash picked up: {trashPickedUp}</p>
       </div>
-
     </div>
   );
 }
