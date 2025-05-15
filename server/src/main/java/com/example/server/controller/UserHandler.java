@@ -3,6 +3,7 @@ package main.java.com.example.server.controller;
 import main.java.com.example.server.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +16,8 @@ public class UserHandler {
     private UserRepository userRepository;
     @Autowired
     private InitiativeRepository initiativeRepository;
+    @Autowired
+    private CharacterEncodingFilter characterEncodingFilter;
 
     public Boolean registerUser(Map<String, String> Userinfo){
         String username = Userinfo.get("username");
@@ -152,5 +155,18 @@ public class UserHandler {
 
        // user.joinInitiative(initiativeId); ??
         return "User joined initiative successfully";
+    }
+
+
+    public ArrayList<String> getUserNotifications(String id) {
+        User user = userRepository.findByUserID(id);
+        if (user == null || user.getNotifications() == null) {
+            return new ArrayList<>();
+        }
+        ArrayList<String> notifications = new ArrayList<>();
+        for (Notification notification : user.getNotifications()) {
+            notifications.add(notification.toString());
+        }
+        return notifications;
     }
 }

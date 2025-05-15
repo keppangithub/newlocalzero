@@ -1,6 +1,7 @@
 package main.java.com.example.server.controller;
 
 import com.mongodb.client.MongoDatabase;
+import jakarta.websocket.server.PathParam;
 import main.java.com.example.server.entity.ActionType;
 import main.java.com.example.server.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,13 +85,6 @@ public class UsersAPIHandler {
         }
     }
 
-    /*(@PathVariable String id, @RequestParam String title,
-       @RequestParam String description,@RequestParam String imgUrl, @RequestParam String location,
-       @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date start,
-       @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date end, @RequestParam Category category
-
-     */
-
     @PostMapping("/users/{id}/inits")
     public ResponseEntity<String> joinInit(@RequestBody Map<String,String> initiativeInfo) {
         try {
@@ -113,13 +107,19 @@ public class UsersAPIHandler {
     }
 
     @GetMapping("/users/{id}/notifications")
-    public ResponseEntity<String> getNotifications(@RequestParam String id) {
-        return ResponseEntity.ok("Got notifications for user id");
+    public ResponseEntity<ArrayList<String>> getNotifications(@PathVariable String id) {
+        try {
+            ArrayList<String> notifications = userHandler.getUserNotifications(id);
+            return ResponseEntity.ok(notifications);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new ArrayList<>());
+        }
     }
 
+    /* kanske bara server ska hantera? istället för att users ska kunna lägga upp??
     @PostMapping("/users/{id}/notifications")
     public ResponseEntity<String> postNotification(@RequestParam String id) {
         return ResponseEntity.ok("Post notification for user id");
     }
-
+    */
 }

@@ -28,6 +28,7 @@ public class User {
     private ArrayList<Action> actions;
     private ArrayList<Initiative> initiatives;
     private ArrayList<User> friendList;
+    private ArrayList<Notification> notifications;
     private ControllerClient controller;
 
     public User(String username, String password, String email, Integer locationID, String role) {
@@ -159,11 +160,14 @@ public class User {
     }
 
     public void joinInitiative(String initiativeId) {
-
-
-
-
         //Initiative newInitiative = new Initiative(title, description, imgUrl, location, start, end, category);
        // initiatives.add(newInitiative);
+    }
+
+    public ArrayList<Notification> getNotifications() {
+        if(notifications.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return this.notifications;
     }
 }
