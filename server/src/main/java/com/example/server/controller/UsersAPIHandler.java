@@ -2,6 +2,7 @@ package main.java.com.example.server.controller;
 
 import com.mongodb.client.MongoDatabase;
 import main.java.com.example.server.entity.ActionType;
+import main.java.com.example.server.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -83,9 +84,32 @@ public class UsersAPIHandler {
         }
     }
 
+    /*(@PathVariable String id, @RequestParam String title,
+       @RequestParam String description,@RequestParam String imgUrl, @RequestParam String location,
+       @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date start,
+       @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date end, @RequestParam Category category
+
+     */
+
     @PostMapping("/users/{id}/inits")
-    public ResponseEntity<String> joinInit(@RequestParam String id) {
-        return ResponseEntity.ok("Joined initiative with user id");
+    public ResponseEntity<String> joinInit(@RequestBody Map<String,String> initiativeInfo) {
+        try {
+            String initiativeId = initiativeInfo.get("initativeId");
+            String userId = initiativeInfo.get("userID");
+            String response = userHandler.joinInitiative(initiativeId,userId);
+            switch (response) {
+                case "Initiative is empty":
+                    return ResponseEntity.status(400).body("Initiative is empty");
+                case "User does not exist":
+                    return ResponseEntity.status(404).body("User not found");
+                case "User has already joined this initiative":
+                    return ResponseEntity.status(409).body("User has already joined this initiative");
+                default:
+                    return ResponseEntity.ok("User joined initiative successfully");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error: " + e.getMessage());
+        }
     }
 
     @GetMapping("/users/{id}/notifications")

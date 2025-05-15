@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * User class for users of the application. Users can be either online or offline.
@@ -138,7 +137,7 @@ public class User {
         return this.actions;
     }
 
-    public ArrayList<Initiative> getInitatives() {
+    public ArrayList<Initiative> getInitiatives() {
         return this.initiatives;
     }
 
@@ -157,5 +156,14 @@ public class User {
             actions = new ArrayList<>();
         }
         actions.add(action);
+    }
+
+    public void joinInitiative(String initiativeId) {
+
+
+
+
+        //Initiative newInitiative = new Initiative(title, description, imgUrl, location, start, end, category);
+       // initiatives.add(newInitiative);
     }
 }

@@ -1,8 +1,6 @@
 package main.java.com.example.server.controller;
 
-import main.java.com.example.server.entity.ActionType;
-import main.java.com.example.server.entity.Initiative;
-import main.java.com.example.server.entity.User;
+import main.java.com.example.server.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +8,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import main.java.com.example.server.entity.Action;
+
 @Service
 public class UserHandler {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private InitiativeRepository initiativeRepository;
 
     public Boolean registerUser(Map<String, String> Userinfo){
         String username = Userinfo.get("username");
@@ -45,7 +45,6 @@ public class UserHandler {
         }
 
         User newUser = new User(username, password, email, location, role);
-        //save the user in a local array or storage aswell? maybe not needed maybe needed have too loook into that
         User savedUser = userRepository.save(newUser);
         if(savedUser.equals(null)) {
             return false;
@@ -64,8 +63,8 @@ public class UserHandler {
         userInfo.add(info);
 
         ArrayList<String> initiatives = new ArrayList<>();
-        if(user.getInitatives() != null) {
-            for(Initiative initiative : user.getInitatives()) {
+        if(user.getInitiatives() != null) {
+            for(Initiative initiative : user.getInitiatives()) {
                 initiatives.add("Initiative: " + initiative.toString());
             }
         }
@@ -116,10 +115,42 @@ public class UserHandler {
             return "Action is empty";
         }
 
-        // Add the action to the user
         user.postAction(type, duration, date, name);
-        userRepository.save(user);  // Save the updated user
+        userRepository.save(user);
 
         return "Action posted successfully";
+    }
+
+
+    public String joinInitiative(String initiativeId, String userId) {
+
+        User user = userRepository.findByUserID(userId);
+
+        if (user == null) {
+            return "User does not exist";
+        }
+
+        Initiative initiative = initiativeRepository.findInitiativeByInitiativeId(initiativeId);
+
+        String title = initiative.getTitle();
+        String description = initiative.getDescription();
+        String location = initiative.getLocation();
+
+        Category category = initiative.getCategory();
+        String imgUrl = initiative.getImage();
+        if (title == null || title.isEmpty() ||
+                description == null || description.isEmpty() ||
+                location == null || location.isEmpty() || category == null) {
+            return "Initiative is empty";
+        }
+
+        if(initiative.getUserIds().contains(userId)){
+            return "user already in initiative";
+        }
+        initiative.getUserIds().add(userId);
+        initiativeRepository.save(initiative);
+
+       // user.joinInitiative(initiativeId); ??
+        return "User joined initiative successfully";
     }
 }

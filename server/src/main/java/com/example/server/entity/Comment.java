@@ -1,5 +1,6 @@
 package main.java.com.example.server.entity;
-
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import javax.swing.*;
 
 /**
@@ -9,12 +10,19 @@ import javax.swing.*;
  * @author Olivia Svensson, ...
  */
 
+@Document(collection = "comments")
 public class Comment implements PostInterface {
+    @Id
+    private String commentId;
     private Post post;
     private String content;
     private int senderID;
     private User commenter;
     private String imgUrl;
+
+    public Comment() {
+        //def constructor for mongo
+    }
 
     public Comment(Post post, String content, int senderID, User commenter, String imgUrl) {
         this.post = post;

@@ -1,6 +1,11 @@
 package main.java.com.example.server.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -8,17 +13,23 @@ import java.util.Date;
  *
  * @author Olivia Svensson, ...
  */
+
+@Document(collection = "initiatives")
 public class Initiative implements Activity {
+    @Id
+    @Field("initiativeId")
+    private String initiativeId;
     private String title;
     private String description;
     private String imgUrl;
     private String location;
-    private Date start;
-    private Date end;
+    private String start;
+    private String end;
     private Category category;
     private Comment[] comments;
+    private ArrayList<String> userIds;
 
-    public Initiative(String title, String description, String imgUrl, String location, Date start, Date end, Category category, Comment[] comments) {
+    public Initiative(String title, String description, String imgUrl, String location, String start, String end, Category category) {
         this.title = title;
         this.description = description;
         this.imgUrl = imgUrl;
@@ -26,7 +37,7 @@ public class Initiative implements Activity {
         this.start = start;
         this.end = end;
         this.category = category;
-        this.comments = comments;
+        userIds = new ArrayList<>();
     }
 
     public String getImage() {
@@ -45,11 +56,11 @@ public class Initiative implements Activity {
         return comments;
     }
 
-    public Date getEnd() {
+    public String getEnd() {
         return end;
     }
 
-    public Date getStart() {
+    public String getStart() {
         return start;
     }
 
@@ -65,6 +76,14 @@ public class Initiative implements Activity {
         return title;
     }
 
+    public String getId(){
+        return initiativeId;
+    }
+
+    public ArrayList<String> getUserIds() {
+        return userIds;
+    }
+
     public void setCategory(Category category) {
         this.category = category;
     }
@@ -73,7 +92,7 @@ public class Initiative implements Activity {
         this.comments = comments;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(String end) {
         this.end = end;
     }
 
@@ -85,7 +104,7 @@ public class Initiative implements Activity {
         this.location = location;
     }
 
-    public void setStart(Date start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
@@ -94,13 +113,16 @@ public class Initiative implements Activity {
     }
 
     //need to think through the logic here a bit more
+
     @Override
-    public void startActivity(Date date) {
+    public void startActivity(String date) {
         start = date;
     }
 
     @Override
-    public void stopActivity(Date date) {
+    public void stopActivity(String date) {
         end = date;
     }
+
+
 }
