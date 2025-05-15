@@ -11,7 +11,7 @@ import java.util.Date;
 public interface Activity {
     // add stuff here
 
-    public void startActivity(Date date);
+    public void startActivity(String date);
 
-    public void stopActivity(Date date);
+    public void stopActivity(String date);
 }
