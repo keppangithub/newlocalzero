@@ -28,6 +28,7 @@ public class InitAPIHandler {
     @PutMapping("/inits/{id}")
     public ResponseEntity<String> putInitsID(@RequestParam String id) {
         return ResponseEntity.ok("put inits id successfull");
+        //kunna göra update, inenhåll ex caption uppdateras
     }
 
     @PostMapping("/inits/{id}")
