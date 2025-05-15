@@ -48,4 +48,12 @@ public class UserHandler {
         return "successfully registered user";
     }
 
+    public String getUserName(String otherUserId) {
+        List<User> user = userRepository.findByUserID(otherUserId);
+        if(user.isEmpty()) {
+            return "Unknown";
+        }else {
+            return user.get(0).getUsername();
+        }
+    }
 }

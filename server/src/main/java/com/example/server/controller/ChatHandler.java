@@ -12,10 +12,8 @@ import java.util.stream.Collectors;
 @Service
 public class ChatHandler {
 
-
     @Autowired
     private ChatRepository chatRepository;
-
 
     public Chat createChat(String chatId, String user1Id, String user2Id, long l) {
         if(chatId == null || user1Id == null || user2Id == null) {
@@ -46,8 +44,9 @@ public class ChatHandler {
     public String generateChatId(String user1Id, String user2Id) {
         return user1Id.compareTo(user2Id) < 0 ? user1Id + "_" + user2Id : user2Id + "_" + user1Id;
     }
+/*
 
-    public List<Map<String, Object>> getChats(String userId) {
+    public List<Map<String, Object>> getFormattedMessages(String userId) {
         List<Chat> chats = chatRepository.findByUserIdsContaining(userId);
 
         return chats.stream().map(chat -> {
@@ -58,4 +57,6 @@ public class ChatHandler {
             return chatInfo;
         }).collect(Collectors.toList());
     }
+
+ */
 }

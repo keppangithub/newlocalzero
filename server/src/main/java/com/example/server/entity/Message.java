@@ -13,7 +13,8 @@ public class Message {
     private String content;
     private long timestamp;
 
-    public Message(String senderId, String receiverId, String content, long timestamp) {
+    public Message(String chatId, String senderId, String receiverId, String content, long timestamp) {
+        this.chatId = chatId;
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.content = content;
@@ -50,5 +51,9 @@ public class Message {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getChatId() {
+        return chatId;
     }
 }

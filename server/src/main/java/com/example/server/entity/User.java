@@ -88,5 +88,8 @@ public class User {
         controller.createUser();
     }
 
+    public String getUsername(){
+        return username;
+    }
 
 }

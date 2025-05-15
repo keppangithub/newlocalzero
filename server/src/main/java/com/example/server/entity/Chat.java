@@ -29,7 +29,7 @@
             this.chatId = chatId;
         }
 
-        public Object getOtherUserId(String userId) {
+        public String getOtherUserId(String userId) {
             for (String id : userIds) {
                 if (!id.equals(userId)) {
                     return id;
