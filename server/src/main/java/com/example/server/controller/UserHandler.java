@@ -172,11 +172,11 @@ public class UserHandler {
     }
 
     public String getUserName(String otherUserId) {
-        List<User> user = userRepository.findByUserID(otherUserId);
-        if(user.isEmpty()) {
+        User user = userRepository.findByUserID(otherUserId);
+        if(user == null) {
             return "Unknown";
         }else {
-            return user.get(0).getUsername();
+            return user.getUsername();
         }
     }
 }

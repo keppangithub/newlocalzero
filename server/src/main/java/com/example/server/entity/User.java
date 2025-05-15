@@ -89,9 +89,6 @@ public class User {
         controller.createUser();
     }
 
-    public String getUsername(){
-        return username;
-    }
 
     public String getUserID() {
         return this.userID;
