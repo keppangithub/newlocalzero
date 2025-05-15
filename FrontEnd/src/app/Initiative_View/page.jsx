@@ -6,6 +6,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 function InitiativeView() {
   const [commentText, setComment] = useState("");
+  const [commentImageURL, setCommentImageURL] = useState("");
+
   const params = useSearchParams();
   const id = params.get("id");
 
@@ -16,28 +18,33 @@ function InitiativeView() {
     date: "2025-05-13",
     commenterName: "Olivia",
     commenterID: "6374638",
-    id: "c01"
+    imageURL: null,
+    id: "c01",
   };
-    allComments[1] = {
+  allComments[1] = {
     content: "djur",
     date: "2025-05-13",
     commenterName: "Kevin",
     commenterID: "6374639",
-    id: "c02"
+    imageURL: null,
+    id: "c02",
   };
-    allComments[2] = {
+  allComments[2] = {
     content: "woooow what the frick dude",
     date: "2025-05-13",
     commenterName: "Mojtaba",
     commenterID: "6374640",
-    id: "c03"
+    imageURL:
+      "https://i.pinimg.com/736x/92/92/4d/92924d2c715737c18b1ea1c20612daf8.jpg",
+    id: "c03",
   };
-    allComments[3] = {
+  allComments[3] = {
     content: "long live poland",
     date: "2025-05-13",
     commenterName: "Aleks",
     commenterID: "6374641",
-    id: "c04"
+    imageURL: null,
+    id: "c04",
   };
   // END OF TEST DATA
 
@@ -68,8 +75,10 @@ function InitiativeView() {
   const postComment = () => {
     //TODO: skicka API request för att lägga upp kommentaret + ladda om sidan
 
-    if (commentText) {
+    if (commentText || commentImageURL) {
       alert("posting comment: " + commentText);
+    } else {
+      alert("comment cannot be empty");
     }
   };
 
@@ -81,6 +90,7 @@ function InitiativeView() {
           commenterName={comment.commenterName}
           posterID={comment.commenterID}
           date={comment.date}
+          imageURL={comment.imageURL}
         />
       </div>
     ));
@@ -145,6 +155,13 @@ function InitiativeView() {
             placeholder="Leave a comment"
             className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 "
           />
+          <input
+            type="text"
+            value={commentImageURL}
+            onChange={(POST) => setCommentImageURL(POST.target.value)}
+            placeholder="image URL (optional)"
+            className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 "
+          />
           <div className="pt-5">
             <button
               className="bg-gray-200 text-black px-4 py-2 rounded hover:bg-gray-400"
@@ -156,7 +173,7 @@ function InitiativeView() {
         </div>
 
         <div
-          className="overflow-y-scroll pr-1 h-[65%]
+          className="overflow-y-scroll pr-1 h-[55%]
         [&::-webkit-scrollbar]:w-2
         [&::-webkit-scrollbar-track]:rounded-full
         [&::-webkit-scrollbar-track]:bg-gray-100
