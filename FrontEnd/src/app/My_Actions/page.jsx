@@ -18,7 +18,6 @@ function MyActions() {
     metric: "10 km",
     date: "2025-05-12",
   };
-  const carbonWins = 135;
   const kmBiked = 30;
   const publicTransport = 28;
   const itemsThrifted = 12;
@@ -63,8 +62,6 @@ function MyActions() {
 
       <div className="w-[45%] p-20 h-[70%] text-md">
         <p className="text-xl">Statistics</p>
-        <p>Total carbon wins: {carbonWins} kg</p>
-        <br />
         <p>Kilometers biked: {kmBiked} </p>
         <p>Public transport taken: {publicTransport} instances</p>
         <p>Items thrifted: {itemsThrifted}</p>

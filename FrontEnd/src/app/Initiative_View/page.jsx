@@ -46,7 +46,6 @@ function InitiativeView() {
     imageURL: null,
     id: "c04",
   };
-  // END OF TEST DATA
 
   const title = "Event Title";
   const caption =
