@@ -35,14 +35,14 @@ public class AuthAPIHandler {
 
     @PostMapping("/login") // route/endpoint
     public ResponseEntity<String> login(@RequestBody Map<String, String> loginInfo) {
-        String username = loginInfo.get("username");
+        String email = loginInfo.get("email");
         String password = loginInfo.get("password");
         try {
-            Boolean ok = authHandler.validateLogin(username, password);
+            Boolean ok = authHandler.validateLogin(email, password);
             if (!ok) {
-                return ResponseEntity.status(401).body("Invalid username or password");
+                return ResponseEntity.status(401).body("Invalid email or password");
             }
-            return ResponseEntity.ok("Login successful for user: " + username);
+            return ResponseEntity.ok("Login successful for user: " + email);
         }catch (Exception e) {
             return ResponseEntity.status(500).body("Error: " + e.getMessage());
         }

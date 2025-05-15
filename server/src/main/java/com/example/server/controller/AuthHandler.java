@@ -12,8 +12,8 @@ public class AuthHandler {
     @Autowired
     private UserRepository userRepository;
 
-    public Boolean validateLogin(String username, String password) {
-        List<User> user = userRepository.findByUsernameAndPassword(username, password);
+    public Boolean validateLogin(String email, String password) {
+        List<User> user = userRepository.findByEmailAndPassword(email, password);
         if(user == null || user.isEmpty()) {
             return false;
         }
