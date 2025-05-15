@@ -1,10 +1,15 @@
-package main.java.com.example.server.controller;
+package main.java.com.example.server.boundary;
 
 import com.mongodb.client.MongoDatabase;
-import org.bson.Document;
+import main.java.com.example.server.controller.AuthHandler;
+import main.java.com.example.server.controller.DatabaseConnection;
+import main.java.com.example.server.controller.UserHandler;
+import main.java.com.example.server.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,37 +22,38 @@ import java.util.Map;
 public class AuthAPIHandler {
 
     private final DatabaseConnection dbConnection;
+    @Autowired
+    private UserHandler userHandler;
     private MongoDatabase database;
+    @Autowired
+    private AuthHandler authHandler;
 
     public AuthAPIHandler() {
          this.dbConnection = DatabaseConnection.getInstance();
          database = dbConnection.getDatabase();
     }
-// Add your authentication methods here
-    // For example, login, register, etc.
 
-    // Example method
     @PostMapping("/login") // route/endpoint
     public ResponseEntity<String> login(@RequestBody Map<String, String> loginInfo) {
-        String username = loginInfo.get("username");
+        String email = loginInfo.get("email");
         String password = loginInfo.get("password");
         try {
-            database.runCommand(new Document("ping", 1));
-            System.out.println("Pinged your deployment. You successfully connected to MongoDB!");
+            Boolean ok = authHandler.validateLogin(email, password);
+            if (!ok) {
+                return ResponseEntity.status(401).body("Invalid email or password");
+            }
+            return ResponseEntity.ok("Login successful for user: " + email);
         }catch (Exception e) {
             return ResponseEntity.status(500).body("Error: " + e.getMessage());
         }
-
-
-        return ResponseEntity.ok("Login successful for user: " + username);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody String registerInfo) {
+    public ResponseEntity<String> register(@RequestBody Map<String, String> registerInfo) {
+        String response = userHandler.registerUser(registerInfo);
+        if(!response.equals("successfully registered user")) {
+            return ResponseEntity.status(400).body(response);
+        }
         return ResponseEntity.ok("Register successful for user: " + registerInfo);
     }
-
-// maybe add logout??
-
-
 }

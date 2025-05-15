@@ -3,8 +3,11 @@ package main.java.com.example.server.entity;
 
 
 import main.java.com.example.server.controller.ControllerClient;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 /**
  * User class for users of the application. Users can be either online or offline.
@@ -13,21 +16,29 @@ import java.util.List;
  * @author Olivia Svensson, ...
  */
 
+@Document(collection = "users")
 public class User {
+    @Id
     private String userID;
+    private String username;
     private String password;
     private String email;
-    private int locationID;
-    private Action[] actions;
-    private Initiative[] initiatives;
-    private List<User> friendList;
+    private Integer locationID;
+    private String role;
+    private ArrayList<Action> actions;
+    private ArrayList<Initiative> initiatives;
+    private ArrayList<User> friendList;
+    private ArrayList<Notification> notifications;
     private ControllerClient controller;
 
-    public User(String userID, String password, ControllerClient controller) {
-        this.userID = userID;
+    public User(String username, String password, String email, Integer locationID, String role) {
+        this.username = username;
         this.password = password;
+        this.email = email;
+        this.locationID = locationID;
+        this.role = role;
         friendList = new ArrayList<User>();
-        this.controller = controller;
+        //this.controller = controller;
     }
 
     public void login() {
@@ -79,4 +90,84 @@ public class User {
     }
 
 
+    public String getUserID() {
+        return this.userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUserName(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRole() {
+        return this.role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Integer getLocationID() {
+        return this.locationID;
+    }
+
+    public ArrayList<Action> getActions() {
+        return this.actions;
+    }
+
+    public ArrayList<Initiative> getInitiatives() {
+        return this.initiatives;
+    }
+
+    public ArrayList<User> getFriendList() {
+        return this.friendList;
+    }
+
+    public void setLocation(int locationID) {
+        this.locationID = locationID;
+    }
+
+    public void postAction(ActionType type, int duration, Date date, String name) {
+        Action action = new Action(type, duration, date, name);
+
+        if(this.actions == null) {
+            actions = new ArrayList<>();
+        }
+        actions.add(action);
+    }
+
+    public void joinInitiative(String initiativeId) {
+        //Initiative newInitiative = new Initiative(title, description, imgUrl, location, start, end, category);
+       // initiatives.add(newInitiative);
+    }
+
+    public ArrayList<Notification> getNotifications() {
+        if(notifications.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return this.notifications;
+    }
 }

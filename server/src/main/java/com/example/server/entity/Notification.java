@@ -42,5 +42,9 @@ public class Notification {
     public User[] getReceivers() {
         return this.receivers;
     }
+    @Override
+    public String toString() {
+        return this.content;  // or however you want to format the notification
+    }
 
 }
