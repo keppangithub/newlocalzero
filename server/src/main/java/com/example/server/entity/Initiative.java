@@ -19,6 +19,7 @@ public class Initiative implements Activity {
     @Id
     @Field("initiativeId")
     private String initiativeId;
+    private String userId;
     private String title;
     private String description;
     private String imgUrl;
@@ -29,8 +30,9 @@ public class Initiative implements Activity {
     private Comment[] comments;
     private ArrayList<String> userIds;
 
-    public Initiative(String title, String description, String imgUrl, String location, String start, String end, Category category) {
+    public Initiative(String title, String userId, String description, String imgUrl, String location, String start, String end, Category category) {
         this.title = title;
+        this.userId = userId;
         this.description = description;
         this.imgUrl = imgUrl;
         this.location = location;
@@ -110,6 +112,10 @@ public class Initiative implements Activity {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     //need to think through the logic here a bit more

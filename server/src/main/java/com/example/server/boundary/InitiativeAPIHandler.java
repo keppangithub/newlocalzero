@@ -26,13 +26,13 @@ public class InitiativeAPIHandler {
         return initiativeHandler.getInitiatives(location);
     }
     @PostMapping("/inits")
-    public ResponseEntity<String> postInits(@RequestBody String body) {
-        return ResponseEntity.ok("posted successfully");
+    public String postInits(@RequestBody Map<String,String> initiativeInfo) {
+        return initiativeHandler.createInitiative(initiativeInfo);
     }
 
-    @GetMapping("/inits/{id}") //dubbelkolla
-    public ResponseEntity<String> getInitsID(@RequestParam String id) {
-        return ResponseEntity.ok("get inits id successfull");
+    @GetMapping("/inits/{initiativeId}") //dubbelkolla
+    public ArrayList<ArrayList<String>> getInitiativeWithID(@PathVariable String initiativeId) {
+        return initiativeHandler.getInitiativeById(initiativeId);
     }
 
     @PutMapping("/inits/{id}")
