@@ -17,7 +17,6 @@ import java.util.Date;
 @Document(collection = "initiatives")
 public class Initiative implements Activity {
     @Id
-    @Field("initiativeId")
     private String initiativeId;
     private String userId;
     private String title;
@@ -31,6 +30,7 @@ public class Initiative implements Activity {
     private ArrayList<String> userIds;
 
     public Initiative(String title, String userId, String description, String imgUrl, String location, String start, String end, Category category) {
+
         this.title = title;
         this.userId = userId;
         this.description = description;

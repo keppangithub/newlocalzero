@@ -3,6 +3,7 @@ package main.java.com.example.server.controller;
 import main.java.com.example.server.entity.Category;
 import main.java.com.example.server.entity.Initiative;
 import main.java.com.example.server.entity.User;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -79,7 +80,7 @@ public class InitiativeHandler {
     }
 
     public ArrayList<ArrayList<String>> getInitiativeById(String initiativeId) {
-        Initiative initiative = initiativeRepository.findInitiativeById(initiativeId);
+        Initiative initiative = initiativeRepository.findByInitiativeId(initiativeId);
         User user = userRepository.findByUserID(initiative.getUserId());
         if(initiative == null) {
             return new ArrayList<>();

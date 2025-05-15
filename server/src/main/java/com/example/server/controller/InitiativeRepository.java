@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface InitiativeRepository extends MongoRepository<Initiative, String> {
 
-    Initiative findInitiativeByInitiativeId(String initiativeId);
+    Initiative findByInitiativeId(String initiativeId);
     List<Initiative> findByLocation(String location);
     Initiative findInitiativeById(String initiativeId);
 
