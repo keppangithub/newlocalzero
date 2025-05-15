@@ -10,5 +10,6 @@ import java.util.List;
 public interface InitiativeRepository extends MongoRepository<Initiative, String> {
 
     Initiative findInitiativeByInitiativeId(String initiativeId);
+    List<Initiative> findByLocation(String location);
 
 }

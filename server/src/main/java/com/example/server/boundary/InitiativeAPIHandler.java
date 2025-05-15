@@ -1,7 +1,13 @@
-package main.java.com.example.server.controller;
+package main.java.com.example.server.boundary;
 
+import main.java.com.example.server.controller.InitiativeHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * info
@@ -10,10 +16,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
-public class InitAPIHandler {
+public class InitiativeAPIHandler {
+
+    @Autowired
+    private InitiativeHandler initiativeHandler;
     @GetMapping("/inits")
-    public ResponseEntity<String> getInits(@RequestParam String location) {
-        return ResponseEntity.ok("location derived");
+    public List<ArrayList<String>> getInits(@RequestBody Map<String,String> locationInfo) {
+        String location = locationInfo.get("location");
+        return initiativeHandler.getInitiatives(location);
     }
     @PostMapping("/inits")
     public ResponseEntity<String> postInits(@RequestBody String body) {
