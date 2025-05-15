@@ -36,9 +36,16 @@ public class InitiativeAPIHandler {
     }
 
     @PutMapping("/inits/{id}")
-    public ResponseEntity<String> putInitsID(@RequestParam String id) {
-        return ResponseEntity.ok("put inits id successfull");
-        //kunna göra update, innehåll ex caption uppdateras
+    public ResponseEntity<String> putInitsID(@RequestParam String id, @RequestParam String description) {
+        try {
+            String response = initiativeHandler.changeInitsDescription(id, description);
+            if (response.equals("Initiative does not exist")) {
+                return ResponseEntity.status(404).body("Initiative does not exist");
+            }
+            return ResponseEntity.ok("Successfully updated initiative");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error: " + e.getMessage());
+        }
     }
 
     @PostMapping("/inits/{id}")

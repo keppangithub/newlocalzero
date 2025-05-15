@@ -111,4 +111,16 @@ public class InitiativeHandler {
         result.add(comments);
         return result;
     }
+
+    public String changeInitsDescription(String id, String description) {
+        Initiative initiative = initiativeRepository.findByInitiativeId(id);
+
+        if(initiative != null) {
+            initiative.setDescription(description);
+            initiativeRepository.save(initiative);
+            return "Initiative has successfully been updated";
+        } else {
+            return "Initiative does not exist";
+        }
+    }
 }

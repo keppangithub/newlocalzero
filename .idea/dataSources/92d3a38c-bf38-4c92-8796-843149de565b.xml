@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="mongodb+srv://user:localzero@cluster0.wox2kxx.mongodb.net/localZero?retryWrites=true&amp;w=majority&amp;appName=Cluster0">
-  <database-model serializer="dbm" dbms="MONGO" family-id="MONGO" format-version="4.52">
+<dataSource name="localZero@cluster0.wox2kxx.mongodb.net">
+  <database-model serializer="dbm" dbms="MONGO" family-id="MONGO" format-version="4.53">
     <root id="1">
       <ServerVersion>8.0.9</ServerVersion>
     </root>
