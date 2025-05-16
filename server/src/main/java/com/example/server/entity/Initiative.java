@@ -26,7 +26,7 @@ public class Initiative implements Activity {
     private String start;
     private String end;
     private Category category;
-    private Comment[] comments;
+    private ArrayList<ArrayList<String>> comments;
     private ArrayList<String> userIds;
 
     public Initiative(String title, String userId, String description, String imgUrl, String location, String start, String end, Category category) {
@@ -40,6 +40,7 @@ public class Initiative implements Activity {
         this.end = end;
         this.category = category;
         userIds = new ArrayList<>();
+        comments = new ArrayList<>();
     }
 
     public String getImage() {
@@ -54,7 +55,7 @@ public class Initiative implements Activity {
         return category;
     }
 
-    public Comment[] getComments() {
+    public ArrayList<ArrayList<String>> getComments() {
         return comments;
     }
 
@@ -90,8 +91,14 @@ public class Initiative implements Activity {
         this.category = category;
     }
 
-    public void setComments(Comment[] comments) {
+    public void setComments(ArrayList<ArrayList<String>> comments) {
         this.comments = comments;
+    }
+
+    public void updateDescription(String update){
+        StringBuilder updatedDescription = new StringBuilder(description);
+        updatedDescription.append("\n").append(update);
+        description = updatedDescription.toString();
     }
 
     public void setEnd(String end) {
@@ -128,6 +135,17 @@ public class Initiative implements Activity {
     @Override
     public void stopActivity(String date) {
         end = date;
+    }
+
+
+    public void addComment(String content, String date, String commenterName, String commenterId, String imgUrl) {
+        ArrayList <String> comment = new ArrayList<>();
+        comment.add(content);
+        comment.add(date);
+        comment.add(commenterName);
+        comment.add(commenterId);
+        comment.add(imgUrl);
+        comments.add(comment);
     }
 
 

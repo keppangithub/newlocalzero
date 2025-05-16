@@ -1,5 +1,6 @@
 package main.java.com.example.server.boundary;
 
+import main.java.com.example.server.controller.CommentHandler;
 import main.java.com.example.server.controller.InitiativeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,9 @@ public class InitiativeAPIHandler {
 
     @Autowired
     private InitiativeHandler initiativeHandler;
+    @Autowired
+    private CommentHandler commentHandler;
+
     @GetMapping("/inits")
     public List<ArrayList<String>> getInits(@RequestBody Map<String,String> locationInfo) {
         String location = locationInfo.get("location");
@@ -36,9 +40,10 @@ public class InitiativeAPIHandler {
     }
 
     @PutMapping("/inits/{id}")
-    public ResponseEntity<String> putInitsID(@RequestParam String id, @RequestParam String description) {
+    public ResponseEntity<String> putInitsID(@PathVariable String id, @RequestBody Map<String, String> description) {
         try {
-            String response = initiativeHandler.changeInitsDescription(id, description);
+            String newUpdate = description.get("description");
+            String response = initiativeHandler.changeInitsDescription(id, newUpdate);
             if (response.equals("Initiative does not exist")) {
                 return ResponseEntity.status(404).body("Initiative does not exist");
             }
@@ -49,8 +54,9 @@ public class InitiativeAPIHandler {
     }
 
     @PostMapping("/inits/{id}")
-    public ResponseEntity<String> postInitsID(@RequestBody String body) {
-        return ResponseEntity.ok("post inits id successful");
+    public String postCommentOnIntiative(@RequestBody Map<String,String> body) {
+        return commentHandler.postComment(body);
+
     }
 }
 

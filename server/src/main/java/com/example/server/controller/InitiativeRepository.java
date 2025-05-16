@@ -13,4 +13,5 @@ public interface InitiativeRepository extends MongoRepository<Initiative, String
     List<Initiative> findByLocation(String location);
     Initiative findInitiativeById(String initiativeId);
 
+
 }

@@ -56,7 +56,7 @@ async function updateInitiative(initiativeID, ) {
   try {
     //TODO - uppdatera endpoint path
     const response = await axios.put(("/api/inits/" + initiativeID), {
-        caption
+        description
     });
 
     // TODO: switch case som returnerar true/false istället
