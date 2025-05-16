@@ -29,13 +29,13 @@ async function getMyInitiatives(userID) {
   }
 }
 
-async function postNewInitiative(userID, title, caption, imageURL, location, startDate, endDate, category) {
+async function postNewInitiative(userID, title, description, imageURL, location, startDate, endDate, category) {
   try {
     //TODO - uppdatera endpoint path
     const response = await axios.post("/api/inits", {
         userID,
         title,
-        caption,
+        description,
         imageURL,
         location,
         startDate,
@@ -56,7 +56,7 @@ async function updateInitiative(initiativeID, ) {
   try {
     //TODO - uppdatera endpoint path
     const response = await axios.put(("/api/inits/" + initiativeID), {
-        caption
+        description
     });
 
     // TODO: switch case som returnerar true/false istället

@@ -1,9 +1,7 @@
 package main.java.com.example.server.controller;
 
 import com.mongodb.client.MongoDatabase;
-import jakarta.websocket.server.PathParam;
 import main.java.com.example.server.entity.ActionType;
-import main.java.com.example.server.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -37,7 +35,7 @@ public class UsersAPIHandler {
 
     @GetMapping("/users/{id}")
     public ArrayList<ArrayList<String>> getUserWithID(@PathVariable String id) {
-            ArrayList<ArrayList<String>> response = userHandler.getUserID(id);
+            ArrayList<ArrayList<String>> response = userHandler.getUserInfoByID(id);
             if(response != null) {
                 return response;
             }

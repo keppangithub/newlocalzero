@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="IU-241.17011.79">
-    <data-source name="mongodb+srv://user:&lt;db_password&gt;@cluster0.wox2kxx.mongodb.net/?retryWrites=true&amp;w=majority&amp;appName=Cluster0" uuid="1af759d8-42a6-4637-bf24-5743c556dff0">
-      <database-info product="Mongo DB" version="8.0.9" jdbc-version="4.2" driver-name="MongoDB JDBC Driver" driver-version="1.20" dbms="MONGO" exact-version="8.0.9" exact-driver-version="1.20" />
-      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
-      <user-name>user</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="schema" qname="@" />
-        </introspection-scope>
-      </schema-mapping>
-    </data-source>
     <data-source name="localZero@cluster0.wox2kxx.mongodb.net" uuid="92d3a38c-bf38-4c92-8796-843149de565b">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MONGO" />
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
       <user-name>user</user-name>
       <schema-mapping />
     </data-source>

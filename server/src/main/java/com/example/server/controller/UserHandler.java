@@ -56,7 +56,7 @@ public class UserHandler {
         return "successfully registered user";
     }
 
-    public ArrayList<ArrayList<String>> getUserID(String userID) {
+    public ArrayList<ArrayList<String>> getUserInfoByID(String userID) {
         User user = userRepository.findByUserID(userID);
         ArrayList<ArrayList<String>> userInfo = new ArrayList<ArrayList<String>>();
 
@@ -77,7 +77,7 @@ public class UserHandler {
         ArrayList<String> actions = new ArrayList<>();
         if(user.getActions() != null) {
             for(Action action : user.getActions()) {
-                actions.add("Initiative: " + action.toString());
+                actions.add("Actions: " + action.toString());
             }
         }
         userInfo.add(actions);
@@ -134,7 +134,7 @@ public class UserHandler {
             return "User does not exist";
         }
 
-        Initiative initiative = initiativeRepository.findInitiativeByInitiativeId(initiativeId);
+        Initiative initiative = initiativeRepository.findInitiativeById(initiativeId);
 
         String title = initiative.getTitle();
         String description = initiative.getDescription();

@@ -1,11 +1,7 @@
 package main.java.com.example.server.entity;
-
-
-
 import main.java.com.example.server.controller.ControllerClient;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.ArrayList;
 import java.util.Date;
 
