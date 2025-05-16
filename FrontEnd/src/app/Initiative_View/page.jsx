@@ -5,6 +5,7 @@ import CommentBox from "../../components/commentBox";
 import { useRouter, useSearchParams } from "next/navigation";
 
 function InitiativeView() {
+  const [updateText, setUpdateTExt] = useState("");
   const [commentText, setComment] = useState("");
   const [commentImageURL, setCommentImageURL] = useState("");
 
@@ -81,6 +82,37 @@ function InitiativeView() {
     }
   };
 
+  const updateInitiative = () => {
+    //TODO: skicka api
+    alert("posting update: " + updateText);
+  };
+
+  const renderUpdateField = () => {
+    // TODO: if poster id = egen id
+    if (true) {
+      return (
+        <div className="space-y-2">
+          <hr className="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+
+          <p className="text-md">Poster View: </p>
+          <input
+            type="text"
+            value={updateText}
+            onChange={(POST) => setUpdateTExt(POST.target.value)}
+            placeholder="Post an update for this initiative."
+            className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 "
+          />
+          <button
+            className="bg-gray-200 text-black px-4 py-2 rounded hover:bg-gray-400"
+            onClick={updateInitiative}
+          >
+            ADD UPDATE
+          </button>
+        </div>
+      );
+    }
+  };
+
   const renderComments = () => {
     return allComments.map((comment, commentIndex) => (
       <div key={commentIndex}>
@@ -141,6 +173,10 @@ function InitiativeView() {
 
         <div className="bg-gray-100 mt-6 p-4 rounded">
           <img src={imageURL}></img>
+        </div>
+
+        <div>
+          {renderUpdateField()}
         </div>
       </div>
 
