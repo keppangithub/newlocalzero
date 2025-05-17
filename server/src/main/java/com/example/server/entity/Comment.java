@@ -14,7 +14,7 @@ import javax.swing.*;
 public class Comment implements PostInterface {
     @Id
     private String commentId;
-    private Post post;
+    private String initiativeId;
     private String content;
     private int senderID;
     private User commenter;
@@ -24,16 +24,16 @@ public class Comment implements PostInterface {
         //def constructor for mongo
     }
 
-    public Comment(Post post, String content, int senderID, User commenter, String imgUrl) {
-        this.post = post;
+    public Comment(String initiativeId, String content, int senderID, User commenter, String imgUrl) {
+        this.initiativeId = initiativeId;
         this.content = content;
         this.senderID = senderID;
         this.commenter = commenter;
         this.imgUrl = imgUrl;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setInitiativeId(String intiativeId) {
+        this.initiativeId = intiativeId;
     }
 
     public void setContent(String content) {
@@ -68,7 +68,7 @@ public class Comment implements PostInterface {
         return content;
     }
 
-    public Post getPost() {
-        return post;
+    public String getInitiativeId() {
+        return initiativeId;
     }
 }
