@@ -2,6 +2,9 @@
 import React, { useRef, useState } from "react";
 import SideBar from "../../components/sidebar";
 import ActionBox from "../../components/actionBox";
+import auth from "../../services/auth";
+import action from "../../services/action";
+
 
 function MyActions() {
   // test data -> ska hämtas från API istället
@@ -22,6 +25,10 @@ function MyActions() {
   const publicTransport = 28;
   const itemsThrifted = 12;
   const trashPickedUp = 3;
+  // test data -> ska hämtas från API istället
+  //const userID = await axios.auth.getCurrentUser();
+  //const allActions = await axios.action.getMyActions(userID);
+
   // END OF TEST DATA
 
   const renderMyActions = () => {

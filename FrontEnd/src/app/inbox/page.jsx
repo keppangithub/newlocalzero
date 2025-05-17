@@ -3,9 +3,15 @@ import React, { useRef, useState } from "react";
 import Sidebar from "../../components/sidebar";
 import InboxItem from "../../components/inboxItem";
 import MessageBox from "../../components/messageBox";
+import inbox from "../../services/inbox";
 
 function InboxPage() {
   // test data -> ska hämtas från APIn istället
+  const [message, setMessage] = useState("");
+  // const allInbox = inbox.getChats(currentUser.id);
+
+
+
   const allInbox = [
     {
       name: "Mojtaba",
@@ -45,7 +51,8 @@ function InboxPage() {
       ],
     },
   ];
-  // END OF TEST DATA
+    // END OF TEST DATA
+  
 
   const [selectedChat, setSelectedChat] = useState(allInbox[0].name);
 
@@ -83,8 +90,14 @@ function InboxPage() {
     }
   };
 
-  const sendMessageClicked = () => {
+  async function sendMessageClicked() {
     //TODO: skicka meddelandet till backend
+    if(!message) {
+      alert("Please write a message before sending.");
+      return;
+    }else{
+      const sendMessage = await inbox.sendMessage(message, selectedChat);
+    }
   }
 
   return (
@@ -137,6 +150,8 @@ function InboxPage() {
           <input
             type="text"
             placeholder="Leave a message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
             className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 "
           />
           <div className="pt-5">

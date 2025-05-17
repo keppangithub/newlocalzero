@@ -8,10 +8,11 @@ import initiative from "../../services/initiative";
 
 function HomePage() {
   const [locationText, setLocationText] = useState("");
-
-  const currentUser = auth.getCurrentUser();
+  
+  //const currentUser = auth.getCurrentUser();
   //const allInitiatives = initiative.getAllInitiatives(currentUser.location);
-
+  //const myInitiatives = initiative.getMyInitiatives(currentUser.id);
+  //const notifications = initiative.getMyNotifications(currentUser.id);
   // test data -> ska bytas ut med array som hämtas från API
   const allInitiatives = [];
   allInitiatives[0] = {

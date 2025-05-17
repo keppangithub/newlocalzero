@@ -29,6 +29,20 @@ async function getMyInitiatives(userID) {
   }
 }
 
+async function getMyNotifcations(userID) {
+  try {
+    //TODO - uppdatera endpoint path
+    const response = await axios.get(("/users/"+userID+"/notifications"), {
+    });
+
+    return response.data;
+
+  } catch (error) {
+    console.error("Getting my notifications failed:", error);
+    throw error;
+  }
+}
+
 async function postNewInitiative(userID, title, description, imageURL, location, startDate, endDate, category) {
   try {
     //TODO - uppdatera endpoint path
@@ -99,6 +113,19 @@ async function joinInitiative(userID, initiativeID) {
     throw error;
   }
 }
+async function getInitiative(initiativeID){
+  try {
+    //TODO - uppdatera endpoint path
+    const response = await axios.get(("/inits/" + initiativeID), {
+    });
+
+    return response.data;
+
+  } catch (error) {
+    console.error("Getting initiative failed:", error);
+    throw error;
+  }
+}
 
 export default {
   getAllInitiatives,
@@ -106,5 +133,7 @@ export default {
   postNewInitiative,
   updateInitiative,
   postInitiativeComment,
-  joinInitiative
+  joinInitiative,
+  getInitiative,
+  getMyNotifcations
 };

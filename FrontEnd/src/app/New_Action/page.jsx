@@ -1,6 +1,8 @@
 "use client";
 import React, { useRef, useState } from "react";
 import SideBar from "../../components/sidebar";
+import axios from "axios";
+import action from "../../services/action";
 
 function NewAction() {
   const [actionDate, setActionDate] = useState("");
@@ -8,12 +10,20 @@ function NewAction() {
   const [actionType, setActionType] = useState("");
   const [metricsText, setMetricsText] = useState("");
 
+  //const userID = await axios.auth.getCurrentUser();
+
+
   async function postClicked() {
     if (!actionDate || !actionType || !metricsText) {
       alert("Please fill in all of the fields!");
     } else {
-      //TODO: skicka till APIn
-    }
+      //const actionPosted = await axios.action.postNewAction(userID, actionName, actionDate, actionType, metricsText);
+      if(actionPosted){
+        alert("Action posted successfully!");
+      }else{
+        alert("Failed to post action!");
+      }
+  }
   }
 
   return (

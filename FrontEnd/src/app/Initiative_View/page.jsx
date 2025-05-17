@@ -3,15 +3,28 @@ import React, { useRef, useState } from "react";
 import Sidebar from "../../components/sidebar";
 import CommentBox from "../../components/commentBox";
 import { useRouter, useSearchParams } from "next/navigation";
+import initiative from "../../services/initiative";
 
 function InitiativeView() {
-  const [updateText, setUpdateTExt] = useState("");
+  const [updateText, setUpdateText] = useState("");
   const [commentText, setComment] = useState("");
   const [commentImageURL, setCommentImageURL] = useState("");
 
   const params = useSearchParams();
   const id = params.get("id");
-
+  
+  //const initiativeDetails = await axios.initiative.getInitiative(id);
+  //const title = initiativeDetails.title;
+  //const caption = initiativeDetails.description;
+  //const startDate = initiativeDetails.startDate;
+  //const endDate = initiativeDetails.endDate;
+  //const location = initiativeDetails.location;
+  //const category = initiativeDetails.category;
+  //const posterUsername = initiativeDetails.posterUsername
+  //const posterID = initiativeDetails.posterID;
+  //const imageURL = initiativeDetails.imageURL;
+  //const allComments = initiativeDetails.comments;
+    
   // test data -> ska hämtas från APIn med hjälp av id istället
   const allComments = [];
   allComments[0] = {
@@ -61,6 +74,8 @@ function InitiativeView() {
     "https://media.istockphoto.com/id/1402088366/photo/an-unrecognizable-woman-holds-a-plastic-garbage-bottle.jpg?s=612x612&w=0&k=20&c=yY93Gk_Jk2uZXCHmemCtsw_3ZdIo8UgU1PwWffxGopk=";
   // END OF TEST DATA
 
+
+  
   const router = useRouter();
 
   const posterProfileClicked = () => {
@@ -72,19 +87,27 @@ function InitiativeView() {
     alert("joining initiative");
   };
 
-  const postComment = () => {
+  async function postComment() {
     //TODO: skicka API request för att lägga upp kommentaret + ladda om sidan
 
     if (commentText || commentImageURL) {
+      //const postingComment = await axios.initiative.postInitiativeComment();
       alert("posting comment: " + commentText);
     } else {
       alert("comment cannot be empty");
     }
   };
 
-  const updateInitiative = () => {
+  async function updateInitiative (){
     //TODO: skicka api
-    alert("posting update: " + updateText);
+    if(updateText){
+      //const postingUpdate = await axios.initiative.updateInitiative();
+      alert("posting update: " + updateText);
+
+    }else{
+      alert("update cannot be empty");
+      return;
+    }
   };
 
   const renderUpdateField = () => {
@@ -98,7 +121,7 @@ function InitiativeView() {
           <input
             type="text"
             value={updateText}
-            onChange={(POST) => setUpdateTExt(POST.target.value)}
+            onChange={(POST) => setUpdateText(POST.target.value)}
             placeholder="Post an update for this initiative."
             className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 "
           />
