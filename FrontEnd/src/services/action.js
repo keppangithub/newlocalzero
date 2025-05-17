@@ -3,7 +3,7 @@ import axios from "axios";
 async function getMyActions(userID) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.get(("/api/users/"+userID+"/actions"), {
+    const response = await axios.get(("/users/"+userID+"/actions"), {
     });
 
     return response.data;
@@ -17,7 +17,7 @@ async function getMyActions(userID) {
 async function postNewAction(userID, title, date, type, metric) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.post("/api/users/"+userID+"/actions", {
+    const response = await axios.post("/users/"+userID+"/actions", {
         userID, title, date, type, metric
     });
 
@@ -34,7 +34,7 @@ async function getActionStats(userID) {
   try {
     //TODO - uppdatera endpoint path
     //TODO - denna endpoint finns inte, ska man lägga till det kanske?
-    const response = await axios.get(("/api/users/"+userID+"/actions/stats"), {
+    const response = await axios.get(("/users/"+userID+"/actions/stats"), {
     });
 
     return response.data;

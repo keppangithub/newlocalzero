@@ -3,9 +3,14 @@ import React, { useRef, useState } from "react";
 import SideBar from "../../components/sidebar";
 import Initiative from "../../components/initiativeBox";
 import Notification from "../../components/notificationBox";
+import auth from "../../services/auth";
+import initiative from "../../services/initiative";
 
 function HomePage() {
   const [locationText, setLocationText] = useState("");
+
+  const currentUser = auth.getCurrentUser();
+  //const allInitiatives = initiative.getAllInitiatives(currentUser.location);
 
   // test data -> ska bytas ut med array som hämtas från API
   const allInitiatives = [];
@@ -40,7 +45,7 @@ function HomePage() {
     date: "2025-05-13",
     id: "20",
   };
-    notifications[1] = {
+  notifications[1] = {
     title: "There was an update on an initiative you joined.",
     date: "2025-05-12",
     id: "21",
@@ -75,11 +80,7 @@ function HomePage() {
   const renderMyNotifications = () => {
     return notifications.map((notif, notifIndex) => (
       <div key={notifIndex}>
-        <Notification
-          title={notif.title}
-          date={notif.date}
-          id={notif.id}
-        />
+        <Notification title={notif.title} date={notif.date} id={notif.id} />
       </div>
     ));
   };

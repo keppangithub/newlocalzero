@@ -1,61 +1,64 @@
 import axios from "axios";
-//import { deleteCookie, getCookie, setCookie } from "cookies-next/client";
-//import { TOKEN_KEY } from "@/constants";
-//import { jwtDecode } from "jwt-decode";
 
-let currentUser;
+let currentUser; //saves current logged in users id
 
 // login method, returns true/false, saves logged-in user's email
 async function login(email, password) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.post("/api/auth/login", {
+    const response = await axios.post("/auth/login", {
       email,
       password,
     });
-    switch (response.data) {
-      case "Login successful for user: " + email:
-        currentUser = email;
-        return true;
-      default:
-        return false;
+
+    //TODO: se till att ett user objekt skickas som innehåller:
+    // userID
+    // users name
+    // user email
+    // usr location
+    // user role
+    if (response) {
+      currentUser = response.userID;
+      return true;
+    } else {
+      return false;
     }
+    
   } catch (error) {
     console.error("Login failed:", error);
-    throw error;
+    return false;
   }
 }
 
 // signup method, returns true/false
 async function register(name, email, password, location, role) {
+  //alert("stack reached register body");
+
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.post("/api/auth/register", {
+    const response = await axios.post("/auth/register", {
       name,
       email,
       password,
       location,
       role,
     });
-    switch (response.data) {
-      //TODO - kolla vad som skickas tbx vid registrering 
-      case "":
-        return true;
-      default:
-        return false;
-    }
+
+    //TODO - kolla vad som ska returneras istället för "data"
+    // ska vara en string som informerar om signup var successful/unsuccessful och varför
+    return response.data;
   } catch (error) {
     console.error("Signup failed:", error);
     throw error;
   }
 }
 
-// logs out, resets the logged-in user's email
+// logs out, resets the logged-in user object
 function logout() {
   currentUser = null;
 }
 
-// returns the logged-in user's email
+// returns the logged-in user object
 function getCurrentUser() {
   return currentUser;
 }

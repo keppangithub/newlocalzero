@@ -1,7 +1,11 @@
 "use client";
 import React, { useRef, useState } from "react";
+import auth from "../services/auth";
+import { useRouter } from "next/navigation";
 
 function LandingPage() {
+  const router = useRouter();
+
   // variables for signup fields
   const [signupEmailText, setSignupEmailText] = useState("");
   const [signupPassText, setSignupPassText] = useState("");
@@ -18,20 +22,30 @@ function LandingPage() {
     if (!signupEmailText || !signupPassText || !nameText || !locationText) {
       alert("Please fill in all the fields to register!");
     } else {
+      const signupStatus = await auth.register(nameText, signupEmailText, signupPassText, locationText, selectedRole);
+        alert(signupStatus);
     }
   }
 
   // method called when login is clicked
   async function loginClicked() {
+    // if fields left empty, show error
     if (!loginEmailText || !loginPassText) {
       alert("Please fill in email/password to login!");
-    } else {
+    }
+    // otherwise, send API request
+    else {
+      const loginStatus = await auth.login(loginEmailText, loginPassText);
+      if (loginStatus === false) {
+        alert("Could not login. Please try again.");
+      } else {
+        router.push(`/home`);
+      }
     }
   }
 
   return (
     <div className="flex w-screen min-h-screen bg-zinc-300 font-light text-sm">
-      
       {/*Left Side: Signup */}
       <div className="min-w-[50%] min-h-screen flex bg-zinc-100 items-center justify-center">
         <div className="space-y-4 w-[60%] h-[70%]">

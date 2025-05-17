@@ -3,7 +3,7 @@ import axios from "axios";
 async function getAllInitiatives(location) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.get("/api/inits", {
+    const response = await axios.get("/inits", {
       location,
     });
 
@@ -18,7 +18,7 @@ async function getAllInitiatives(location) {
 async function getMyInitiatives(userID) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.get(("/api/users/"+userID+"/inits"), {
+    const response = await axios.get(("/users/"+userID+"/inits"), {
     });
 
     return response.data;
@@ -32,7 +32,7 @@ async function getMyInitiatives(userID) {
 async function postNewInitiative(userID, title, caption, imageURL, location, startDate, endDate, category) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.post("/api/inits", {
+    const response = await axios.post("/inits", {
         userID,
         title,
         caption,
@@ -55,7 +55,7 @@ async function postNewInitiative(userID, title, caption, imageURL, location, sta
 async function updateInitiative(initiativeID, ) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.put(("/api/inits/" + initiativeID), {
+    const response = await axios.put(("/inits/" + initiativeID), {
         caption
     });
 
@@ -71,7 +71,7 @@ async function updateInitiative(initiativeID, ) {
 async function postInitiativeComment(initiativeID, posterID, comment, date, imageURL) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.post("/api/inits/" + initiativeID, {
+    const response = await axios.post("/inits/" + initiativeID, {
         initiativeID, posterID, comment, date, imageURL
     });
 
@@ -87,7 +87,7 @@ async function postInitiativeComment(initiativeID, posterID, comment, date, imag
 async function joinInitiative(userID, initiativeID) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.post("/api/users/"+userID+"/inits/", {
+    const response = await axios.post("/users/"+userID+"/inits/", {
         userID, initiativeID
     });
 

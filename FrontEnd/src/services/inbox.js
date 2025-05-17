@@ -3,7 +3,7 @@ import axios from "axios";
 async function getChats(userID) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.get(("/api/chats"), {
+    const response = await axios.get(("/chats"), {
         userID
     });
 
@@ -18,7 +18,7 @@ async function getChats(userID) {
 async function sendMessage(chatID, text, date, sender) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.post(("/api/chats/"+chatID), {
+    const response = await axios.post(("/chats/"+chatID), {
         chatID, text, date, sender
     });
 
@@ -34,7 +34,7 @@ async function sendMessage(chatID, text, date, sender) {
 async function startChat(sender, receiver) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.post(("/api/chats/"), {
+    const response = await axios.post(("/chats/"), {
         sender, receiver
     });
 
