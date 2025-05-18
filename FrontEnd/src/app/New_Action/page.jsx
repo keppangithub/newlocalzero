@@ -1,31 +1,41 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
 import SideBar from "../../components/sidebar";
-import axios from "axios";
 import action from "../../services/action";
+import auth from "../../services/auth";
 
 function NewAction() {
+  // --------- user inputs ---------
   const [actionDate, setActionDate] = useState("");
   const [actionName, setActionName] = useState("");
   const [actionType, setActionType] = useState("");
   const [metricsText, setMetricsText] = useState("");
 
-  //const userID = await axios.auth.getCurrentUser();
+  const currentUser = useMemo(() => auth.getCurrentUser(), []);
 
-
+  // --------- handling user moves ---------
   async function postClicked() {
     if (!actionDate || !actionType || !metricsText) {
       alert("Please fill in all of the fields!");
+    } else if (!Number.isInteger(Number(metricsText))) {
+      alert("Please enter an integer as metric.");
     } else {
-      //const actionPosted = await axios.action.postNewAction(userID, actionName, actionDate, actionType, metricsText);
-      if(actionPosted){
+      const actionPosted = await action.postNewAction(
+        currentUser.id,
+        actionName,
+        actionDate,
+        actionType,
+        metricsText
+      );
+      if (actionPosted) {
         alert("Action posted successfully!");
-      }else{
+      } else {
         alert("Failed to post action!");
       }
-  }
+    }
   }
 
+  // --------- page body ---------
   return (
     <div className="flex min-w-screen max-w-screen min-h-screen max-h-screen bg-white font-light text-sm">
       <div className="bg-gray-300 w-[10%]">

@@ -60,7 +60,14 @@ function logout() {
 
 // returns the logged-in user object
 function getCurrentUser() {
-  return currentUser;
+  //return currentUser;
+
+  return {
+    id : "123456",
+    username : "Ranaciita",
+    location: "Malmö",
+    role: "Community Organizer"
+  }
 }
 
 export default {

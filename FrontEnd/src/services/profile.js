@@ -1,7 +1,7 @@
 import axios from "axios";
 
 async function getProfile(userID) {
-  try {
+  /*try {
     //TODO - uppdatera endpoint path
     const response = await axios.get(("/users/"+userID), {
     });
@@ -11,7 +11,15 @@ async function getProfile(userID) {
   } catch (error) {
     console.error("Getting user profile failed:", error);
     throw error;
+  }*/
+
+    return {
+    id : "123460",
+    username : "Another User",
+    location: "Stockholm",
+    role: "Resident"
   }
+
 }
 
 export default {

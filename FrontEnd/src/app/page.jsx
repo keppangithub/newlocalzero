@@ -6,35 +6,36 @@ import { useRouter } from "next/navigation";
 function LandingPage() {
   const router = useRouter();
 
-  // variables for signup fields
+  // --------- user inputs: signup/register ---------
   const [signupEmailText, setSignupEmailText] = useState("");
   const [signupPassText, setSignupPassText] = useState("");
   const [nameText, setNameText] = useState("");
   const [locationText, setLocationText] = useState("");
   const [selectedRole, setSelectedRole] = useState("Resident");
 
-  // variables for login fields
+  // --------- user inputs: login ---------
   const [loginEmailText, setLoginEmailText] = useState("");
   const [loginPassText, setLoginPassText] = useState("");
 
-  // method called when signup is clicked
+  // --------- handling user moves ---------
   async function SignupClicked() {
     if (!signupEmailText || !signupPassText || !nameText || !locationText) {
       alert("Please fill in all the fields to register!");
     } else {
-      const signupStatus = await auth.register(nameText, signupEmailText, signupPassText, locationText, selectedRole);
-        alert(signupStatus);
+      const signupStatus = await auth.register(
+        nameText,
+        signupEmailText,
+        signupPassText,
+        locationText,
+        selectedRole
+      );
+      alert(signupStatus);
     }
   }
-
-  // method called when login is clicked
   async function loginClicked() {
-    // if fields left empty, show error
     if (!loginEmailText || !loginPassText) {
       alert("Please fill in email/password to login!");
-    }
-    // otherwise, send API request
-    else {
+    } else {
       const loginStatus = await auth.login(loginEmailText, loginPassText);
       if (loginStatus === false) {
         alert("Could not login. Please try again.");
@@ -44,6 +45,7 @@ function LandingPage() {
     }
   }
 
+  // --------- page body ---------
   return (
     <div className="flex w-screen min-h-screen bg-zinc-300 font-light text-sm">
       {/*Left Side: Signup */}

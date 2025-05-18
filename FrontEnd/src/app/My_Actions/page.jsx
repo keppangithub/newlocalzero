@@ -1,36 +1,39 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import SideBar from "../../components/sidebar";
 import ActionBox from "../../components/actionBox";
 import auth from "../../services/auth";
 import action from "../../services/action";
 
-
 function MyActions() {
-  // test data -> ska hämtas från API istället
-  const allActions = [];
-  allActions[0] = {
-    title: "My morning route to work",
-    type: "Biking",
-    metric: "5 km",
-    date: "2025-05-09",
-  };
-  allActions[1] = {
-    title: "running with friends",
-    type: "Jogging",
-    metric: "10 km",
-    date: "2025-05-12",
-  };
-  const kmBiked = 30;
-  const publicTransport = 28;
-  const itemsThrifted = 12;
-  const trashPickedUp = 3;
-  // test data -> ska hämtas från API istället
-  //const userID = await axios.auth.getCurrentUser();
-  //const allActions = await axios.action.getMyActions(userID);
+  // --------- loading page data from backend ---------
+  const currentUser = useMemo(() => auth.getCurrentUser(), []);
+  const [allActions, setAllActions] = useState(null);
+  const [myStats, setMyStats] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // END OF TEST DATA
+  useEffect(() => {
+    async function loadPageData() {
+      try {
+        const [actions, stats] = await Promise.all([
+          action.getMyActions(currentUser.id),
+          action.getActionStats(currentUser.id),
+        ]);
+        setAllActions(actions);
+        setMyStats(stats);
+      } catch (error) {
+        console.error("Failed to load my actions:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    if (currentUser?.id) {
+      loadPageData();
+    }
+  }, []);
+  if (loading) return <p>Loading...</p>;
 
+  // --------- populating page with data ---------
   const renderMyActions = () => {
     return allActions.map((action, actionIndex) => (
       <div key={actionIndex}>
@@ -44,6 +47,7 @@ function MyActions() {
     ));
   };
 
+  // --------- page body ---------
   return (
     <div className="flex min-w-screen max-w-screen min-h-screen max-h-screen bg-zinc-white font-light text-sm">
       <div className="bg-gray-300 w-[10%]">
@@ -69,10 +73,10 @@ function MyActions() {
 
       <div className="w-[45%] p-20 h-[70%] text-md">
         <p className="text-xl">Statistics</p>
-        <p>Kilometers biked: {kmBiked} </p>
-        <p>Public transport taken: {publicTransport} instances</p>
-        <p>Items thrifted: {itemsThrifted}</p>
-        <p>Bags of trash picked up: {trashPickedUp}</p>
+        <p>Kilometers biked: {myStats.kmBiked} </p>
+        <p>Public transport taken: {myStats.publicTransport} instances</p>
+        <p>Items thrifted: {myStats.itemsThrifted}</p>
+        <p>Bags of trash picked up: {myStats.trashPickedUp}</p>
       </div>
     </div>
   );

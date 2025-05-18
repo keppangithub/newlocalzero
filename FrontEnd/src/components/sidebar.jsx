@@ -1,23 +1,24 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import auth from "../services/auth";
 
 function SideBar() {
   const router = useRouter();
 
   const homeClicked = () => {
-      router.push("/home");
-    };
+    router.push("/home");
+  };
 
   const myProfileClicked = () => {
-      router.push("/profile");
-    };
-  
-    const newInitClicked = () => {
-        router.push("/new_initiative");
-      };
+    router.push("/profile");
+  };
 
-      const myActionsClicked = () => {
+  const newInitClicked = () => {
+    router.push("/new_initiative");
+  };
+
+  const myActionsClicked = () => {
     router.push("/my_actions");
   };
 
@@ -29,14 +30,14 @@ function SideBar() {
     router.push("/inbox");
   };
 
-  const logoutClicked = () => {
+  async function logoutClicked() {
+    const logoutRequest = await auth.logout();
     router.push("/");
   };
 
   return (
     <div>
       <div className="bg-gray-300 w-full">
-
         <button
           className=" bg-white hover:bg-gray-500 rounded-md p-2 w-[90%] mx-1 my-1 mt-5"
           onClick={homeClicked}
@@ -50,7 +51,7 @@ function SideBar() {
         >
           My Profile
         </button>
-        
+
         <button
           className=" bg-white hover:bg-gray-500 rounded-md p-2 w-[90%] mx-1 my-1"
           onClick={newInitClicked}
@@ -78,14 +79,13 @@ function SideBar() {
         >
           Inbox
         </button>
-        
+
         <button
           className=" bg-white hover:bg-gray-500 rounded-md p-2 w-[90%] mx-1 my-1"
           onClick={logoutClicked}
         >
           Logout
         </button>
-
       </div>
     </div>
   );

@@ -1,118 +1,85 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState, useEffect } from "react";
 import Sidebar from "../../components/sidebar";
 import CommentBox from "../../components/commentBox";
 import { useRouter, useSearchParams } from "next/navigation";
 import initiative from "../../services/initiative";
+import auth from "../../services/auth";
 
 function InitiativeView() {
+  const router = useRouter();
+  const currentUser = useMemo(() => auth.getCurrentUser(), []);
+
+  // --------- user inputs ---------
   const [updateText, setUpdateText] = useState("");
   const [commentText, setComment] = useState("");
   const [commentImageURL, setCommentImageURL] = useState("");
 
+  // --------- extracting initiative id from URL ---------
   const params = useSearchParams();
-  const id = params.get("id");
-  
-  //const initiativeDetails = await axios.initiative.getInitiative(id);
-  //const title = initiativeDetails.title;
-  //const caption = initiativeDetails.description;
-  //const startDate = initiativeDetails.startDate;
-  //const endDate = initiativeDetails.endDate;
-  //const location = initiativeDetails.location;
-  //const category = initiativeDetails.category;
-  //const posterUsername = initiativeDetails.posterUsername
-  //const posterID = initiativeDetails.posterID;
-  //const imageURL = initiativeDetails.imageURL;
-  //const allComments = initiativeDetails.comments;
-    
-  // test data -> ska hämtas från APIn med hjälp av id istället
-  const allComments = [];
-  allComments[0] = {
-    content: "nice event",
-    date: "2025-05-13",
-    commenterName: "Olivia",
-    commenterID: "6374638",
-    imageURL: null,
-    id: "c01",
-  };
-  allComments[1] = {
-    content: "djur",
-    date: "2025-05-13",
-    commenterName: "Kevin",
-    commenterID: "6374639",
-    imageURL: null,
-    id: "c02",
-  };
-  allComments[2] = {
-    content: "woooow what the frick dude",
-    date: "2025-05-13",
-    commenterName: "Mojtaba",
-    commenterID: "6374640",
-    imageURL:
-      "https://i.pinimg.com/736x/92/92/4d/92924d2c715737c18b1ea1c20612daf8.jpg",
-    id: "c03",
-  };
-  allComments[3] = {
-    content: "long live poland",
-    date: "2025-05-13",
-    commenterName: "Aleks",
-    commenterID: "6374641",
-    imageURL: null,
-    id: "c04",
-  };
+  const initID = params.get("id");
 
-  const title = "Event Title";
-  const caption =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-  const startDate = "2025-05-13";
-  const endDate = "2025-05-15";
-  const location = "Malmö";
-  const category = "Life on Earth";
-  const posterUsername = "Ranaciita";
-  const posterID = "25637467";
-  const imageURL =
-    "https://media.istockphoto.com/id/1402088366/photo/an-unrecognizable-woman-holds-a-plastic-garbage-bottle.jpg?s=612x612&w=0&k=20&c=yY93Gk_Jk2uZXCHmemCtsw_3ZdIo8UgU1PwWffxGopk=";
-  // END OF TEST DATA
+  // --------- loading page data from backend ---------
+  const [initiativeDetails, setInitiativeDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    async function loadPageData() {
+      try {
+        const data = await initiative.getInitiative(initID);
+        setInitiativeDetails(data);
+      } catch (error) {
+        console.error("Failed to load initiative:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadPageData();
+  }, [initID]);
+  if (loading) return <p>Loading...</p>;
+  if (!initiativeDetails) return <p>Error loading data.</p>;
 
-
-  
-  const router = useRouter();
-
+  // --------- handling user moves ---------
   const posterProfileClicked = () => {
-    router.push(`/profile?id=${posterID}`);
+    router.push(`/profile?id=${initiativeDetails.posterID}`);
   };
-
-  const joinClicked = () => {
-    //TODO: skicka API request för att joina initiativet
-    alert("joining initiative");
-  };
-
+  async function joinClicked() {
+    const joiningInitiative = await initiative.joinInitiative(
+      currentUser.id,
+      initID
+    );
+  }
   async function postComment() {
-    //TODO: skicka API request för att lägga upp kommentaret + ladda om sidan
-
     if (commentText || commentImageURL) {
-      //const postingComment = await axios.initiative.postInitiativeComment();
-      alert("posting comment: " + commentText);
+      const date = new Date();
+      const formattedDate = date.toISOString().split("T")[0];
+      const postingComment = await initiative.postInitiativeComment(
+        initID,
+        currentUser.id,
+        commentText,
+        formattedDate,
+        commentImageURL
+      );
+      // TODO: ladda om sidan
     } else {
       alert("comment cannot be empty");
     }
-  };
-
-  async function updateInitiative (){
-    //TODO: skicka api
-    if(updateText){
-      //const postingUpdate = await axios.initiative.updateInitiative();
-      alert("posting update: " + updateText);
-
-    }else{
+  }
+  async function updateInitiative() {
+    if (updateText) {
+      const postingUpdate = await initiative.updateInitiative(
+        initID,
+        updateText
+      );
+      // TODO: ladda om sidan
+    } else {
       alert("update cannot be empty");
       return;
     }
-  };
+  }
 
+  // --------- populating page with data ---------
   const renderUpdateField = () => {
-    // TODO: if poster id = egen id
-    if (true) {
+    if (initiativeDetails.posterID === currentUser.id) {
       return (
         <div className="space-y-2">
           <hr className="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700"></hr>
@@ -135,9 +102,8 @@ function InitiativeView() {
       );
     }
   };
-
   const renderComments = () => {
-    return allComments.map((comment, commentIndex) => (
+    return initiativeDetails.allComments.map((comment, commentIndex) => (
       <div key={commentIndex}>
         <CommentBox
           content={comment.content}
@@ -150,6 +116,7 @@ function InitiativeView() {
     ));
   };
 
+  // --------- page body ---------
   return (
     <div className="flex min-w-screen max-w-screen min-h-screen max-h-screen bg-zinc-100 font-light text-sm">
       <div className="bg-gray-300 w-[10%]">
@@ -167,7 +134,7 @@ function InitiativeView() {
         dark:[&::-webkit-scrollbar-thumb]:bg-gray-300"
       >
         <div className="flex items-center gap-4">
-          <p className="text-2xl">{title}</p>
+          <p className="text-2xl">{initiativeDetails.title}</p>
           <button
             className="bg-gray-200 text-black text-xs px-4 py-2 rounded hover:bg-gray-400"
             onClick={joinClicked}
@@ -181,26 +148,26 @@ function InitiativeView() {
             onClick={posterProfileClicked}
             className="p-2 font-bold text-blue-600 hover:text-blue-800"
           >
-            {posterUsername}
+            {initiativeDetails.posterUsername}
           </button>
         </p>
         <p className="text-md">
-          Date: {startDate} - {endDate}
+          Date: {initiativeDetails.startDate} - {initiativeDetails.endDate}
         </p>
-        <p className="text-md">Location: {location}</p>
-        <p className="text-md">Category / Sustainability goal: {category}</p>
+        <p className="text-md">Location: {initiativeDetails.location}</p>
+        <p className="text-md">
+          Category / Sustainability goal: {initiativeDetails.category}
+        </p>
 
         <div className="bg-gray-100 mt-6 p-4 rounded">
-          <p>{caption}</p>
+          <p>{initiativeDetails.description}</p>
         </div>
 
         <div className="bg-gray-100 mt-6 p-4 rounded">
-          <img src={imageURL}></img>
+          <img src={initiativeDetails.imageURL}></img>
         </div>
 
-        <div>
-          {renderUpdateField()}
-        </div>
+        <div>{renderUpdateField()}</div>
       </div>
 
       <div className="pl-[3%] pt-[5%] pr-[7.5%] bg-white border-r-2 border-black w-[45%] ">

@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useMemo, useEffect, useRef, useState } from "react";
 import SideBar from "../../components/sidebar";
 import Initiative from "../../components/initiativeBox";
 import Notification from "../../components/notificationBox";
@@ -7,52 +7,41 @@ import auth from "../../services/auth";
 import initiative from "../../services/initiative";
 
 function HomePage() {
+  // --------- user inputs ---------
   const [locationText, setLocationText] = useState("");
-  
-  //const currentUser = auth.getCurrentUser();
-  //const allInitiatives = initiative.getAllInitiatives(currentUser.location);
-  //const myInitiatives = initiative.getMyInitiatives(currentUser.id);
-  //const notifications = initiative.getMyNotifications(currentUser.id);
-  // test data -> ska bytas ut med array som hämtas från API
-  const allInitiatives = [];
-  allInitiatives[0] = {
-    title: "Pickup Trash Event",
-    caption:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    id: "12",
-  };
-  allInitiatives[1] = {
-    title: "Charity day for a greener future",
-    caption:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    id: "13",
-  };
-  allInitiatives[2] = {
-    title: "Blackout day 2025",
-    caption:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    id: "14",
-  };
-  const myInitiatives = [];
-  myInitiatives[0] = {
-    title: "Charity day for a greener future",
-    caption:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    id: "13",
-  };
-  const notifications = [];
-  notifications[0] = {
-    title: "There was an update on an initiative you joined.",
-    date: "2025-05-13",
-    id: "20",
-  };
-  notifications[1] = {
-    title: "There was an update on an initiative you joined.",
-    date: "2025-05-12",
-    id: "21",
-  };
-  // END OF TEST DATA
+  const currentUser = useMemo(() => auth.getCurrentUser(), []);
 
+  // --------- loading page data from backend ---------
+  const [allInitiatives, setAllInitiatives] = useState([]);
+  const [myInitiatives, setMyInitiatives] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadPageData() {
+      try {
+        const [all, mine, notifs] = await Promise.all([
+          initiative.getAllInitiatives(currentUser.location),
+          initiative.getMyInitiatives(currentUser.id),
+          initiative.getMyNotifications(currentUser.id),
+        ]);
+
+        setAllInitiatives(all);
+        setMyInitiatives(mine);
+        setNotifications(notifs);
+      } catch (error) {
+        console.error("Failed to load homepage:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    if (currentUser?.id && currentUser?.location) {
+      loadPageData();
+    }
+  }, [currentUser]);
+  if (loading) return <p>Loading...</p>;
+
+  // --------- populating page with data ---------
   const renderAllInitiatives = () => {
     return allInitiatives.map((initiative, initiativeIndex) => (
       <div key={initiativeIndex}>
@@ -64,9 +53,7 @@ function HomePage() {
       </div>
     ));
   };
-
   const renderMyInitiatives = () => {
-    //if (!user || !Array.isArray(user.initiatives)) return null;
     return myInitiatives.map((initiative, initiativeIndex) => (
       <div key={initiativeIndex}>
         <Initiative
@@ -77,7 +64,6 @@ function HomePage() {
       </div>
     ));
   };
-
   const renderMyNotifications = () => {
     return notifications.map((notif, notifIndex) => (
       <div key={notifIndex}>
@@ -86,6 +72,7 @@ function HomePage() {
     ));
   };
 
+  // --------- page body ---------
   return (
     <div className="flex min-w-screen max-w-screen min-h-screen max-h-screen bg-zinc-800 font-light text-sm">
       <div className="bg-gray-300 w-[10%]">
