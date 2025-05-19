@@ -1,5 +1,7 @@
 package main.java.com.example.server.entity;
 
+import java.util.Date;
+
 /**
  * Class which represents an action. An action can be made by a User.
  *
@@ -9,9 +11,11 @@ package main.java.com.example.server.entity;
 public class Action {
     private ActionType actionType;
     private int duration;
+    private Date date;
+    private String name;
 
 
-    public Action(ActionType actionType, int duration) {
+    public Action(ActionType actionType, int duration, Date date, String name) {
         this.actionType = actionType;
         this.duration = duration;
     }

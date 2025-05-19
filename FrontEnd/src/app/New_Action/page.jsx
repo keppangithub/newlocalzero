@@ -1,20 +1,41 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
 import SideBar from "../../components/sidebar";
+import action from "../../services/action";
+import auth from "../../services/auth";
 
 function NewAction() {
+  // --------- user inputs ---------
   const [actionDate, setActionDate] = useState("");
+  const [actionName, setActionName] = useState("");
   const [actionType, setActionType] = useState("");
   const [metricsText, setMetricsText] = useState("");
 
+  const currentUser = useMemo(() => auth.getCurrentUser(), []);
+
+  // --------- handling user moves ---------
   async function postClicked() {
     if (!actionDate || !actionType || !metricsText) {
       alert("Please fill in all of the fields!");
+    } else if (!Number.isInteger(Number(metricsText))) {
+      alert("Please enter an integer as metric.");
     } else {
-      //TODO: skicka till APIn
+      const actionPosted = await action.postNewAction(
+        currentUser.id,
+        actionName,
+        actionDate,
+        actionType,
+        metricsText
+      );
+      if (actionPosted) {
+        alert("Action posted successfully!");
+      } else {
+        alert("Failed to post action!");
+      }
     }
   }
 
+  // --------- page body ---------
   return (
     <div className="flex min-w-screen max-w-screen min-h-screen max-h-screen bg-white font-light text-sm">
       <div className="bg-gray-300 w-[10%]">
@@ -36,15 +57,25 @@ function NewAction() {
         </div>
 
         <div className="space-y-1">
-          <label for="type">Action Type:</label>
+          <p>Action Name: </p>
+          <input
+            type="text"
+            value={actionName}
+            onChange={(e) => setActionName(e.target.value)}
+            className="rounded-md border-2 p-2 focus:outline-0 w-[90%]"
+          ></input>
+        </div>
+
+        <div className="space-y-1">
+          <label htmlFor="type">Action Type:</label>
           <br />
           <select
             id="type"
-            class="rounded-md border-2 p-2 focus:outline-0 w-[90%]"
+            className="rounded-md border-2 p-2 focus:outline-0 w-[90%]"
             onChange={(e) => setActionType(e.target.value)}
             value={actionType}
           >
-            <option selected>Select Type...</option>
+            <option defaultValue={null}>Select Type...</option>
             <option value="RUNNING">Running/Jogging</option>
             <option value="PUBLICTRANSPORT">Public Transport</option>
             <option value="THRIFTING">Thrifting</option>
@@ -80,7 +111,6 @@ function NewAction() {
         >
           POST
         </button>
-
       </div>
     </div>
   );

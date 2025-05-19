@@ -1,6 +1,11 @@
 package main.java.com.example.server.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -8,48 +13,57 @@ import java.util.Date;
  *
  * @author Olivia Svensson, ...
  */
+
+@Document(collection = "initiatives")
 public class Initiative implements Activity {
+    @Id
+    private String initiativeId;
+    private String userId;
     private String title;
     private String description;
-    private ImageIcon image;
+    private String imgUrl;
     private String location;
-    private Date start;
-    private Date end;
+    private String start;
+    private String end;
     private Category category;
-    private Comment[] comments;
+    private ArrayList<ArrayList<String>> comments;
+    private ArrayList<String> userIds;
 
-    public Initiative(String title, String description, ImageIcon image, String location, Date start, Date end, Category category, Comment[] comments) {
+    public Initiative(String title, String userId, String description, String imgUrl, String location, String start, String end, Category category) {
+
         this.title = title;
+        this.userId = userId;
         this.description = description;
-        this.image = image;
+        this.imgUrl = imgUrl;
         this.location = location;
         this.start = start;
         this.end = end;
         this.category = category;
-        this.comments = comments;
+        userIds = new ArrayList<>();
+        comments = new ArrayList<>();
     }
 
-    public ImageIcon getImage() {
-        return image;
+    public String getImage() {
+        return imgUrl;
     }
 
-    public void setImage(ImageIcon image) {
-        this.image = image;
+    public void setImage(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public Category getCategory() {
         return category;
     }
 
-    public Comment[] getComments() {
+    public ArrayList<ArrayList<String>> getComments() {
         return comments;
     }
 
-    public Date getEnd() {
+    public String getEnd() {
         return end;
     }
 
-    public Date getStart() {
+    public String getStart() {
         return start;
     }
 
@@ -65,15 +79,29 @@ public class Initiative implements Activity {
         return title;
     }
 
+    public String getId(){
+        return initiativeId;
+    }
+
+    public ArrayList<String> getUserIds() {
+        return userIds;
+    }
+
     public void setCategory(Category category) {
         this.category = category;
     }
 
-    public void setComments(Comment[] comments) {
+    public void setComments(ArrayList<ArrayList<String>> comments) {
         this.comments = comments;
     }
 
-    public void setEnd(Date end) {
+    public void updateDescription(String update){
+        StringBuilder updatedDescription = new StringBuilder(description);
+        updatedDescription.append("\n").append(update);
+        description = updatedDescription.toString();
+    }
+
+    public void setEnd(String end) {
         this.end = end;
     }
 
@@ -85,7 +113,7 @@ public class Initiative implements Activity {
         this.location = location;
     }
 
-    public void setStart(Date start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
@@ -93,14 +121,32 @@ public class Initiative implements Activity {
         this.title = title;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
     //need to think through the logic here a bit more
+
     @Override
-    public void startActivity(Date date) {
+    public void startActivity(String date) {
         start = date;
     }
 
     @Override
-    public void stopActivity(Date date) {
+    public void stopActivity(String date) {
         end = date;
     }
+
+
+    public void addComment(String content, String date, String commenterName, String commenterId, String imgUrl) {
+        ArrayList <String> comment = new ArrayList<>();
+        comment.add(content);
+        comment.add(date);
+        comment.add(commenterName);
+        comment.add(commenterId);
+        comment.add(imgUrl);
+        comments.add(comment);
+    }
+
+
 }

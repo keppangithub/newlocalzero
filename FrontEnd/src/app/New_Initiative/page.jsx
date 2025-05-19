@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import SideBar from "../../components/sidebar";
+
 function NewInitiative() {
   const [notLocationSpecific, setNotLocationSpecific] = useState(false);
   const [location, setLocation] = useState("");
@@ -45,8 +46,8 @@ function NewInitiative() {
         <SideBar />
       </div>
 
-      <div className="bg-white w-[100%]">
-        <div class="mx-28 my-10 ">
+      <div className="bg-white w-[90%]">
+        <div className="mx-28 my-10 ">
           <p className="text-lg  mb-4">New Initiative</p>
           <p className=" border-b-2 max-w-64 mb-6"></p>
 

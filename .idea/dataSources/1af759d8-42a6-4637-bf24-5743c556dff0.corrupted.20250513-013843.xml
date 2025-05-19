@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="mongodb+srv://user:&lt;db_password&gt;@cluster0.wox2kxx.mongodb.net/?retryWrites=true&amp;w=majority&amp;appName=Cluster0">
+  <database-model serializer="dbm" dbms="MONGO" family-id="MONGO" format-version="4.52">
+    <root id="1">
+      <ServerVersion>8.0.9</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="admin"/>
+    <schema id="3" parent="1" name="local"/>
+    <schema id="4" parent="1" name="localZero">
+      <Current>1</Current>
+      <LastIntrospectionLocalTimestamp>2025-05-13.10:07:56</LastIntrospectionLocalTimestamp>
+    </schema>
+    <table id="5" parent="4" name="comments"/>
+    <table id="6" parent="4" name="initiatives"/>
+    <table id="7" parent="4" name="messages"/>
+    <table id="8" parent="4" name="notifications"/>
+    <table id="9" parent="4" name="users"/>
+    <column id="10" parent="9" name="_id">
+      <DasType>String|12s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="11" parent="9" name="email">
+      <DasType>String|12s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="12" parent="9" name="location">
+      <DasType>String|12s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="13" parent="9" name="name">
+      <DasType>String|12s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="14" parent="9" name="password">
+      <DasType>String|12s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="15" parent="9" name="role">
+      <DasType>String|12s</DasType>
+      <Position>6</Position>
+    </column>
+  </database-model>
+</dataSource>

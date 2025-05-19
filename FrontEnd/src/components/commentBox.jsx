@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import Sidebar from "../components/sidebar";
 import { useRouter, useSearchParams } from "next/navigation";
 
-function CommentBox({ content, commenterName, posterID, date }) {
+function CommentBox({ content, commenterName, posterID, date, imageURL }) {
   const router = useRouter();
 
   const posterProfileClicked = () => {
@@ -29,6 +29,7 @@ function CommentBox({ content, commenterName, posterID, date }) {
 
       <div>
         <p>{content}</p>
+        <img src={imageURL} className="w-[60%]"></img>
       </div>
     </div>
   );
