@@ -26,6 +26,8 @@ public class UsersAPIHandler {
     private MongoDatabase database;
     @Autowired
     private UserHandler userHandler;
+    @Autowired
+    private NotificationHandler notificationHandler;
 
     public UsersAPIHandler(@Qualifier("resourceHandlerMapping") HandlerMapping resourceHandlerMapping) {
         this.resourceHandlerMapping = resourceHandlerMapping;
@@ -105,19 +107,11 @@ public class UsersAPIHandler {
     }
 
     @GetMapping("/users/{id}/notifications")
-    public ResponseEntity<ArrayList<String>> getNotifications(@PathVariable String id) {
+    public ArrayList<ArrayList<String>> getNotifications(@PathVariable String id) {
         try {
-            ArrayList<String> notifications = userHandler.getUserNotifications(id);
-            return ResponseEntity.ok(notifications);
+            return notificationHandler.getUserNotifications(id);
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(new ArrayList<>());
+            return new ArrayList<>();
         }
     }
-
-    /* kanske bara server ska hantera? istället för att users ska kunna lägga upp??
-    @PostMapping("/users/{id}/notifications")
-    public ResponseEntity<String> postNotification(@RequestParam String id) {
-        return ResponseEntity.ok("Post notification for user id");
-    }
-    */
 }

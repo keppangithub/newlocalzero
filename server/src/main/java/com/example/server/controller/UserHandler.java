@@ -158,19 +158,6 @@ public class UserHandler {
         return "User joined initiative successfully";
     }
 
-
-    public ArrayList<String> getUserNotifications(String id) {
-        User user = userRepository.findByUserID(id);
-        if (user == null || user.getNotifications() == null) {
-            return new ArrayList<>();
-        }
-        ArrayList<String> notifications = new ArrayList<>();
-        for (Notification notification : user.getNotifications()) {
-            notifications.add(notification.toString());
-        }
-        return notifications;
-    }
-
     public String getUserName(String otherUserId) {
         User user = userRepository.findByUserID(otherUserId);
         if(user == null) {
