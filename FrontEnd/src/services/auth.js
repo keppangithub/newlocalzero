@@ -1,25 +1,23 @@
 import axios from "axios";
 
-let currentUser; //saves current logged in users id
-const port = "localhost:3000";
+let currentUser;
+const port = "localhost:8080";
 
-// login method, returns true/false, saves logged-in user's email
 async function login(email, password) {
   try {
-    //TODO - uppdatera endpoint path
     const response = await axios.post(port+"/auth/login", {
       email,
       password,
     });
 
-    //TODO: se till att ett user objekt skickas som innehåller:
-    // userID
-    // users name
-    // user email
-    // usr location
-    // user role
     if (response) {
-      currentUser = response.userID;
+      currentUser = {
+        id: response.data[0],
+        username: response.data[1],
+        email: response.data[2],
+        location: response.data[3],
+        userRole: response.data[4],
+      }
       return true;
     } else {
       return false;
@@ -31,12 +29,8 @@ async function login(email, password) {
   }
 }
 
-// signup method, returns true/false
 async function register(name, email, password, location, role) {
-  //alert("stack reached register body");
-
   try {
-    //TODO - uppdatera endpoint path
     const response = await axios.post(port+"/auth/register", {
       name,
       email,
@@ -45,22 +39,22 @@ async function register(name, email, password, location, role) {
       role,
     });
 
-    //TODO - kolla vad som ska returneras istället för "data"
-    // ska vara en string som informerar om signup var successful/unsuccessful och varför
     return response.data;
+
   } catch (error) {
     console.error("Signup failed:", error);
-    throw error;
+    if (error.response && error.response.data) {
+      return error.response.data;
+    }
   }
 }
 
-// logs out, resets the logged-in user object
 function logout() {
   currentUser = null;
 }
 
-// returns the logged-in user object
 function getCurrentUser() {
+  
   //return currentUser;
 
   return {
