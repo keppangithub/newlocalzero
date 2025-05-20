@@ -146,13 +146,15 @@ public class User {
         this.locationID = locationID;
     }
 
-    public void postAction(ActionType type, int duration, Date date, String name) {
-        Action action = new Action(type, duration, date, name);
+    public Action postAction(String title, ActionType type , String metric, String date, String userID) {
+        Action action = new Action(title, type, metric, date, userID);
 
         if(this.actions == null) {
             actions = new ArrayList<>();
         }
         actions.add(action);
+
+        return action;
     }
 
     public void joinInitiative(String initiativeId) {

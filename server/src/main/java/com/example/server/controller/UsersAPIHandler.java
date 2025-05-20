@@ -60,8 +60,8 @@ public class UsersAPIHandler {
     }
 
     @GetMapping("/users/{id}/actions")
-    public ArrayList<String> getUserActions(@PathVariable String id) {
-        ArrayList<String> response = userHandler.getUserActions(id);
+    public ArrayList<ArrayList<String>> getUserActions(@PathVariable String id) {
+        ArrayList<ArrayList<String>> response = userHandler.getUserActions(id);
         if(response != null) {
             return response;
         }
@@ -70,19 +70,10 @@ public class UsersAPIHandler {
         }
     }
 
+
     @PostMapping("/users/{id}/actions")
-    public ResponseEntity<String> postActionWithUserID(@PathVariable String id, @RequestParam ActionType type,
-       @RequestParam int duration, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date,
-       @RequestParam String name) {
-        String response = userHandler.postUserAction(id, type, duration, date, name);
-        try {
-            if (response.equals("Action is empty")) {
-                return ResponseEntity.status(401).body("Action is empty");
-            }
-            return ResponseEntity.ok("Successfully posted action");
-        }catch (Exception e) {
-            return ResponseEntity.status(500).body("Error: " + e.getMessage());
-        }
+    public Boolean postActionWithUserID(@RequestBody Map<String, String> actionInfo)  {
+        return userHandler.postUserAction(actionInfo);
     }
 
     @PostMapping("/users/{id}/inits")

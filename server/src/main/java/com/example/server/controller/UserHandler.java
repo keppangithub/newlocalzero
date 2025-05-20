@@ -18,6 +18,8 @@ public class UserHandler {
     private InitiativeRepository initiativeRepository;
     @Autowired
     private CharacterEncodingFilter characterEncodingFilter;
+    @Autowired
+    private ActionRepository actionRepository;
 
     public String registerUser(Map<String, String> Userinfo){
         String username = Userinfo.get("username");
@@ -95,34 +97,39 @@ public class UserHandler {
                 return "User does not exist, unable to change location";
             }
     }
+    //unfinished mpste fixa databas collection för den
+    public ArrayList<ArrayList<String>> getUserActions(String userID) {
+        List<Action> actions = actionRepository.findActionByUserID(userID);
 
-    public ArrayList<String> getUserActions(String id) {
-        User user = userRepository.findByUserID(id);
+        ArrayList<ArrayList<String>> results = new ArrayList<>();
 
-        ArrayList<String> actions = new ArrayList<>();
-        if(user.getActions() != null) {
-            for(Action action : user.getActions()) {
-                actions.add("Initiative: " + action.toString());
+            for(Action action : actions) {
+                ArrayList<String> actionInfo = new ArrayList<>();
+                actionInfo.add(action.getTitle());
+                actionInfo.add(action.getActionType().toString());
+                actionInfo.add(action.getMetric());
+                actionInfo.add(action.getDate());
+                results.add(actionInfo);
+
             }
-        }
-        return actions;
+        return results;
     }
 
-    public String postUserAction(String id, ActionType type, int duration, Date date, String name) {
-        User user = userRepository.findByUserID(id);
 
-        if (user == null) {
-            return "User does not exist";
-        }
+    public Boolean postUserAction(Map<String, String> actionInfo) {
+        String userId = actionInfo.get("userID");
 
-        if (type == null || name == null || date == null || duration <= 0) {
-            return "Action is empty";
-        }
+        User user = userRepository.findByUserID(userId);
 
-        user.postAction(type, duration, date, name);
+        ActionType type = ActionType.valueOf(actionInfo.get("type"));
+        String metric = actionInfo.get("metric");
+        String date = actionInfo.get("date");
+        String title = actionInfo.get("title");
+        Action action = user.postAction(title, type,metric, date,userId);
         userRepository.save(user);
+        actionRepository.save(action);
 
-        return "Action posted successfully";
+        return true;
     }
 
 
