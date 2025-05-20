@@ -1,5 +1,8 @@
 package main.java.com.example.server.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Date;
 
 /**
@@ -7,20 +10,22 @@ import java.util.Date;
  *
  * @author Olivia Svensson, ... kevin nordkivs
  */
-
+@Document("action")
 public class Action {
     private String title;
     private ActionType actionType;
     private String metric;
     private String date;
+    private String userID;
 
 
 
-    public Action(String title, ActionType actionType, String metric, String date) {
+    public Action(String title, ActionType actionType, String metric, String date,String userID) {
         this.title = title;
         this.actionType = actionType;
         this.metric = metric;
         this.date = date;
+        this.userID = userID;
     }
 
     public void setActionType(ActionType actionType) {
@@ -37,5 +42,13 @@ public class Action {
 
     public String getMetric() {
         return this.metric;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public String getDate() {
+        return this.date;
     }
 }

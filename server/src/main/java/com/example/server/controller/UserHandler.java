@@ -99,13 +99,19 @@ public class UserHandler {
     }
     //unfinished mpste fixa databas collection för den
     public ArrayList<ArrayList<String>> getUserActions(String userID) {
-        User user = userRepository.findByUserID(userID);
+        List<Action> actions = actionRepository.findActionByUserID(userID);
+
         ArrayList<ArrayList<String>> results = new ArrayList<>();
-        if(user.getActions() != null) {
-            for(Action action : user.getActions()) {
+
+            for(Action action : actions) {
                 ArrayList<String> actionInfo = new ArrayList<>();
+                actionInfo.add(action.getTitle());
+                actionInfo.add(action.getActionType().toString());
+                actionInfo.add(action.getMetric());
+                actionInfo.add(action.getDate());
+                results.add(actionInfo);
+
             }
-        }
         return results;
     }
 
@@ -119,7 +125,7 @@ public class UserHandler {
         String metric = actionInfo.get("metric");
         String date = actionInfo.get("date");
         String title = actionInfo.get("title");
-        Action action = user.postAction(title, type,metric, date);
+        Action action = user.postAction(title, type,metric, date,userId);
         userRepository.save(user);
         actionRepository.save(action);
 

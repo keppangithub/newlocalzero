@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface ActionRepository extends MongoRepository<Action, String> {
-    List<Action> getAll();
+    List<Action> findActionByUserID(String userID);
 
 
 

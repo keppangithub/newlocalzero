@@ -146,8 +146,8 @@ public class User {
         this.locationID = locationID;
     }
 
-    public Action postAction(String title, ActionType type , String metric, String date) {
-        Action action = new Action(title, type, metric, date);
+    public Action postAction(String title, ActionType type , String metric, String date, String userID) {
+        Action action = new Action(title, type, metric, date, userID);
 
         if(this.actions == null) {
             actions = new ArrayList<>();
