@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const port = "localhost:3000";
+const port = "localhost:8080";
 
 async function getProfile(userID) {
   /*try {
     //TODO - uppdatera endpoint path
-    const response = await axios.get((port+"/users/"+userID), {
+    const response = await axios.get((port+"/api/users/"+userID), {
     });
 
     return response.data;
@@ -26,7 +26,7 @@ async function getProfile(userID) {
 async function updateLocation(userID, location) {
   /*try {
     //TODO - uppdatera endpoint path
-    const response = await axios.put((port+"/users/"+userID), {
+    const response = await axios.put((port+"/api/users/"+userID), {
     userID, location
     });
 

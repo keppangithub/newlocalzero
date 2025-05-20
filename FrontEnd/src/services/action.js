@@ -1,14 +1,26 @@
 import axios from "axios";
 
-const port = "localhost:3000";
+const port = "localhost:8080";
 
 async function getMyActions(userID) {
   /*try {
-    //TODO - uppdatera endpoint path
-    const response = await axios.get((port+"/users/"+userID+"/actions"), {
+    const response = await axios.get(
+      port + "/api/users/" + userID + "/actions",
+      {}
+    );
+
+    const actionsArray = [];
+    response.data.array.forEach((action) => {
+      const actionObject = {
+        title: action[0],
+        type: action[1],
+        metric: action[2],
+        date: action[3],
+      };
+      actionsArray.push(actionObject);
     });
 
-    return response.data;
+    return actionsArray;
 
   } catch (error) {
     console.error("Getting my actions failed:", error);
@@ -30,20 +42,23 @@ async function getMyActions(userID) {
   };
 
   return allActions;
+  
 }
 
 async function postNewAction(userID, title, date, type, metric) {
   try {
-    //TODO - uppdatera endpoint path
-    const response = await axios.post(port+"/users/" + userID + "/actions", {
-      userID,
-      title,
-      date,
-      type,
-      metric,
-    });
+    const response = await axios.post(
+      port + "/api/users/" + userID + "/actions",
+      {
+        userID,
+        title,
+        date,
+        type,
+        metric,
+      }
+    );
 
-    // TODO: switch case som returnerar true/false istället
+    // response is true/false
     return response.data;
   } catch (error) {
     console.error("Posting new action failed:", error);
@@ -52,16 +67,8 @@ async function postNewAction(userID, title, date, type, metric) {
 }
 
 async function getActionStats(userID) {
-  /*try {
-    //TODO - uppdatera endpoint path
-    //TODO - denna endpoint finns inte, ska man lägga till det kanske?
-    const response = await axios.get(port+"/users/" + userID + "/actions/stats", {});
 
-    return response.data;
-  } catch (error) {
-    console.error("Getting action statistics failed:", error);
-    throw error;
-  }*/
+  //TODO - bara kalkylera stats i frontenden
 
   return {
     kmBiked: 30,

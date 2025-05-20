@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const port = "localhost:3000";
+const port = "localhost:8080";
 
 async function getAllInitiatives(location) {
   /*try {
     //TODO - uppdatera endpoint path
-    const response = await axios.get(port+"/inits", {
+    const response = await axios.get(port+"/api/inits", {
       location,
     });
 
@@ -41,7 +41,7 @@ async function getAllInitiatives(location) {
 async function getMyInitiatives(userID) {
   /*try {
     //TODO - uppdatera endpoint path
-    const response = await axios.get(port+"/users/" + userID + "/inits", {});
+    const response = await axios.get(port+"/api/users/" + userID + "/inits", {});
 
     return response.data;
   } catch (error) {
@@ -62,7 +62,7 @@ async function getMyInitiatives(userID) {
 async function getMyNotifications(userID) {
   /*try {
     //TODO - uppdatera endpoint path
-    const response = await axios.get(port+"/users/" + userID + "/notifications", {});
+    const response = await axios.get(port+"/api/users/" + userID + "/notifications", {});
 
     return response.data;
   } catch (error) {
@@ -96,7 +96,7 @@ async function postNewInitiative(
 ) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.post(port+"/inits", {
+    const response = await axios.post(port+"/api/inits", {
       userID,
       title,
       description,
@@ -139,7 +139,7 @@ async function postInitiativeComment(
 ) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.post(port+"/inits/" + initiativeID, {
+    const response = await axios.post(port+"/api/inits/" + initiativeID, {
       initiativeID,
       posterID,
       comment,
@@ -158,7 +158,7 @@ async function postInitiativeComment(
 async function joinInitiative(userID, initiativeID) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.post(port+"/users/" + userID + "/inits/", {
+    const response = await axios.post(port+"/api/users/" + userID + "/inits/", {
       userID,
       initiativeID,
     });
@@ -175,7 +175,7 @@ async function getInitiative(initiativeID) {
   try {
     //TODO - uppdatera endpoint path
     
-    const response = await axios.get(("/inits/" + initiativeID), {
+    const response = await axios.get(("/api/inits/" + initiativeID), {
     });
 
     return response.data;

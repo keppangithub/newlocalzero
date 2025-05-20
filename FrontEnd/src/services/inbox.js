@@ -1,20 +1,41 @@
 import axios from "axios";
 
-const port = "localhost:3000";
+const port = "localhost:8080";
 
 async function getChats(userID) {
-  /*try {
-    //TODO - uppdatera endpoint path
-    const response = await axios.get((port+"/chats"), {
-        userID
+  /*
+  try {
+    const response = await axios.get(port + "/api/chats", {
+      userID,
     });
 
-    return response.data;
+    const inboxArray = [];
+    
+    response.data.array.forEach((chat) => {
+      const messages = [];
+      chat[3].array.forEach((message) => {
+        messages.push({
+          text: message[0],
+          sender: message[1],
+          date: message[2]
+        });
+      });
+      const chatObject = {
+        name: chat[0],
+        id: chat[1],
+        metric: messages
+      };
+      inboxArray.push(chatObject);
+    });
+
+    return inboxArray;
 
   } catch (error) {
     console.error("Getting chats failed:", error);
     throw error;
-  }*/
+  }
+    */
+
   const allInbox = [
     {
       name: "Mojtaba",
@@ -63,16 +84,14 @@ async function getChats(userID) {
 
 async function sendMessage(chatID, text, date, sender) {
   try {
-    //TODO - uppdatera endpoint path
-    const response = await axios.post(port+"/chats/" + chatID, {
+    const response = await axios.post(port + "/api/chats/" + chatID, {
       chatID,
       text,
       date,
       sender,
     });
-
-    // TODO: switch case som returnerar true/false istället
     return response.data;
+
   } catch (error) {
     console.error("Sending message failed:", error);
     throw error;
@@ -81,12 +100,10 @@ async function sendMessage(chatID, text, date, sender) {
 
 async function startChat(sender, receiver) {
   try {
-    //TODO - uppdatera endpoint path
-    const response = await axios.post(port+"/chats/", {
+    const response = await axios.post(port + "/api/chats/", {
       sender,
       receiver,
     });
-    // TODO: switch case som returnerar true/false istället
     return response.data;
   } catch (error) {
     console.error("Starting chat with user failed:", error);
