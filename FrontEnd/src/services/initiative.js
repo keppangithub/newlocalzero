@@ -4,12 +4,22 @@ const port = "localhost:8080";
 
 async function getAllInitiatives(location) {
   /*try {
-    //TODO - uppdatera endpoint path
-    const response = await axios.get(port+"/api/inits", {
+    const response = await axios.get(port + "/api/inits", {
       location,
     });
 
-    return response.data;
+    const initiativesArray = [];
+    response.data.array.forEach((init) => {
+      const initObject = {
+        title: init[0],
+        caption: init[1],
+        id: init[2],
+      };
+      initiativesArray.push(initObject);
+    });
+
+    return initiativesArray;
+
   } catch (error) {
     console.error("Getting initiatives failed:", error);
     throw error;
@@ -43,7 +53,18 @@ async function getMyInitiatives(userID) {
     //TODO - uppdatera endpoint path
     const response = await axios.get(port+"/api/users/" + userID + "/inits", {});
 
-    return response.data;
+    const initiativesArray = [];
+    response.data.array.forEach((init) => {
+      const initObject = {
+        title: init[0],
+        caption: init[1],
+        id: init[2],
+      };
+      initiativesArray.push(initObject);
+    });
+
+    return initiativesArray;
+
   } catch (error) {
     console.error("Getting my initiatives failed:", error);
     throw error;
@@ -61,10 +82,17 @@ async function getMyInitiatives(userID) {
 
 async function getMyNotifications(userID) {
   /*try {
-    //TODO - uppdatera endpoint path
     const response = await axios.get(port+"/api/users/" + userID + "/notifications", {});
-
-    return response.data;
+    const notifsArray = [];
+    response.data.array.forEach((notif) => {
+      const notifObject = {
+        title: notif[0],
+        date: notif[1],
+        id: notif[2],
+      };
+      notifsArray.push(notifObject);
+    });
+    return notifsArray;
   } catch (error) {
     console.error("Getting my notifications failed:", error);
     throw error;
@@ -95,8 +123,7 @@ async function postNewInitiative(
   category
 ) {
   try {
-    //TODO - uppdatera endpoint path
-    const response = await axios.post(port+"/api/inits", {
+    const response = await axios.post(port + "/api/inits", {
       userID,
       title,
       description,
@@ -107,7 +134,7 @@ async function postNewInitiative(
       category,
     });
 
-    // TODO: switch case som returnerar true/false istället
+    // returnerar true/false
     return response.data;
   } catch (error) {
     console.error("Posting new initiative failed:", error);
@@ -117,12 +144,11 @@ async function postNewInitiative(
 
 async function updateInitiative(initiativeID, description) {
   try {
-    //TODO - uppdatera endpoint path
-    const response = await axios.put(port+"/api/inits/" + initiativeID, {
+    const response = await axios.put(port + "/api/inits/" + initiativeID, {
       description,
     });
 
-    // TODO: switch case som returnerar true/false istället
+    // returnerar true/false
     return response.data;
   } catch (error) {
     console.error("Adding update to an initiative failed:", error);
@@ -138,8 +164,7 @@ async function postInitiativeComment(
   imageURL
 ) {
   try {
-    //TODO - uppdatera endpoint path
-    const response = await axios.post(port+"/api/inits/" + initiativeID, {
+    const response = await axios.post(port + "/api/inits/" + initiativeID, {
       initiativeID,
       posterID,
       comment,
@@ -147,7 +172,7 @@ async function postInitiativeComment(
       imageURL,
     });
 
-    // TODO: switch case som returnerar true/false istället
+    // returnerar true/false
     return response.data;
   } catch (error) {
     console.error("Posting comment failed:", error);
@@ -157,13 +182,15 @@ async function postInitiativeComment(
 
 async function joinInitiative(userID, initiativeID) {
   try {
-    //TODO - uppdatera endpoint path
-    const response = await axios.post(port+"/api/users/" + userID + "/inits/", {
-      userID,
-      initiativeID,
-    });
+    const response = await axios.post(
+      port + "/api/users/" + userID + "/inits/",
+      {
+        userID,
+        initiativeID,
+      }
+    );
 
-    // TODO: switch case som returnerar true/false istället
+    // returnerar true/false
     return response.data;
   } catch (error) {
     console.error("Joining initiative failed:", error);
@@ -173,12 +200,33 @@ async function joinInitiative(userID, initiativeID) {
 async function getInitiative(initiativeID) {
   /*
   try {
-    //TODO - uppdatera endpoint path
-    
-    const response = await axios.get(("/api/inits/" + initiativeID), {
+    const response = await axios.get("/api/inits/" + initiativeID, {});
+
+    const comments = [];
+    response.data[9].array.forEach((comment) => {
+      const commentObject = {
+        content: comment[0],
+        date: comment[1],
+        commenterName: comment[2],
+        commenterID: comment[3],
+        imageURL: comment[4],
+        id: comment[5],
+      };
+      comments.push(commentObject);
     });
 
-    return response.data;
+    return {
+      title: response.data[0],
+    description: response.data[1],
+    startDate: response.data[2],
+    endDate: response.data[3],
+    location: response.data[4],
+    category: response.data[5],
+    posterUsername: response.data[6],
+    posterID: response.data[7],
+    imageURL: response.data[8],
+    allComments: comments
+    };
 
   } catch (error) {
     console.error("Getting initiative failed:", error);
