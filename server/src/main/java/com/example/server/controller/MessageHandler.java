@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,8 @@ public class MessageHandler {
     private ChatRepository chatRepository;
     @Autowired
     private UserHandler userHandler;
+    @Autowired
+    private NotificationHandler notificationHandler;
 
     public String sendMessage(String chatId, String senderId, String message) {
         List<Chat> chats = chatRepository.findByChatId(chatId);
@@ -32,6 +35,9 @@ public class MessageHandler {
         Chat chat = chats.get(0);
         String recieverId = chat.getOtherUserId(senderId); // This is just to ensure the chat exists, you can add more logic if needed
         Message newMessage = new Message(chatId,senderId, recieverId, message, System.currentTimeMillis());
+        ArrayList<String> receivers = new ArrayList<>();
+        receivers.add(recieverId);
+        notificationHandler.createNotification("New message ", receivers);
         messageRepository.save(newMessage);
         return "Message sent successfully";
     }

@@ -5,6 +5,7 @@ import main.java.com.example.server.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 @Service
@@ -14,6 +15,8 @@ public class CommentHandler {
     private InitiativeRepository initiativeRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private NotificationHandler notificationHandeler;
 
     //        initiativeID, posterID, comment, date, imageURL
 
@@ -50,6 +53,9 @@ public class CommentHandler {
         }
         String commenterId = commenter.getUserID();
         String commenterName = commenter.getUsername();
+        ArrayList<String> receivers = new ArrayList<>();
+        receivers.add(initiative.getUserId());
+        notificationHandeler.createNotification("New comment on your initiative",receivers);
         initiative.addComment(comment, date, commenterName, commenterId,imageURL);
         initiativeRepository.save(initiative);
         return "Comment added successfully";

@@ -20,6 +20,8 @@ public class InitiativeHandler {
     private UserRepository userRepository;
     @Autowired
     private CommentsRepository commentsRepository;
+    @Autowired
+    private NotificationHandler notificationHandler;
 
 
     public List<ArrayList<String>> getInitiatives(String location) {
@@ -75,6 +77,17 @@ public class InitiativeHandler {
         }
 
         Initiative newInitiative = new Initiative(title,userId,description,imgUrl,location,startDate,endDate,category);
+
+        List<User> users = userRepository.findByLocationID(Integer.parseInt(location));
+        ArrayList<String> userIds = new ArrayList<>();
+        for(User user : users ){
+            if(!user.getUserID().equals(userId)){
+                userIds.add(user.getUserID());
+            }
+        }
+        notificationHandler.createNotification("New initiative in your area", userIds);
+
+
         initiativeRepository.save(newInitiative);
         return "Initiative created successfully";
     }
@@ -115,6 +128,9 @@ public class InitiativeHandler {
     public String changeInitsDescription(String id, String description) {
         Initiative initiative = initiativeRepository.findByInitiativeId(id);
         initiative.updateDescription(description);
+
+        notificationHandler.createNotification("Initiative description has been updated", initiative.getUserIds());
+
 
         if(initiative != null) {
             initiativeRepository.save(initiative);
