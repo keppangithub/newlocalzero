@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const port = "localhost:8080";
+let actionStats;
 
 async function getMyActions(userID) {
   /*try {
@@ -20,6 +21,34 @@ async function getMyActions(userID) {
       actionsArray.push(actionObject);
     });
 
+    const kmBiked = 0;
+    const publicTransport = 0;
+    const itemsThrifted = 0;
+    const trashPickedUp = 0;
+    actionsArray.forEach((action) => {
+      switch (action.type) {
+        case "Running/Jogging/Biking":
+          kmBiked += Number(action.metric);
+          break;
+        case "Public Transport":
+          publicTransport += Number(action.metric);
+          break;
+        case "Thrifting":
+          itemsThrifted += Number(action.metric);
+          break;
+        case "Trash Pickup":
+          trashPickedUp += Number(action.metric);
+          break;
+        default:
+      }
+    });
+    actionStats = {
+      kmBiked: kmBiked,
+      publicTransport: publicTransport,
+      itemsThrifted: itemsThrifted,
+      trashPickedUp: trashPickedUp,
+    };
+
     return actionsArray;
 
   } catch (error) {
@@ -27,22 +56,58 @@ async function getMyActions(userID) {
     throw error;
   }*/
 
+    // TEST DATA
   const allActions = [];
   allActions[0] = {
     title: "My morning route to work",
-    type: "Biking",
-    metric: "5 km",
+    type: "Public Transport",
+    metric: "5",
     date: "2025-05-09",
   };
   allActions[1] = {
     title: "running with friends",
-    type: "Jogging",
-    metric: "10 km",
+    type: "Running/Jogging/Biking",
+    metric: "10",
     date: "2025-05-12",
+  };
+  allActions[2] = {
+    title: "running with friends again",
+    type: "Running/Jogging/Biking",
+    metric: "4",
+    date: "2025-05-20",
+  };
+
+  let kmBiked = 0;
+  let publicTransport = 0;
+  let itemsThrifted = 0;
+  let trashPickedUp = 0;
+
+  allActions.forEach((action) => {
+    switch (action.type) {
+      case "Running/Jogging/Biking":
+        kmBiked += Number(action.metric);
+        break;
+      case "Public Transport":
+        publicTransport += Number(action.metric);
+        break;
+      case "Thrifting":
+        itemsThrifted += Number(action.metric);
+        break;
+      case "Trash Pickup":
+        trashPickedUp += Number(action.metric);
+        break;
+      default:
+    }
+  });
+
+  actionStats = {
+    kmBiked: kmBiked,
+    publicTransport: publicTransport,
+    itemsThrifted: itemsThrifted,
+    trashPickedUp: trashPickedUp,
   };
 
   return allActions;
-  
 }
 
 async function postNewAction(userID, title, date, type, metric) {
@@ -66,16 +131,8 @@ async function postNewAction(userID, title, date, type, metric) {
   }
 }
 
-async function getActionStats(userID) {
-
-  //TODO - bara kalkylera stats i frontenden
-
-  return {
-    kmBiked: 30,
-    publicTransport: 28,
-    itemsThrifted: 12,
-    trashPickedUp: 3,
-  };
+async function getActionStats() {
+  return actionStats;
 }
 
 export default {

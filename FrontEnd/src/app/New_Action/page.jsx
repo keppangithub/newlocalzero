@@ -76,10 +76,10 @@ function NewAction() {
             value={actionType}
           >
             <option defaultValue={null}>Select Type...</option>
-            <option value="RUNNING">Running/Jogging</option>
-            <option value="PUBLICTRANSPORT">Public Transport</option>
-            <option value="THRIFTING">Thrifting</option>
-            <option value="TRASHPICKUP">Trash Pickup</option>
+            <option value="Running/Jogging/Biking">Running/Jogging/Biking</option>
+            <option value="Public Transport">Public Transport</option>
+            <option value="Thrifting">Thrifting</option>
+            <option value="Trash Pickup">Trash Pickup</option>
           </select>
         </div>
 

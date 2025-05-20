@@ -25,6 +25,7 @@ async function getAllInitiatives(location) {
     throw error;
   }*/
 
+  // TEST DATA
   const allInitiatives = [];
   allInitiatives[0] = {
     title: "Pickup Trash Event",
@@ -45,7 +46,9 @@ async function getAllInitiatives(location) {
     id: "14",
   };
 
-  return allInitiatives;
+  if (location === "Malmö") {
+    return allInitiatives;
+  }
 }
 
 async function getMyInitiatives(userID) {
@@ -70,6 +73,7 @@ async function getMyInitiatives(userID) {
     throw error;
   }*/
 
+  // TEST DATA
   const myInitiatives = [];
   myInitiatives[0] = {
     title: "Charity day for a greener future",
@@ -98,6 +102,7 @@ async function getMyNotifications(userID) {
     throw error;
   }*/
 
+  // TEST DATA
   const notifications = [];
   notifications[0] = {
     title: "There was an update on an initiative you joined.",
@@ -233,6 +238,7 @@ async function getInitiative(initiativeID) {
     throw error;
   }*/
 
+  // TEST DATA
   const comments = [];
   comments[0] = {
     content: "nice event",

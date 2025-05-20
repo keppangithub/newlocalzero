@@ -20,6 +20,7 @@ async function getProfile(userID) {
     throw error;
   }*/
 
+  // TEST DATA
   return {
     id: "123460",
     username: "Another User",
@@ -30,7 +31,6 @@ async function getProfile(userID) {
 
 async function updateLocation(userID, location) {
   try {
-    //TODO - uppdatera endpoint path
     const response = await axios.put(port + "/api/users/" + userID, {
       userID,
       location,
