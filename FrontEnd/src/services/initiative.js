@@ -1,9 +1,11 @@
 import axios from "axios";
 
+const port = "localhost:3000";
+
 async function getAllInitiatives(location) {
   /*try {
     //TODO - uppdatera endpoint path
-    const response = await axios.get("/inits", {
+    const response = await axios.get(port+"/inits", {
       location,
     });
 
@@ -39,7 +41,7 @@ async function getAllInitiatives(location) {
 async function getMyInitiatives(userID) {
   /*try {
     //TODO - uppdatera endpoint path
-    const response = await axios.get("/users/" + userID + "/inits", {});
+    const response = await axios.get(port+"/users/" + userID + "/inits", {});
 
     return response.data;
   } catch (error) {
@@ -60,7 +62,7 @@ async function getMyInitiatives(userID) {
 async function getMyNotifications(userID) {
   /*try {
     //TODO - uppdatera endpoint path
-    const response = await axios.get("/users/" + userID + "/notifications", {});
+    const response = await axios.get(port+"/users/" + userID + "/notifications", {});
 
     return response.data;
   } catch (error) {
@@ -94,7 +96,7 @@ async function postNewInitiative(
 ) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.post("/inits", {
+    const response = await axios.post(port+"/inits", {
       userID,
       title,
       description,
@@ -116,7 +118,7 @@ async function postNewInitiative(
 async function updateInitiative(initiativeID, description) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.put("/api/inits/" + initiativeID, {
+    const response = await axios.put(port+"/api/inits/" + initiativeID, {
       description,
     });
 
@@ -137,7 +139,7 @@ async function postInitiativeComment(
 ) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.post("/inits/" + initiativeID, {
+    const response = await axios.post(port+"/inits/" + initiativeID, {
       initiativeID,
       posterID,
       comment,
@@ -156,7 +158,7 @@ async function postInitiativeComment(
 async function joinInitiative(userID, initiativeID) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.post("/users/" + userID + "/inits/", {
+    const response = await axios.post(port+"/users/" + userID + "/inits/", {
       userID,
       initiativeID,
     });
@@ -226,7 +228,7 @@ async function getInitiative(initiativeID) {
     endDate: "2025-05-15",
     location: "Malmö",
     category: "Life on Earth",
-    posterUsername: "Ranaciita",
+    posterUsername: "Sven",
     posterID: "25637467",
     imageURL:
       "https://media.istockphoto.com/id/1402088366/photo/an-unrecognizable-woman-holds-a-plastic-garbage-bottle.jpg?s=612x612&w=0&k=20&c=yY93Gk_Jk2uZXCHmemCtsw_3ZdIo8UgU1PwWffxGopk=",

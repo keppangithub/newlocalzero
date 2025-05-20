@@ -1,9 +1,11 @@
 import axios from "axios";
 
+const port = "localhost:3000";
+
 async function getProfile(userID) {
   /*try {
     //TODO - uppdatera endpoint path
-    const response = await axios.get(("/users/"+userID), {
+    const response = await axios.get((port+"/users/"+userID), {
     });
 
     return response.data;
@@ -13,15 +15,37 @@ async function getProfile(userID) {
     throw error;
   }*/
 
-    return {
-    id : "123460",
-    username : "Another User",
+  return {
+    id: "123460",
+    username: "Another User",
     location: "Stockholm",
-    role: "Resident"
-  }
+    role: "Resident",
+  };
+}
 
+async function updateLocation(userID, location) {
+  /*try {
+    //TODO - uppdatera endpoint path
+    const response = await axios.put((port+"/users/"+userID), {
+    userID, location
+    });
+
+    return response.data;
+
+  } catch (error) {
+    console.error("Updating user location failed:", error);
+    throw error;
+  }*/
+
+  return {
+    id: "123460",
+    username: "Another User",
+    location: "Stockholm",
+    role: "Resident",
+  };
 }
 
 export default {
-    getProfile
+  getProfile,
+  updateLocation,
 };

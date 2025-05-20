@@ -1,12 +1,13 @@
 import axios from "axios";
 
 let currentUser; //saves current logged in users id
+const port = "localhost:3000";
 
 // login method, returns true/false, saves logged-in user's email
 async function login(email, password) {
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.post("/auth/login", {
+    const response = await axios.post(port+"/auth/login", {
       email,
       password,
     });
@@ -36,7 +37,7 @@ async function register(name, email, password, location, role) {
 
   try {
     //TODO - uppdatera endpoint path
-    const response = await axios.post("/auth/register", {
+    const response = await axios.post(port+"/auth/register", {
       name,
       email,
       password,
