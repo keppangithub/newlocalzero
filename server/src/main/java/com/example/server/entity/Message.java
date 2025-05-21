@@ -11,14 +11,14 @@ public class Message {
     private String senderId;
     private String receiverId;
     private String content;
-    private long timestamp;
+    private String date;
 
-    public Message(String chatId, String senderId, String receiverId, String content, long timestamp) {
+    public Message(String chatId, String senderId, String receiverId, String content, String date) {
         this.chatId = chatId;
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.content = content;
-        this.timestamp = timestamp;
+        this.date = date;
     }
 
     public String getSenderId() {
@@ -45,12 +45,12 @@ public class Message {
         this.content = content;
     }
 
-    public long getTimestamp() {
-        return timestamp;
+    public String getDate() {
+        return date;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+    public void setTimestamp(String date) {
+        this.date = date;
     }
 
     public String getChatId() {

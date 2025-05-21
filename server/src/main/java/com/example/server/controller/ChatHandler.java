@@ -1,19 +1,23 @@
 package main.java.com.example.server.controller;
 
 import main.java.com.example.server.entity.Chat;
+import main.java.com.example.server.entity.Message;
+import main.java.com.example.server.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class ChatHandler {
 
     @Autowired
     private ChatRepository chatRepository;
+    @Autowired
+    private MessageRepository messageRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     public Chat createChat(String chatId, String user1Id, String user2Id, long l) {
         if(chatId == null || user1Id == null || user2Id == null) {
@@ -44,19 +48,35 @@ public class ChatHandler {
     public String generateChatId(String user1Id, String user2Id) {
         return user1Id.compareTo(user2Id) < 0 ? user1Id + "_" + user2Id : user2Id + "_" + user1Id;
     }
-/*
 
-    public List<Map<String, Object>> getFormattedMessages(String userId) {
+    public List<List<Object>> getFormattedMessages(String userId) {
         List<Chat> chats = chatRepository.findByUserIdsContaining(userId);
+        User user = userRepository.findByUserID(userId);
 
-        return chats.stream().map(chat -> {
-            Map<String, Object> chatInfo = new HashMap<>();
-            chatInfo.put("chatId", chat.getChatId());
-            chatInfo.put("partnerId", chat.getOtherUserId(userId));
-            chatInfo.put("lastMessageTimestamp", chat.getLastMessageTimestamp());
-            return chatInfo;
-        }).collect(Collectors.toList());
+        List<List<Object>> formattedChats = new ArrayList<>();
+
+        for (Chat chat : chats) {
+            List<Object> chatData = new ArrayList<>();
+
+            chatData.add(user.getUsername());
+            chatData.add(chat.getChatId());
+
+            List<List<String>> formattedMessages = new ArrayList<>();
+            List<Message> messages = messageRepository.findBySenderId(userId);
+            for (Message message : messages) {
+                List<String> messageData = new ArrayList<>();
+                messageData.add(message.getContent());
+                messageData.add(message.getSenderId());
+                messageData.add(String.valueOf(message.getDate()));
+                formattedMessages.add(messageData);
+            }
+
+            chatData.add(formattedMessages);
+
+            formattedChats.add(chatData);
+        }
+
+        return formattedChats;
     }
 
- */
 }

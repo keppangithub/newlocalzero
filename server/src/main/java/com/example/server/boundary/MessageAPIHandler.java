@@ -13,18 +13,22 @@ public class MessageAPIHandler {
 
     @Autowired
     private MessageHandler messageHandler;
-
+/*
     @GetMapping("/messages/{userId}")
     public Map<String, Object> getMessages(@PathVariable String userId) {
         return messageHandler.getFormatedMessages(userId);
     }
 
+ */
+
     @PostMapping("/messages")
     public String sendMessage(@RequestBody Map<String, String> messageData) {
         String chatId = messageData.get("chatId");
-        String senderId = messageData.get("senderId");
-        String message = messageData.get("message");
-        return messageHandler.sendMessage(chatId, senderId, message);
+        String message = messageData.get("text");
+        String date = messageData.get("date");
+        String senderId = messageData.get("sender");
+
+        return messageHandler.sendMessage(chatId, senderId, message,date);
     }
 
 
