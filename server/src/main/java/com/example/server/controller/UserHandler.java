@@ -136,4 +136,8 @@ public class UserHandler {
             return "User does not exist, unable to change location";
         }
     }
+
+    public List<User> getUsersByLocationId(String locationId) {
+        return userRepository.findByLocationID(Integer.parseInt(locationId));
+    }
 }
