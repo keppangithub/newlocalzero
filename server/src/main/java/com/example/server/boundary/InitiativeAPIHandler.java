@@ -1,7 +1,9 @@
 package main.java.com.example.server.boundary;
 
 import main.java.com.example.server.controller.CommentHandler;
+import main.java.com.example.server.controller.CreateInitiativeMediator;
 import main.java.com.example.server.controller.InitiativeHandler;
+import main.java.com.example.server.controller.InitiativeMediatorConcrete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,8 @@ public class InitiativeAPIHandler {
     @Autowired
     private InitiativeHandler initiativeHandler;
     @Autowired
+    private CreateInitiativeMediator initiativeMediator;
+    @Autowired
     private CommentHandler commentHandler;
 
     @GetMapping("/inits")
@@ -30,8 +34,8 @@ public class InitiativeAPIHandler {
         return initiativeHandler.getInitiatives(location);
     }
     @PostMapping("/inits")
-    public String postInits(@RequestBody Map<String,String> initiativeInfo) {
-        return initiativeHandler.createInitiative(initiativeInfo);
+    public boolean postInits(@RequestBody Map<String,String> initiativeInfo) {
+        return initiativeMediator.createInitiative(initiativeInfo);
     }
 
     @GetMapping("/inits/{initiativeId}") //dubbelkolla

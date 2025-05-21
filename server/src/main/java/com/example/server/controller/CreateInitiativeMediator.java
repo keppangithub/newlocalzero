@@ -4,5 +4,4 @@ import java.util.Map;
 
 public interface CreateInitiativeMediator {
     Boolean createInitiative(Map<String,String> intiativeInfo);
-
 }
