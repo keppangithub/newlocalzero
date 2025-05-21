@@ -173,4 +173,8 @@ public class UserHandler {
             return user.getUsername();
         }
     }
+
+    public List<User> getUsersByLocationId(String locationId) {
+        return userRepository.findByLocationID(Integer.parseInt(locationId));
+    }
 }
