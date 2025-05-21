@@ -3,6 +3,7 @@ package main.java.com.example.server.boundary;
 import com.mongodb.client.MongoDatabase;
 import main.java.com.example.server.controller.AuthHandler;
 import main.java.com.example.server.controller.DatabaseConnection;
+import main.java.com.example.server.controller.RegistrationService;
 import main.java.com.example.server.controller.UserHandler;
 import main.java.com.example.server.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class AuthAPIHandler {
     private MongoDatabase database;
     @Autowired
     private AuthHandler authHandler;
+    @Autowired
+    private RegistrationService registrationService;
 
     public AuthAPIHandler() {
          this.dbConnection = DatabaseConnection.getInstance();
@@ -50,14 +53,8 @@ public class AuthAPIHandler {
         }
     }
 
-
-
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody Map<String, String> registerInfo) {
-        String response = userHandler.registerUser(registerInfo);
-        if(!response.equals("successfully registered user")) {
-            return ResponseEntity.status(400).body(response);
-        }
-        return ResponseEntity.ok("Register successful for user: " + registerInfo);
+    public boolean register(@RequestBody Map<String, String> registerInfo) {
+        return registrationService.registerUser(registerInfo);
     }
 }
