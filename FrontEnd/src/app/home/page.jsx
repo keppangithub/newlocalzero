@@ -8,8 +8,10 @@ import initiative from "../../services/initiative";
 
 function HomePage() {
   // --------- user inputs ---------
-  const [locationText, setLocationText] = useState("");
   const currentUser = useMemo(() => auth.getCurrentUser(), []);
+  const [selectedLocation, setSelectedLocation] = useState(
+    currentUser.location
+  );
 
   // --------- loading page data from backend ---------
   const [allInitiatives, setAllInitiatives] = useState([]);
@@ -21,7 +23,7 @@ function HomePage() {
     async function loadPageData() {
       try {
         const [all, mine, notifs] = await Promise.all([
-          initiative.getAllInitiatives(currentUser.location),
+          initiative.getAllInitiatives(selectedLocation),
           initiative.getMyInitiatives(currentUser.id),
           initiative.getMyNotifications(currentUser.id),
         ]);
@@ -43,34 +45,47 @@ function HomePage() {
 
   // --------- populating page with data ---------
   const renderAllInitiatives = () => {
-    return allInitiatives.map((initiative, initiativeIndex) => (
-      <div key={initiativeIndex}>
-        <Initiative
-          title={initiative.title}
-          caption={initiative.caption}
-          id={initiative.id}
-        />
-      </div>
-    ));
+    if (Array.isArray(allInitiatives) && allInitiatives.length > 0) {
+      return allInitiatives.map((initiative, initiativeIndex) => (
+        <div key={initiativeIndex}>
+          <Initiative
+            title={initiative.title}
+            caption={initiative.caption}
+            id={initiative.id}
+          />
+        </div>
+      ));
+    }
   };
   const renderMyInitiatives = () => {
-    return myInitiatives.map((initiative, initiativeIndex) => (
-      <div key={initiativeIndex}>
-        <Initiative
-          title={initiative.title}
-          caption={initiative.caption}
-          id={initiative.id}
-        />
-      </div>
-    ));
+    if (Array.isArray(myInitiatives) && myInitiatives.length > 0) {
+      return myInitiatives.map((initiative, initiativeIndex) => (
+        <div key={initiativeIndex}>
+          <Initiative
+            title={initiative.title}
+            caption={initiative.caption}
+            id={initiative.id}
+          />
+        </div>
+      ));
+    }
   };
   const renderMyNotifications = () => {
-    return notifications.map((notif, notifIndex) => (
-      <div key={notifIndex}>
-        <Notification title={notif.title} date={notif.date} id={notif.id} />
-      </div>
-    ));
+    if (Array.isArray(notifications) && notifications.length > 0) {
+      return notifications.map((notif, notifIndex) => (
+        <div key={notifIndex}>
+          <Notification title={notif.title} date={notif.date} id={notif.id} />
+        </div>
+      ));
+    }
   };
+
+  // --------- handling user moves ---------
+  async function locationChanged(value) {
+    setSelectedLocation(value);
+    const newInitiatives = await initiative.getAllInitiatives(value);
+    setAllInitiatives(newInitiatives);
+  }
 
   // --------- page body ---------
   return (
@@ -84,13 +99,22 @@ function HomePage() {
           <p className="text-xl">Initiatives</p>
           <hr className="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700"></hr>
           <p>Location: </p>
-          <input
-            type="text"
-            value={locationText}
-            onChange={(e) => setLocationText(e.target.value)}
+
+          <select
             className="rounded-md border-2 p-2 focus:outline-0 w-full"
-            placeholder="Malmö, Sweden"
-          ></input>
+            value={selectedLocation}
+            onChange={(e) => locationChanged(e.target.value)}
+          >
+            <option value="" disabled>
+              Select a location
+            </option>
+            <option value="Malmö">Malmö</option>
+            <option value="Trelleborg">Trelleborg</option>
+            <option value="Lund">Lund</option>
+            <option value="Helsingborg">Helsingborg</option>
+            <option value="Perstorp">Perstorp</option>
+          </select>
+
           <hr className="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700"></hr>
         </div>
 

@@ -73,10 +73,10 @@ function MyActions() {
 
       <div className="w-[45%] p-20 h-[70%] text-md">
         <p className="text-xl">Statistics</p>
-        <p>Kilometers biked: {myStats.kmBiked} </p>
-        <p>Public transport taken: {myStats.publicTransport} instances</p>
+        <p>Biked/jogged/ran {myStats.kmBiked} kms</p>
+        <p>Public transport taken {myStats.publicTransport} instances</p>
         <p>Items thrifted: {myStats.itemsThrifted}</p>
-        <p>Bags of trash picked up: {myStats.trashPickedUp}</p>
+        <p>Picked up {myStats.trashPickedUp} bags of trash </p>
       </div>
     </div>
   );

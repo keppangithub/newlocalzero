@@ -27,15 +27,14 @@ async function getChats(userID) {
       };
       inboxArray.push(chatObject);
     });
-
     return inboxArray;
-
   } catch (error) {
     console.error("Getting chats failed:", error);
     throw error;
   }
     */
 
+  // TEST DATA
   const allInbox = [
     {
       name: "Mojtaba",
@@ -91,7 +90,6 @@ async function sendMessage(chatID, text, date, sender) {
       sender,
     });
     return response.data;
-
   } catch (error) {
     console.error("Sending message failed:", error);
     throw error;
