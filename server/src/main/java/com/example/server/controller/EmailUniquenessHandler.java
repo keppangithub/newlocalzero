@@ -24,12 +24,9 @@ public class EmailUniquenessHandler extends RegistrationHandler{
         if (!existingUsers.isEmpty()) {
             return false;
         }
-
         if (next != null) {
             next.handle(userInfo);
         }
-
         return true;
     }
-
 }
