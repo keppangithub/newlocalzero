@@ -5,7 +5,7 @@ import java.util.Map;
 public class UsernameValidationHandler extends RegistrationHandler{
     @Override
     public boolean handle(Map<String, String> userInfo) {
-        String username = userInfo.get("username");
+        String username = userInfo.get("name");
         if (username == null ||
                 username.length() < 10 ||
                 username.length() > 65 || username.contains(" ") ||

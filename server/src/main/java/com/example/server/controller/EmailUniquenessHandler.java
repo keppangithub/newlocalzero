@@ -10,7 +10,8 @@ import java.util.Map;
 @Service
 public class EmailUniquenessHandler extends RegistrationHandler{
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     public EmailUniquenessHandler(UserRepository userRepository) {
         this.userRepository = userRepository;
