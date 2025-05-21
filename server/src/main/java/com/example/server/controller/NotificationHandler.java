@@ -1,13 +1,16 @@
 package main.java.com.example.server.controller;
 
 import main.java.com.example.server.entity.Notification;
+import main.java.com.example.server.entity.NotificationType;
 import main.java.com.example.server.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class NotificationHandler {
@@ -17,20 +20,31 @@ public class NotificationHandler {
     @Autowired
     private UserRepository userRepository;
 
-    public String createNotification(String content, ArrayList<String> receivers) {
+    private final Map<NotificationType, AbstractNotificationTemplate> strategies = new HashMap<>();
 
-        if (content == null || content.isEmpty()) {
-            return "Content cannot be null or empty";
+    @Autowired
+    public NotificationHandler(List<AbstractNotificationTemplate> templates) {
+        for (AbstractNotificationTemplate template : templates) {
+            if (template instanceof CommentNotification) {
+                strategies.put(NotificationType.COMMENT, template);
+            } else if (template instanceof InitiativeUpdateNotification) {
+                strategies.put(NotificationType.INITIATIVE_UPDATE, template);
+            } else if (template instanceof MessageNotification) {
+                strategies.put(NotificationType.MESSAGE, template);
+            }
         }
-        if (receivers == null || receivers.isEmpty()) {
-            return "Receivers cannot be null or empty";
-        }
-
-        Notification notification = new Notification(content, "2023-10-01T12:00:00Z", receivers);
-        notificationRepository.save(notification);
-
-        return "Notification created successfully";
     }
+
+
+    public String createNotification(NotificationType type, ArrayList<String> receivers) {
+        AbstractNotificationTemplate template = strategies.get(type);
+        if (template == null) {
+            return "Notification type not supported";
+        }
+        return template.sendNotification(receivers);
+    }
+
+
 
     public ArrayList<ArrayList<String>> getUserNotifications(String id) {
         List<Notification> notifications = notificationRepository.findByReceiversContaining(id);

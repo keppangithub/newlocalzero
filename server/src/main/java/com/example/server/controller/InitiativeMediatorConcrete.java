@@ -1,6 +1,7 @@
 package main.java.com.example.server.controller;
 
 import main.java.com.example.server.entity.Initiative;
+import main.java.com.example.server.entity.NotificationType;
 import main.java.com.example.server.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class InitiativeMediatorConcrete implements CreateInitiativeMediator{
                 .map(User::getUserID)
                 .toList());
 
-        notificationHandler.createNotification("New Initiative Created", receiverIds);
+        notificationHandler.createNotification(NotificationType.NEW_INITIATIVE, receiverIds);
 
         initiativeRepository.save(initiative);
 

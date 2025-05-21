@@ -2,6 +2,7 @@ package main.java.com.example.server.controller;
 
 import main.java.com.example.server.entity.Category;
 import main.java.com.example.server.entity.Initiative;
+import main.java.com.example.server.entity.NotificationType;
 import main.java.com.example.server.entity.User;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,55 +43,6 @@ public class InitiativeHandler {
         return result;
     }
 
-    public String createInitiative(Map<String, String> initiativeInfo) {
-        String userId = initiativeInfo.get("userId");
-        if (userId == null || userId.isEmpty()) {
-            return "User ID cannot be null or empty";
-        }
-        String title = initiativeInfo.get("title");
-        if (title == null || title.isEmpty()) {
-            return "Title cannot be null or empty";
-        }
-        String description = initiativeInfo.get("description");
-        if (description == null || description.isEmpty()) {
-            return "Description cannot be null or empty";
-        }
-        String imgUrl = initiativeInfo.get("imageURL");
-        if (imgUrl == null || imgUrl.isEmpty()) {
-            return "Image URL cannot be null or empty";
-        }
-        String location = initiativeInfo.get("location");
-        if (location == null || location.isEmpty()) {
-            return "Location cannot be null or empty";
-        }
-        String startDate = initiativeInfo.get("startDate");
-        if (startDate == null || startDate.isEmpty()) {
-            return "Start date cannot be null or empty";
-        }
-        String endDate = initiativeInfo.get("endDate");
-        if (endDate == null || endDate.isEmpty()) {
-            return "End date cannot be null or empty";
-        }
-        Category category = Category.valueOf(initiativeInfo.get("category"));
-        if (category == null) {
-            return "Category cannot be null or empty";
-        }
-
-        Initiative newInitiative = new Initiative(title,userId,description,imgUrl,location,startDate,endDate,category);
-
-        List<User> users = userRepository.findByLocationID(Integer.parseInt(location));
-        ArrayList<String> userIds = new ArrayList<>();
-        for(User user : users ){
-            if(!user.getUserID().equals(userId)){
-                userIds.add(user.getUserID());
-            }
-        }
-        notificationHandler.createNotification("New initiative in your area", userIds);
-
-
-        initiativeRepository.save(newInitiative);
-        return "Initiative created successfully";
-    }
 
     public ArrayList<ArrayList<String>> getInitiativeById(String initiativeId) {
         Initiative initiative = initiativeRepository.findByInitiativeId(initiativeId);
@@ -129,7 +81,7 @@ public class InitiativeHandler {
         Initiative initiative = initiativeRepository.findByInitiativeId(id);
         initiative.updateDescription(description);
 
-        notificationHandler.createNotification("Initiative description has been updated", initiative.getUserIds());
+        notificationHandler.createNotification(NotificationType.INITIATIVE_UPDATE, initiative.getUserIds());
 
 
         if(initiative != null) {
