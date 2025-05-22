@@ -2,15 +2,15 @@ package main.java.com.example.server.controller;
 
 import com.mongodb.client.MongoDatabase;
 import main.java.com.example.server.entity.ActionType;
-import main.java.com.example.server.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.HandlerMapping;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * info
@@ -36,13 +36,13 @@ public class UsersAPIHandler {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<ArrayList<String>> getUserWithID(@PathVariable String id) {
-            ArrayList<String> userInfo = userHandler.getUserInfoByID(id);
-            if(userInfo != null) {
-                return ResponseEntity.ok(userInfo);
+    public ArrayList<ArrayList<String>> getUserWithID(@PathVariable String id) {
+            ArrayList<ArrayList<String>> response = userHandler.getUserInfoByID(id);
+            if(response != null) {
+                return response;
             }
-            else {
-                return ResponseEntity.ok(new ArrayList<>());
+        else {
+            return new ArrayList<>();
             }
      }
 

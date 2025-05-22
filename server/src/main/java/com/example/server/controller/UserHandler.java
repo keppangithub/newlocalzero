@@ -97,16 +97,32 @@ public class UserHandler {
             return user.getUsername();
         }
     }
-    public ArrayList<String> getUserInfoByID(String userID) {
+    public ArrayList<ArrayList<String>> getUserInfoByID(String userID) {
         User user = userRepository.findByUserID(userID);
+        ArrayList<ArrayList<String>> userInfo = new ArrayList<ArrayList<String>>();
 
         ArrayList<String> info = new ArrayList<>();
-        info.add("User ID: " + user.getUserID());
         info.add("Username: " + user.getUsername());
-        info.add("Location ID: " + user.getLocationID());
         info.add("Role: " + user.getRole());
+        info.add("Location ID: " + user.getLocationID());
+        userInfo.add(info);
 
-        return info;
+        ArrayList<String> initiatives = new ArrayList<>();
+        if(user.getInitiatives() != null) {
+            for(Initiative initiative : user.getInitiatives()) {
+                initiatives.add("Initiative: " + initiative.toString());
+            }
+        }
+        userInfo.add(initiatives);
+
+        ArrayList<String> actions = new ArrayList<>();
+        if(user.getActions() != null) {
+            for(Action action : user.getActions()) {
+                actions.add("Actions: " + action.toString());
+            }
+        }
+        userInfo.add(actions);
+        return userInfo;
     }
 
     public String setUserLocation(int locationID, String userID) {
