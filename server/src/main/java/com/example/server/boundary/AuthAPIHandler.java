@@ -36,9 +36,6 @@ public class AuthAPIHandler {
          this.dbConnection = DatabaseConnection.getInstance();
          database = dbConnection.getDatabase();
     }
-    //skicka tillbaka user kolla auth.js i frontend
-    //skicka null eller något som kan kollas
-    //json objekt med attributes från auth.js
     @PostMapping("/login") // route/endpoint
     public ResponseEntity<List<Object>> login(@RequestBody Map<String, String> loginInfo) {
         String email = loginInfo.get("email");
@@ -52,7 +49,6 @@ public class AuthAPIHandler {
             response.add(user.getEmail());
             response.add(user.getLocationID());
             response.add(user.getRole());
-
             if (user == null) {
                 return ResponseEntity.status(401).body(List.of("Invalid email or password"));
             }
