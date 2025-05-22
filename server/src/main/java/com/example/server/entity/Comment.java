@@ -7,7 +7,7 @@ import javax.swing.*;
  * Class for comments. A comment is tied to a user as well as a post. A comment cannot exist on its own.
  * composite design pattern, en comment kan innehålla en till comment, som Reddit
  *
- * @author Olivia Svensson, ...
+ * @author Olivia Svensson, Mojtaba Hauari
  */
 
 @Document(collection = "comments")

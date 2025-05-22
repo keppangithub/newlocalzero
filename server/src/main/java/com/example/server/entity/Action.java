@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * Class which represents an action. An action can be made by a User.
  *
- * @author Olivia Svensson, ... kevin nordkivs
+ * @author Olivia Svensson, Kevin Nordkvist, Mojtaba Hauari
  */
 @Document("action")
 public class Action {

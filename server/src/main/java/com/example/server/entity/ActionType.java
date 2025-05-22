@@ -1,8 +1,8 @@
-/**
- * @author Olivia Svensson, ...
- */
-
 package main.java.com.example.server.entity;
+
+/**
+ * @author Olivia Svensson
+ */
 
 public enum ActionType {
     BIKING,

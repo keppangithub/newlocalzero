@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Interface for different activities.
  *
- * @author Olivia Svensson, ...
+ * @author Olivia Svensson
  */
 
 public interface Activity {

@@ -4,7 +4,7 @@ package main.java.com.example.server.entity;
  * This is an enum for the categories an Initiative can be classified as. They are based on the 17 global sustainability
  * goals. https://en.wikipedia.org/wiki/Sustainable_Development_Goal_17
  *
- * @author Olivia Svensson, ...
+ * @author Olivia Svensson
  */
 
 public enum Category {
