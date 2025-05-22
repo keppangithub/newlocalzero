@@ -85,7 +85,6 @@ public class UserHandler {
         initiative.getUserIds().add(userId);
         initiativeRepository.save(initiative);
 
-       // user.joinInitiative(initiativeId); ??
         return "User joined initiative successfully";
     }
 
