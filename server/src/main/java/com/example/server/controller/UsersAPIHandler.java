@@ -38,11 +38,17 @@ public class UsersAPIHandler {
     @GetMapping("/users/{id}")
     public ArrayList<ArrayList<String>> getUserWithID(@PathVariable String id) {
             ArrayList<ArrayList<String>> response = userHandler.getUserInfoByID(id);
-            if(response != null) {
-                return response;
+            if(response != null && !response.isEmpty()) {
+                ArrayList<String> userInfo = response.get(0);
+                Map<String, Object> userMap = new HashMap<>();
+                userMap.put("userID", userInfo.get(0));
+                userMap.put("username", userInfo.get(1));
+                userMap.put("location", userInfo.get(2));
+                userMap.put("role", userInfo.get(3));
+                return userMap;
             }
-        else {
-            return new ArrayList<>();
+            else {
+                return new HashMap<>();
             }
      }
 

@@ -3,22 +3,22 @@ import axios from "axios";
 const port = "localhost:8080";
 
 async function getProfile(userID) {
-  /*try {
+  try {
     //TODO - uppdatera endpoint path
     const response = await axios.get((port+"/api/users/"+userID), {
     });
 
     return {
-    id: response.data[0],
-    username: response.data [1],
-    location: response.data [2],
-    role: response.data [3]
+    id: response.data.id,
+    username: response.data.username,
+    location: response.data.location,
+    role: response.data.role,
   };
 
   } catch (error) {
     console.error("Getting user profile failed:", error);
     throw error;
-  }*/
+  }
 
   // TEST DATA
   return {
