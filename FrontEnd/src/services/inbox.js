@@ -83,7 +83,7 @@ async function getChats(userID) {
 
 async function sendMessage(chatID, text, date, sender) {
   try {
-    const response = await axios.post(port + "/api/chats/" + chatID, {
+    const response = await axios.post(port + "/api/messages", {
       chatID,
       text,
       date,
