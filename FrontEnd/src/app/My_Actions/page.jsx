@@ -35,16 +35,18 @@ function MyActions() {
 
   // --------- populating page with data ---------
   const renderMyActions = () => {
-    return allActions.map((action, actionIndex) => (
-      <div key={actionIndex}>
-        <ActionBox
-          title={action.title}
-          type={action.type}
-          metric={action.metric}
-          date={action.date}
-        />
-      </div>
-    ));
+    if (Array.isArray(allActions) && allActions.length > 0) {
+      return allActions.map((action, actionIndex) => (
+        <div key={actionIndex}>
+          <ActionBox
+            title={action.title}
+            type={action.type}
+            metric={action.metric}
+            date={action.date}
+          />
+        </div>
+      ));
+    }
   };
 
   // --------- page body ---------

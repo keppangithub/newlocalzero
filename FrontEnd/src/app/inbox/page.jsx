@@ -37,21 +37,23 @@ function InboxPage() {
 
   // --------- populating page with data ---------
   const renderChats = () => {
-    return allInbox.map((inbox, inboxIndex) => (
-      <div key={inboxIndex}>
-        <button
-          className="bg-gray-100 mt-6 p-5 rounded w-full justify-items-start
+    if (Array.isArray(allInbox) && allInbox.length > 0) {
+      return allInbox.map((inbox, inboxIndex) => (
+        <div key={inboxIndex}>
+          <button
+            className="bg-gray-100 mt-6 p-5 rounded w-full justify-items-start
         hover:bg-gray-300"
-          onClick={() => chatClicked(inbox.name, inbox.id)}
-        >
-          <p>{inbox.name}</p>
-        </button>
-      </div>
-    ));
+            onClick={() => chatClicked(inbox.name, inbox.id)}
+          >
+            <p>{inbox.name}</p>
+          </button>
+        </div>
+      ));
+    }
   };
   const renderMessages = () => {
     const foundInbox = allInbox.find((inbox) => inbox.name === selectedChat);
-    if (foundInbox) {
+    if (foundInbox && Array.isArray(foundInbox) && foundInbox.length > 0) {
       return foundInbox.messages.map((message, messageIndex) => (
         <div key={messageIndex}>
           <MessageBox
@@ -73,13 +75,25 @@ function InboxPage() {
       const date = new Date();
       const formattedDate = date.toISOString().split("T")[0];
       //alert("Sending message: "+message+" by "+currentUser.id+" in chat "+selectedChatID+" on "+formattedDate);
-      const sendMessage = await inbox.sendMessage(selectedChatID, message, date, currentUser.id);
+      const sendMessage = await inbox.sendMessage(
+        selectedChatID,
+        message,
+        date,
+        currentUser.id
+      );
+      updateData();
     }
   }
   const chatClicked = (clickedName, clickedID) => {
     setSelectedChat(clickedName);
     setSelectedChatID(clickedID);
   };
+
+  // Laddar om sidan
+  async function updateData() {
+    const data = await inbox.getChats(currentUser.id);
+    setAllInbox(data);
+  }
 
   // --------- page body ---------
   return (

@@ -59,22 +59,31 @@ function InitiativeView() {
         formattedDate,
         commentImageURL
       );
-      // TODO: ladda om sidan
+      updateData();
     } else {
       alert("comment cannot be empty");
     }
   }
   async function updateInitiative() {
     if (updateText) {
+      const date = new Date();
+      const formattedDate = date.toISOString().split("T")[0];
+      const updateTextFormatted =
+        "UPDATE (" + formattedDate + "): " + updateText;
       const postingUpdate = await initiative.updateInitiative(
         initID,
-        updateText
+        updateTextFormatted
       );
-      // TODO: ladda om sidan
+      updateData();
     } else {
       alert("update cannot be empty");
       return;
     }
+  }
+  // Laddar om sidan
+  async function updateData() {
+    const data = await initiative.getInitiative(initID);
+    setInitiativeDetails(data);
   }
 
   // --------- populating page with data ---------
