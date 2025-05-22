@@ -3,26 +3,22 @@ import axios from "axios";
 const port = "localhost:8080";
 
 async function getProfile(userID) {
-  try {
-    const response = await axios.get(port + "/api/users/" + userID);
+  /*try {
+    //TODO - uppdatera endpoint path
+    const response = await axios.get((port+"/api/users/"+userID), {
+    });
 
-    // Extracting data from the nested ArrayList structure
-    if (response.data.length > 0) {
-      const userInfo = response.data[0];
-      return {
-        id: userInfo[0],
-        username: userInfo[1],
-        location: userInfo[2],
-        role: userInfo[3],
-      };
-    } else {
-      throw new Error("User not found");
-    }
+    return {
+    id: response.data[0],
+    username: response.data [1],
+    location: response.data [2],
+    role: response.data [3]
+  };
+
   } catch (error) {
     console.error("Getting user profile failed:", error);
     throw error;
-  }
-
+  }*/
 
   // TEST DATA
   return {
