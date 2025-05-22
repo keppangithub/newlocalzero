@@ -2,6 +2,7 @@ package main.java.com.example.server.controller;
 
 import main.java.com.example.server.entity.Chat;
 import main.java.com.example.server.entity.Message;
+import main.java.com.example.server.entity.NotificationType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,7 @@ public class MessageHandler {
         Message newMessage = new Message(chatId,senderId, recieverId, message, date);
         ArrayList<String> receivers = new ArrayList<>();
         receivers.add(recieverId);
-        notificationHandler.createNotification("New message ", receivers);
+        notificationHandler.createNotification(NotificationType.MESSAGE, receivers);
         messageRepository.save(newMessage);
         return "Message sent successfully";
     }
