@@ -3,7 +3,7 @@ import axios from "axios";
 const port = "localhost:8080";
 
 async function getChats(userID) {
-  /*
+
   try {
     const response = await axios.get(port + "/api/chats", {
       userID,
@@ -32,9 +32,9 @@ async function getChats(userID) {
     console.error("Getting chats failed:", error);
     throw error;
   }
-    */
 
-  // TEST DATA
+/*
+
   const allInbox = [
     {
       name: "Mojtaba",
@@ -79,6 +79,8 @@ async function getChats(userID) {
     },
   ];
   return allInbox;
+
+ */
 }
 
 async function sendMessage(chatID, text, date, sender) {

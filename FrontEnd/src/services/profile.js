@@ -24,13 +24,16 @@ async function getProfile(userID) {
   }
 
 
-  // TEST DATA
+
+  /* TEST DATA
   return {
     id: "123460",
     username: "Another User",
     location: "Stockholm",
     role: "Resident",
   };
+
+   */
 }
 
 async function updateLocation(userID, location) {

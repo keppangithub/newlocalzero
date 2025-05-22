@@ -4,7 +4,7 @@ const port = "localhost:8080";
 let actionStats;
 
 async function getMyActions(userID) {
-  /*try {
+  try {
     const response = await axios.get(
       port + "/api/users/" + userID + "/actions",
       {}
@@ -21,10 +21,10 @@ async function getMyActions(userID) {
       actionsArray.push(actionObject);
     });
 
-    const kmBiked = 0;
-    const publicTransport = 0;
-    const itemsThrifted = 0;
-    const trashPickedUp = 0;
+    let kmBiked = 0;
+    let publicTransport = 0;
+    let itemsThrifted = 0;
+    let trashPickedUp = 0;
     actionsArray.forEach((action) => {
       switch (action.type) {
         case "Running/Jogging/Biking":
@@ -54,9 +54,9 @@ async function getMyActions(userID) {
   } catch (error) {
     console.error("Getting my actions failed:", error);
     throw error;
-  }*/
+  }
 
-    // TEST DATA
+    /* TEST DATA
   const allActions = [];
   allActions[0] = {
     title: "My morning route to work",
@@ -108,6 +108,7 @@ async function getMyActions(userID) {
   };
 
   return allActions;
+     */
 }
 
 async function postNewAction(userID, title, date, type, metric) {

@@ -52,15 +52,17 @@ function logout() {
 }
 
 function getCurrentUser() {
-  //return currentUser;
+  return currentUser;
 
-  // TEST DATA
+  /* TEST DATA
   return {
     id: "123456",
     username: "Ranaciita",
     location: "Malmö",
     role: "Community Organizer",
   };
+
+   */
 }
 
 export default {

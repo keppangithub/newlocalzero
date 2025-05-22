@@ -3,7 +3,7 @@ import axios from "axios";
 const port = "localhost:8080";
 
 async function getAllInitiatives(location) {
-  /*try {
+  try {
     const response = await axios.get(port + "/api/inits", {
       location,
     });
@@ -23,9 +23,9 @@ async function getAllInitiatives(location) {
   } catch (error) {
     console.error("Getting initiatives failed:", error);
     throw error;
-  }*/
+  }
 
-  // TEST DATA
+  /* TEST DATA
   const allInitiatives = [];
   allInitiatives[0] = {
     title: "Pickup Trash Event",
@@ -49,11 +49,12 @@ async function getAllInitiatives(location) {
   if (location === "Malmö") {
     return allInitiatives;
   }
+
+   */
 }
 
 async function getMyInitiatives(userID) {
-  /*try {
-    //TODO - uppdatera endpoint path
+  try {
     const response = await axios.get(port+"/api/users/" + userID + "/inits", {});
 
     const initiativesArray = [];
@@ -71,9 +72,9 @@ async function getMyInitiatives(userID) {
   } catch (error) {
     console.error("Getting my initiatives failed:", error);
     throw error;
-  }*/
+  }
 
-  // TEST DATA
+  /* TEST DATA
   const myInitiatives = [];
   myInitiatives[0] = {
     title: "Charity day for a greener future",
@@ -82,10 +83,11 @@ async function getMyInitiatives(userID) {
     id: "13",
   };
   return myInitiatives;
+   */
 }
 
 async function getMyNotifications(userID) {
-  /*try {
+  try {
     const response = await axios.get(port+"/api/users/" + userID + "/notifications", {});
     const notifsArray = [];
     response.data.array.forEach((notif) => {
@@ -100,9 +102,9 @@ async function getMyNotifications(userID) {
   } catch (error) {
     console.error("Getting my notifications failed:", error);
     throw error;
-  }*/
+  }
 
-  // TEST DATA
+  /* TEST DATA
   const notifications = [];
   notifications[0] = {
     title: "There was an update on an initiative you joined.",
@@ -115,6 +117,8 @@ async function getMyNotifications(userID) {
     id: "21",
   };
   return notifications;
+
+   */
 }
 
 async function postNewInitiative(
@@ -203,7 +207,7 @@ async function joinInitiative(userID, initiativeID) {
   }
 }
 async function getInitiative(initiativeID) {
-  /*
+
   try {
     const response = await axios.get("/api/inits/" + initiativeID, {});
 
@@ -236,9 +240,9 @@ async function getInitiative(initiativeID) {
   } catch (error) {
     console.error("Getting initiative failed:", error);
     throw error;
-  }*/
+  }
 
-  // TEST DATA
+  /* TEST DATA
   const comments = [];
   comments[0] = {
     content: "nice event",
@@ -288,6 +292,8 @@ async function getInitiative(initiativeID) {
       "https://media.istockphoto.com/id/1402088366/photo/an-unrecognizable-woman-holds-a-plastic-garbage-bottle.jpg?s=612x612&w=0&k=20&c=yY93Gk_Jk2uZXCHmemCtsw_3ZdIo8UgU1PwWffxGopk=",
     allComments: comments,
   };
+
+   */
 }
 
 export default {
