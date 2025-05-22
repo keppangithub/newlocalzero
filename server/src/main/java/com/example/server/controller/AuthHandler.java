@@ -12,12 +12,12 @@ public class AuthHandler {
     @Autowired
     private UserRepository userRepository;
 
-    public Boolean validateLogin(String email, String password) {
+    public User validateLogin(String email, String password) {
         List<User> user = userRepository.findByEmailAndPassword(email, password);
         if(user == null || user.isEmpty()) {
-            return false;
+            return null;
         }
-        return true;
+        return user.get(0);
     }
 
     public User registerUser(User user) {

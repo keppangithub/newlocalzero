@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,17 +40,25 @@ public class AuthAPIHandler {
     //skicka null eller något som kan kollas
     //json objekt med attributes från auth.js
     @PostMapping("/login") // route/endpoint
-    public ResponseEntity<String> login(@RequestBody Map<String, String> loginInfo) {
+    public ResponseEntity<List<Object>> login(@RequestBody Map<String, String> loginInfo) {
         String email = loginInfo.get("email");
         String password = loginInfo.get("password");
         try {
-            Boolean ok = authHandler.validateLogin(email, password);
-            if (!ok) {
-                return ResponseEntity.status(401).body("Invalid email or password");
+            User user = authHandler.validateLogin(email, password);
+
+            List<Object> response = new ArrayList<>();
+            response.add(user.getUserID());
+            response.add(user.getUsername());
+            response.add(user.getEmail());
+            response.add(user.getLocationID());
+            response.add(user.getRole());
+
+            if (user == null) {
+                return ResponseEntity.status(401).body(List.of("Invalid email or password"));
             }
-            return ResponseEntity.ok("Login successful for user: " + email);
+            return ResponseEntity.ok(response);
         }catch (Exception e) {
-            return ResponseEntity.status(500).body("Error: " + e.getMessage());
+            return ResponseEntity.status(500).body(List.of("Internal server error"));
         }
     }
 
