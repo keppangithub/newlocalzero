@@ -21,13 +21,13 @@ public class ChatAPIHandler {
         return chatHandler.startChatWithUser(user1Id, user2Id);
     }
 
-/*
+
      @GetMapping("/chats")
-    public Map<String,Object> getChats(@RequestParam String userId) {
-        return chatHandler.getFormattedMessages(userId);
+    public List<List<Object>> getChats(@RequestBody Map<String,String> userInfo) {
+        return chatHandler.getFormattedMessages(userInfo.get("userId"));
     }
 
- */
+
 
 
 

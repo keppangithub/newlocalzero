@@ -23,7 +23,7 @@ async function getChats(userID) {
       const chatObject = {
         name: chat[0],
         id: chat[1],
-        metric: messages
+        messages: messages
       };
       inboxArray.push(chatObject);
     });
