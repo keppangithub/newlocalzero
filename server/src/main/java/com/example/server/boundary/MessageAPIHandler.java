@@ -23,12 +23,12 @@ public class MessageAPIHandler {
 
     @PostMapping("/messages")
     public String sendMessage(@RequestBody Map<String, String> messageData) {
-        String chatId = messageData.get("chatId");
+        String chatID = messageData.get("chatId");
         String message = messageData.get("text");
         String date = messageData.get("date");
         String senderId = messageData.get("sender");
 
-        return messageHandler.sendMessage(chatId, senderId, message,date);
+        return messageHandler.sendMessage(chatID, senderId, message,date);
     }
 
 
