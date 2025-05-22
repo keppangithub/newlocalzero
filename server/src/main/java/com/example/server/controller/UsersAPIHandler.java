@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.HandlerMapping;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -45,10 +46,10 @@ public class UsersAPIHandler {
                 userMap.put("username", userInfo.get(1));
                 userMap.put("location", userInfo.get(2));
                 userMap.put("role", userInfo.get(3));
-                return userMap;
+                return response;
             }
             else {
-                return new HashMap<>();
+                return new ArrayList<>();
             }
      }
 
