@@ -23,6 +23,7 @@ async function getProfile(userID) {
     throw error;
   }
 
+
   // TEST DATA
   return {
     id: "123460",

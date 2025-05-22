@@ -2,16 +2,15 @@ package main.java.com.example.server.controller;
 
 import com.mongodb.client.MongoDatabase;
 import main.java.com.example.server.entity.ActionType;
+import main.java.com.example.server.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.HandlerMapping;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+
+import java.util.*;
 
 /**
  * info
@@ -37,19 +36,13 @@ public class UsersAPIHandler {
     }
 
     @GetMapping("/users/{id}")
-    public ArrayList<ArrayList<String>> getUserWithID(@PathVariable String id) {
-            ArrayList<ArrayList<String>> response = userHandler.getUserInfoByID(id);
-            if(response != null && !response.isEmpty()) {
-                ArrayList<String> userInfo = response.get(0);
-                Map<String, Object> userMap = new HashMap<>();
-                userMap.put("userID", userInfo.get(0));
-                userMap.put("username", userInfo.get(1));
-                userMap.put("location", userInfo.get(2));
-                userMap.put("role", userInfo.get(3));
-                return response;
+    public ResponseEntity<ArrayList<String>> getUserWithID(@PathVariable String id) {
+            ArrayList<String> userInfo = userHandler.getUserInfoByID(id);
+            if(userInfo != null) {
+                return ResponseEntity.ok(userInfo);
             }
             else {
-                return new ArrayList<>();
+                return ResponseEntity.ok(new ArrayList<>());
             }
      }
 
