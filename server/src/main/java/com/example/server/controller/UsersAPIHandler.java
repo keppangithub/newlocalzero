@@ -28,6 +28,8 @@ public class UsersAPIHandler {
     private UserHandler userHandler;
     @Autowired
     private NotificationHandler notificationHandler;
+    @Autowired
+    private InitiativeHandler initiativeHandler;
 
     public UsersAPIHandler(@Qualifier("resourceHandlerMapping") HandlerMapping resourceHandlerMapping) {
         this.resourceHandlerMapping = resourceHandlerMapping;
@@ -47,7 +49,7 @@ public class UsersAPIHandler {
      }
 
     @PutMapping("/users/{id}/locations")
-    public ResponseEntity<String> putUserLocationID(@PathVariable String id, @RequestParam int locationID) {
+    public ResponseEntity<String> putUserLocationID(@PathVariable String id, @RequestParam String locationID) {
         String response = userHandler.setUserLocation(locationID, id);
         try {
             if (response.equals("User does not exist, unable to change location")) {
@@ -70,6 +72,15 @@ public class UsersAPIHandler {
         }
     }
 
+    @GetMapping("/users/{id}/inits")
+    public ResponseEntity<ArrayList<String>> getUserInits(@PathVariable String id) {
+        ArrayList<String> inits = initiativeHandler.getInitiativeByUserId(id);
+        if(inits != null) {
+            return ResponseEntity.ok(inits);
+        }else{
+            return ResponseEntity.ok(new ArrayList<>());
+        }
+    }
 
     @PostMapping("/users/{id}/actions")
     public Boolean postActionWithUserID(@RequestBody Map<String, String> actionInfo)  {

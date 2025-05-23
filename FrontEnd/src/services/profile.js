@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const port = "localhost:8080";
+const port = "http://localhost:8080";
 
 async function getProfile(userID) {
   try {

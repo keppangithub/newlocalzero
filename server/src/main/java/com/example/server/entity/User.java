@@ -19,7 +19,7 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private Integer locationID;
+    private String locationID;
     private String role;
     private ArrayList<Action> actions;
     private ArrayList<Initiative> initiatives;
@@ -27,7 +27,7 @@ public class User {
     private ArrayList<Notification> notifications;
     private ControllerClient controller;
 
-    public User(String username, String password, String email, Integer locationID, String role) {
+    public User(String username, String password, String email, String locationID, String role) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -126,7 +126,7 @@ public class User {
         this.role = role;
     }
 
-    public Integer getLocationID() {
+    public String getLocationID() {
         return this.locationID;
     }
 
@@ -142,7 +142,7 @@ public class User {
         return this.friendList;
     }
 
-    public void setLocation(int locationID) {
+    public void setLocation(String locationID) {
         this.locationID = locationID;
     }
 

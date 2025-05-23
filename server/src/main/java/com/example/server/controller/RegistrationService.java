@@ -26,10 +26,10 @@ public class RegistrationService {
                 return false;
             }
 
-            String username = userInfo.get("username");
+            String username = userInfo.get("name");
             String password = userInfo.get("password");
             String email = userInfo.get("email");
-            int location = Integer.parseInt(userInfo.get("location"));
+            String location = userInfo.get("location");
             String role = userInfo.get("role");
 
             User newUser = new User(username, password, email, location, role);

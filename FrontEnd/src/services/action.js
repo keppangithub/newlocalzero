@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const port = "localhost:8080";
+const port = "http://localhost:8080";
 let actionStats;
 
 async function getMyActions(userID) {
@@ -11,37 +11,43 @@ async function getMyActions(userID) {
     );
 
     const actionsArray = [];
-    response.data.array.forEach((action) => {
-      const actionObject = {
-        title: action[0],
-        type: action[1],
-        metric: action[2],
-        date: action[3],
-      };
-      actionsArray.push(actionObject);
-    });
+    if (response.data !== undefined && Array.isArray(response.data)) {
+      response.data.forEach((action) => {
+        const actionObject = {
+          title: action[0],
+          type: action[1],
+          metric: action[2],
+          date: action[3],
+        };
+        actionsArray.push(actionObject);
+      });
+    }
 
     let kmBiked = 0;
     let publicTransport = 0;
     let itemsThrifted = 0;
     let trashPickedUp = 0;
-    actionsArray.forEach((action) => {
-      switch (action.type) {
-        case "Running/Jogging/Biking":
-          kmBiked += Number(action.metric);
-          break;
-        case "Public Transport":
-          publicTransport += Number(action.metric);
-          break;
-        case "Thrifting":
-          itemsThrifted += Number(action.metric);
-          break;
-        case "Trash Pickup":
-          trashPickedUp += Number(action.metric);
-          break;
-        default:
-      }
-    });
+
+    if (actionsArray.length > 0) {
+      actionsArray.forEach((action) => {
+        switch (action.type) {
+          case "Running/Jogging/Biking":
+            kmBiked += Number(action.metric);
+            break;
+          case "Public Transport":
+            publicTransport += Number(action.metric);
+            break;
+          case "Thrifting":
+            itemsThrifted += Number(action.metric);
+            break;
+          case "Trash Pickup":
+            trashPickedUp += Number(action.metric);
+            break;
+          default:
+        }
+      });
+    }
+    
     actionStats = {
       kmBiked: kmBiked,
       publicTransport: publicTransport,
@@ -50,13 +56,12 @@ async function getMyActions(userID) {
     };
 
     return actionsArray;
-
   } catch (error) {
     console.error("Getting my actions failed:", error);
     throw error;
   }
 
-    /* TEST DATA
+  /* TEST DATA
   const allActions = [];
   allActions[0] = {
     title: "My morning route to work",
