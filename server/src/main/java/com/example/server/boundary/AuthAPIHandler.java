@@ -44,19 +44,11 @@ public class AuthAPIHandler {
         String email = loginInfo.get("email");
         String password = loginInfo.get("password");
         try {
-            User user = authHandler.validateLogin(email, password);
-
-            List<Object> response = new ArrayList<>();
-            response.add(user.getUserID());
-            response.add(user.getUsername());
-            response.add(user.getEmail());
-            response.add(user.getLocationID());
-            response.add(user.getRole());
-
-            if (user == null) {
+            List<Object> result = authHandler.validateLogin(email, password);
+            if (result == null || result.isEmpty()) {
                 return ResponseEntity.status(401).body(List.of("Invalid email or password"));
             }
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(result);
         }catch (Exception e) {
             return ResponseEntity.status(500).body(List.of("Internal server error"));
         }

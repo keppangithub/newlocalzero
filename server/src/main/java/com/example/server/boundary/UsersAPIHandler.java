@@ -1,11 +1,11 @@
-package main.java.com.example.server.controller;
+package main.java.com.example.server.boundary;
 
 import com.mongodb.client.MongoDatabase;
-import main.java.com.example.server.entity.ActionType;
-import main.java.com.example.server.entity.User;
+import main.java.com.example.server.controller.DatabaseConnection;
+import main.java.com.example.server.controller.NotificationHandler;
+import main.java.com.example.server.controller.UserHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.HandlerMapping;
@@ -79,7 +79,7 @@ public class UsersAPIHandler {
     @PostMapping("/users/{id}/inits")
     public ResponseEntity<String> joinInit(@RequestBody Map<String,String> initiativeInfo) {
         try {
-            String initiativeId = initiativeInfo.get("initativeId");
+            String initiativeId = initiativeInfo.get("initiativeID");
             String userId = initiativeInfo.get("userID");
             String response = userHandler.joinInitiative(initiativeId,userId);
             switch (response) {
