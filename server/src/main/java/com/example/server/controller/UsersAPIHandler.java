@@ -83,8 +83,13 @@ public class UsersAPIHandler {
     }
 
     @PostMapping("/users/{id}/actions")
-    public Boolean postActionWithUserID(@RequestBody Map<String, String> actionInfo)  {
-        return userHandler.postUserAction(actionInfo);
+    public ResponseEntity<?> postActionWithUserID(@RequestBody Map<String, String> actionInfo)  {
+        boolean ok = userHandler.postUserAction(actionInfo);
+        if(ok){
+            return ResponseEntity.ok(Map.of("success",true));
+        }else{
+            return ResponseEntity.status(500).body(Map.of("fail",false));
+        }
     }
 
     @PostMapping("/users/{id}/inits")

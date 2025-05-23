@@ -40,7 +40,7 @@ public class CommentHandler {
         if (date == null || date.isEmpty()) {
             return false;
         }
-        if (imageURL == null || imageURL.isEmpty()) {
+        if (imageURL == null) {
             return false;
         }
 

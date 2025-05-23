@@ -76,10 +76,16 @@ function NewAction() {
             value={actionType}
           >
             <option defaultValue={null}>Select Type...</option>
-            <option value="Running/Jogging/Biking">Running/Jogging/Biking</option>
-            <option value="Public Transport">Public Transport</option>
-            <option value="Thrifting">Thrifting</option>
-            <option value="Trash Pickup">Trash Pickup</option>
+            <option value="BIKING">BIKING</option>
+            <option value="WALKING">WALKING</option>
+            <option value="PUBLIC_TRANSPORT">PUBLIC_TRANSPORT</option>
+            <option value="PICK_UP_TRASH">PICK_UP_TRASH</option>
+            <option value="RECYCLING">RECYCLING</option>
+            <option value="TOOL_SHARING">TOOL_SHARING</option>
+            <option value="RECYCLING_DRIVE">RECYCLING_DRIVE</option>
+            <option value="RIDE_SHARING">RIDE_SHARING</option>
+            <option value="COMMUNITY_GARDENING">COMMUNITY_GARDENING</option>
+            <option value="FOOD_SWAPS">FOOD_SWAPS</option>
           </select>
         </div>
 
@@ -93,17 +99,7 @@ function NewAction() {
           ></input>
         </div>
 
-        <p>
-          *Metrics for actions
-          <br />
-          biking/jogging/running: kilometers
-          <br />
-          public transport: instances
-          <br />
-          trash cleanup: bags collected
-          <br />
-          thrifting: number of items
-        </p>
+        <br/>
 
         <button
           className="text-white bg-gray-700 hover:bg-gray-800 rounded-md p-2 w-[100px]"
@@ -111,6 +107,23 @@ function NewAction() {
         >
           POST
         </button>
+      </div>
+
+      <div className="w-[45%] p-10 space-y-1">
+        <p>
+          *Metrics for actions
+        </p>
+        <br/>
+        <p>Biking: kilometers</p>
+        <p>Walked: kilometers</p>
+        <p>Public Transport: number of times taken</p>
+        <p>Trash pickup: number of collected bags</p>
+        <p>Recycling: number of times</p>
+        <p>Shared tools: number of tools </p>
+        <p>Recycling Drive: number of times</p>
+        <p>Ride Sharing: number of times </p>
+        <p>Community Garedening: number of times </p>
+        <p>Food Swapped: number of times</p>
       </div>
     </div>
   );

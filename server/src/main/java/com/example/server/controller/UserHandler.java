@@ -101,10 +101,10 @@ public class UserHandler {
         User user = userRepository.findByUserID(userID);
 
         ArrayList<String> info = new ArrayList<>();
-        info.add("User ID: " + user.getUserID());
-        info.add("Username: " + user.getUsername());
-        info.add("Location ID: " + user.getLocationID());
-        info.add("Role: " + user.getRole());
+        info.add(user.getUserID());
+        info.add(user.getUsername());
+        info.add(user.getLocationID());
+        info.add(user.getRole());
 
         return info;
     }
