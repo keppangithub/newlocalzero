@@ -43,7 +43,7 @@ async function register(name, email, password, location, role) {
       console.log("Registration successful!");
       return true;
     } else {
-      console.log("Registration failed (unexpected success value)");
+      console.log("Registration failed");
       return false;
     }
   } catch (error) {
