@@ -70,7 +70,8 @@ public class InitiativeHandler {
     }
 
     public List<ArrayList<String>> getInitiativeByUserId(String userId) {
-        List<Initiative> initiatives = initiativeRepository.findAllByUserId(userId);
+        List<Initiative> initiatives = initiativeRepository.findByUserIdOrUserIdsContaining(userId, userId);
+
 
         if(initiatives == null || initiatives.isEmpty()){
             return null;
