@@ -71,14 +71,14 @@ public class UsersAPIHandler {
      */
 
     @GetMapping("/users/{id}/actions")
-    public List<List<Object>> getUserActions(@PathVariable String id) {
+    public ResponseEntity<List<List<Object>>> getUserActions(@PathVariable String id) {
         List<List<Object>> response = userHandler.getUserActions(id);
 
         if(response != null) {
-            return response;
+            return ResponseEntity.ok(response);
         }
         else {
-            return new ArrayList<>();
+            return ResponseEntity.status(400).body(new ArrayList<>());
         }
     }
 

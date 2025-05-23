@@ -2,6 +2,7 @@ package main.java.com.example.server.boundary;
 
 import main.java.com.example.server.controller.MessageHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,13 +23,13 @@ public class MessageAPIHandler {
  */
 
     @PostMapping("/messages")
-    public String sendMessage(@RequestBody Map<String, String> messageData) {
+    public ResponseEntity<String> sendMessage(@RequestBody Map<String, String> messageData) {
         String chatID = messageData.get("chatId");
         String message = messageData.get("text");
         String date = messageData.get("date");
         String senderId = messageData.get("sender");
 
-        return messageHandler.sendMessage(chatID, senderId, message,date);
+        return ResponseEntity.ok(messageHandler.sendMessage(chatID, senderId, message, date));
     }
 
 

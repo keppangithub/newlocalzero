@@ -35,6 +35,7 @@ public class MessageHandler {
         Chat chat = chats.get(0);
         String recieverId = chat.getOtherUserId(senderId); // This is just to ensure the chat exists, you can add more logic if needed
         Message newMessage = new Message(chatId,senderId, recieverId, message, date);
+        System.out.println(newMessage);
         ArrayList<String> receivers = new ArrayList<>();
         receivers.add(recieverId);
         notificationHandler.createNotification(NotificationType.MESSAGE, receivers);
