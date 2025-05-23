@@ -29,7 +29,11 @@ function LandingPage() {
         locationText,
         selectedRole
       );
-      alert(signupStatus);
+      if (signupStatus) {
+        alert("signup successful");
+      } else {
+        alert("signup failed");
+      }
     }
   }
   async function loginClicked() {

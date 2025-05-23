@@ -1,124 +1,95 @@
 import axios from "axios";
 
-const port = "localhost:8080";
+const port = "http://localhost:8080";
 
 async function getAllInitiatives(location) {
+  console.log("entered getAllInitiaitves body:");
+
   try {
     const response = await axios.get(port + "/api/inits", {
-      location,
+      params: { location },
     });
 
     const initiativesArray = [];
-    response.data.array.forEach((init) => {
-      const initObject = {
-        title: init[0],
-        caption: init[1],
-        id: init[2],
-      };
-      initiativesArray.push(initObject);
-    });
 
-    return initiativesArray;
+    console.log("logging response in getAllInitiaitves body:");
+    console.log(response.data);
 
+    if (response.data !== undefined && Array.isArray(response.data)) {
+      response.data.forEach((init) => {
+        const initObject = {
+          title: init[0],
+          caption: init[1],
+          id: init[2],
+        };
+        initiativesArray.push(initObject);
+      });
+      return initiativesArray;
+    } else {
+      return null;
+    }
   } catch (error) {
     console.error("Getting initiatives failed:", error);
     throw error;
   }
-
-  /* TEST DATA
-  const allInitiatives = [];
-  allInitiatives[0] = {
-    title: "Pickup Trash Event",
-    caption:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    id: "12",
-  };
-  allInitiatives[1] = {
-    title: "Charity day for a greener future",
-    caption:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    id: "13",
-  };
-  allInitiatives[2] = {
-    title: "Blackout day 2025",
-    caption:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    id: "14",
-  };
-
-  if (location === "Malmö") {
-    return allInitiatives;
-  }
-
-   */
 }
 
 async function getMyInitiatives(userID) {
   try {
-    const response = await axios.get(port+"/api/users/" + userID + "/inits", {});
+    const response = await axios.get(
+      port + "/api/users/" + userID + "/inits",
+      {}
+    );
 
     const initiativesArray = [];
-    response.data.array.forEach((init) => {
-      const initObject = {
-        title: init[0],
-        caption: init[1],
-        id: init[2],
-      };
-      initiativesArray.push(initObject);
-    });
 
-    return initiativesArray;
+    console.log("My Initiatives object");
+    console.log(response.data);
 
+    if (response.data !== undefined && Array.isArray(response.data)) {
+      response.data.forEach((init) => {
+        const initObject = {
+          title: init[0],
+          caption: init[1],
+          id: init[2],
+        };
+        initiativesArray.push(initObject);
+      });
+      return initiativesArray;
+    } else {
+      return null;
+    }
   } catch (error) {
     console.error("Getting my initiatives failed:", error);
     throw error;
   }
-
-  /* TEST DATA
-  const myInitiatives = [];
-  myInitiatives[0] = {
-    title: "Charity day for a greener future",
-    caption:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    id: "13",
-  };
-  return myInitiatives;
-   */
 }
 
 async function getMyNotifications(userID) {
   try {
-    const response = await axios.get(port+"/api/users/" + userID + "/notifications", {});
+    const response = await axios.get(
+      port + "/api/users/" + userID + "/notifications",
+      {}
+    );
+
     const notifsArray = [];
-    response.data.array.forEach((notif) => {
-      const notifObject = {
-        title: notif[0],
-        date: notif[1],
-        id: notif[2],
-      };
-      notifsArray.push(notifObject);
-    });
-    return notifsArray;
+    if (response.data !== undefined && Array.isArray(response.data)) {
+      response.data.forEach((notif) => {
+        const notifObject = {
+          title: notif[0],
+          date: notif[1],
+          id: notif[2],
+        };
+        notifsArray.push(notifObject);
+      });
+      return notifsArray;
+    } else {
+      return null;
+    }
   } catch (error) {
     console.error("Getting my notifications failed:", error);
     throw error;
   }
-
-  /* TEST DATA
-  const notifications = [];
-  notifications[0] = {
-    title: "There was an update on an initiative you joined.",
-    date: "2025-05-13",
-    id: "20",
-  };
-  notifications[1] = {
-    title: "There was an update on an initiative you joined.",
-    date: "2025-05-12",
-    id: "21",
-  };
-  return notifications;
-
-   */
 }
 
 async function postNewInitiative(
@@ -207,36 +178,37 @@ async function joinInitiative(userID, initiativeID) {
   }
 }
 async function getInitiative(initiativeID) {
-
   try {
-    const response = await axios.get("/api/inits/" + initiativeID, {});
+    const response = await axios.get(port + "/api/inits/" + initiativeID, {});
 
-    const comments = [];
-    response.data[9].array.forEach((comment) => {
-      const commentObject = {
-        content: comment[0],
-        date: comment[1],
-        commenterName: comment[2],
-        commenterID: comment[3],
-        imageURL: comment[4],
-        id: comment[5],
-      };
-      comments.push(commentObject);
-    });
+    let comments = [];
+    if (response.data[1] !== undefined && Array.isArray(response.data[1])) {
+      console.log(response);
+      response.data[1].forEach((comment) => {
+        const commentObject = {
+          content: comment[0],
+          date: comment[1],
+          commenterName: comment[2],
+          commenterID: comment[3],
+          imageURL: comment[4],
+          id: comment[5],
+        };
+        comments.push(commentObject);
+      });
+    }
 
     return {
-      title: response.data[0],
-    description: response.data[1],
-    startDate: response.data[2],
-    endDate: response.data[3],
-    location: response.data[4],
-    category: response.data[5],
-    posterUsername: response.data[6],
-    posterID: response.data[7],
-    imageURL: response.data[8],
-    allComments: comments
+      title: response.data[0][0],
+      description: response.data[0][1],
+      startDate: response.data[0][2],
+      endDate: response.data[0][3],
+      location: response.data[0][4],
+      category: response.data[0][5],
+      posterUsername: response.data[0][6],
+      posterID: response.data[0][7],
+      imageURL: response.data[0][8],
+      allComments: comments,
     };
-
   } catch (error) {
     console.error("Getting initiative failed:", error);
     throw error;

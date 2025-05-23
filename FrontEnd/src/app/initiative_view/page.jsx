@@ -88,6 +88,9 @@ function InitiativeView() {
 
   // --------- populating page with data ---------
   const renderUpdateField = () => {
+    console.log("poster ID = " + initiativeDetails.posterID);
+    console.log("user ID = " + currentUser.id);
+
     if (initiativeDetails.posterID === currentUser.id) {
       return (
         <div className="space-y-2">

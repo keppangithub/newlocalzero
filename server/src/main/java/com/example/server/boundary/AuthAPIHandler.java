@@ -55,7 +55,12 @@ public class AuthAPIHandler {
     }
 
     @PostMapping("/register")
-    public boolean register(@RequestBody Map<String, String> registerInfo) {
-        return registrationService.registerUser(registerInfo);
+    public ResponseEntity<?> register(@RequestBody Map<String, String> registerInfo) {
+        boolean ok = registrationService.registerUser(registerInfo);
+        if(ok){
+            return ResponseEntity.ok(Map.of("success",true));
+        }else{
+            return ResponseEntity.status(500).body(Map.of("fail",false));
+        }
     }
 }

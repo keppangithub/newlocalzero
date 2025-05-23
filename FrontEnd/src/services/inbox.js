@@ -1,39 +1,40 @@
 import axios from "axios";
 
-const port = "localhost:8080";
+const port = "http://localhost:8080";
 
 async function getChats(userID) {
-
   try {
     const response = await axios.get(port + "/api/chats", {
       userID,
     });
 
     const inboxArray = [];
-    
-    response.data.array.forEach((chat) => {
-      const messages = [];
-      chat[3].array.forEach((message) => {
-        messages.push({
-          text: message[0],
-          sender: message[1],
-          date: message[2]
+
+    if (response.data !== undefined && Array.isArray(response.data)) {
+      response.data.forEach((chat) => {
+        const messages = [];
+        chat[3].forEach((message) => {
+          messages.push({
+            text: message[0],
+            sender: message[1],
+            date: message[2],
+          });
         });
+        const chatObject = {
+          name: chat[0],
+          id: chat[1],
+          messages: messages,
+        };
+        inboxArray.push(chatObject);
       });
-      const chatObject = {
-        name: chat[0],
-        id: chat[1],
-        messages: messages
-      };
-      inboxArray.push(chatObject);
-    });
+    }
     return inboxArray;
   } catch (error) {
     console.error("Getting chats failed:", error);
     throw error;
   }
 
-/*
+  /*
 
   const allInbox = [
     {

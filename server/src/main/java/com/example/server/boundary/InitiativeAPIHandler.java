@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * info
@@ -29,9 +30,8 @@ public class InitiativeAPIHandler {
     private CommentHandler commentHandler;
 
     @GetMapping("/inits")
-    public List<ArrayList<String>> getInits(@RequestBody Map<String,String> locationInfo) {
-        String location = locationInfo.get("location");
-        return initiativeHandler.getInitiatives(location);
+    public ResponseEntity<List<ArrayList<String>>> getInits(@RequestParam String location) {
+        return ResponseEntity.ok(initiativeHandler.getInitiatives(location));
     }
     @PostMapping("/inits")
     public boolean postInits(@RequestBody Map<String,String> initiativeInfo) {
@@ -39,8 +39,8 @@ public class InitiativeAPIHandler {
     }
 
     @GetMapping("/inits/{initiativeId}") //dubbelkolla
-    public ArrayList<ArrayList<String>> getInitiativeWithID(@PathVariable String initiativeId) {
-        return initiativeHandler.getInitiativeById(initiativeId);
+    public ResponseEntity<List<Object>> getInitiativeWithID(@PathVariable String initiativeId) {
+        return ResponseEntity.ok(initiativeHandler.getInitiativeById(initiativeId));
     }
 
     @PutMapping("/inits/{id}")

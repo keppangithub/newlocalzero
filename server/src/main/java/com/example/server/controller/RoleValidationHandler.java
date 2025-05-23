@@ -7,11 +7,7 @@ public class RoleValidationHandler extends RegistrationHandler {
     @Override
     public boolean handle(Map<String, String> userInfo) {
         String role = userInfo.get("role");
-        if (role == null ||
-                role.length() < 10 ||
-                role.length() > 65 ||
-                role.contains(" ") ||
-                !role.matches("^[a-zA-Z0-9]+$")) {
+        if (role == null || !role.matches("^[a-zA-Z0-9]+$")) {
             return false;
         }
         if(next!=null){

@@ -109,7 +109,7 @@ public class UserHandler {
         return info;
     }
 
-    public String setUserLocation(int locationID, String userID) {
+    public String setUserLocation(String locationID, String userID) {
         User user = userRepository.findByUserID(userID);
 
         if(user != null) {
@@ -122,6 +122,6 @@ public class UserHandler {
     }
 
     public List<User> getUsersByLocationId(String locationId) {
-        return userRepository.findByLocationID(Integer.parseInt(locationId));
+        return userRepository.findByLocationID(locationId);
     }
 }

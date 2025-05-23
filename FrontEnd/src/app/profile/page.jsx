@@ -23,7 +23,7 @@ function Profile() {
       try {
         if (currentUser.id === profileID || !profileID) {
           setUserName(currentUser.username);
-          setUserRole(currentUser.role);
+          setUserRole(currentUser.userRole);
         } else {
           const data = await profile.getProfile(profileID);
           setUserName(data.username);
