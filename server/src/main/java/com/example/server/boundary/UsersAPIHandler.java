@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.HandlerMapping;
 
+import javax.swing.text.html.ObjectView;
 import java.util.*;
 
 /**
@@ -74,10 +75,10 @@ public class UsersAPIHandler {
     }
 
     @GetMapping("/users/{id}/inits")
-    public ResponseEntity<ArrayList<String>> getUserInits(@PathVariable String id) {
-        ArrayList<String> inits = initiativeHandler.getInitiativeByUserId(id);
-        if(inits != null) {
-            return ResponseEntity.ok(inits);
+    public ResponseEntity<List<List<Object>>> getUserInits(@PathVariable String id) {
+        List<List<Object>> initiatives = initiativeHandler.getInitiativeByUserId(id);
+        if(initiatives != null) {
+            return ResponseEntity.ok(initiatives);
         }else{
             return ResponseEntity.ok(new ArrayList<>());
         }
