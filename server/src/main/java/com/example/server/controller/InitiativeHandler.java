@@ -22,22 +22,39 @@ public class InitiativeHandler {
     private NotificationHandler notificationHandler;
 
 
-    public List<ArrayList<String>> getInitiatives(String location) {
+    public List<List<Object>> getInitiatives(String location) {
         List<Initiative> initiatives = initiativeRepository.findByLocation(location);
         if(initiatives == null || initiatives.isEmpty()){
             return null;
         }
 
-        List<ArrayList<String>> result = new ArrayList<>();
+        List<List<Object>> results = new ArrayList<>();
 
-        for(Initiative initiative : initiatives){
+        for (Initiative initiative : initiatives) {
+            String userID = initiative.getUserId();
+            User user = userRepository.findByUserID(userID);
+
             ArrayList<String> initiativeInfo = new ArrayList<>();
             initiativeInfo.add(initiative.getTitle());
             initiativeInfo.add(initiative.getDescription());
-            initiativeInfo.add(initiative.getId());
+            initiativeInfo.add(initiative.getStart());
+            initiativeInfo.add(initiative.getEnd());
+            initiativeInfo.add(initiative.getLocation());
+            initiativeInfo.add(initiative.getCategory().toString());
+            initiativeInfo.add(user != null ? user.getUsername() : "Unknown");
+            initiativeInfo.add(userID);
+            initiativeInfo.add(initiative.getImage());
+
+            ArrayList<ArrayList<String>> commentList = initiative.getComments();
+
+            List<Object> result = new ArrayList<>();
             result.add(initiativeInfo);
+            result.add(commentList);
+
+            results.add(result);
         }
-        return result;
+
+        return results;
     }
 
 

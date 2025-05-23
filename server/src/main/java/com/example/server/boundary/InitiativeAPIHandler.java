@@ -30,7 +30,7 @@ public class InitiativeAPIHandler {
     private CommentHandler commentHandler;
 
     @GetMapping("/inits")
-    public ResponseEntity<List<ArrayList<String>>> getInits(@RequestParam String location) {
+    public ResponseEntity<List<List<Object>>> getInits(@RequestParam String location) {
         return ResponseEntity.ok(initiativeHandler.getInitiatives(location));
     }
     @PostMapping("/inits")

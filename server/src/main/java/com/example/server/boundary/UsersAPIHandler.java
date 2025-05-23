@@ -2,6 +2,7 @@ package main.java.com.example.server.boundary;
 
 import com.mongodb.client.MongoDatabase;
 import main.java.com.example.server.controller.DatabaseConnection;
+import main.java.com.example.server.controller.InitiativeHandler;
 import main.java.com.example.server.controller.NotificationHandler;
 import main.java.com.example.server.controller.UserHandler;
 import org.springframework.beans.factory.annotation.Autowired;
