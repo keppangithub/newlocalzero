@@ -161,11 +161,44 @@ function NewInitiative() {
                 <option value="" disabled>
                   Select a category
                 </option>
-                <option value="Urban Environments">Urban Environments</option>
-                <option value="Education">Education</option>
-                <option value="Health">Health</option>
-                <option value="Nature and Wildlife">Nature and Wildlife</option>
-                <option value="Misc">Misc</option>
+                <option value="ZERO_HUNGER">ZERO_HUNGER</option>
+                <option value="NO_POVERTY">NO_POVERTY</option>
+                <option value="ZERO_HUNGER">ZERO_HUNGER</option>
+                <option value="GOOD_HEALTH_AND_WELLBEING">
+                  GOOD_HEALTH_AND_WELLBEING
+                </option>
+                <option value="QUALITY_EDUCATION">QUALITY_EDUCATION</option>
+                <option value="GENDER_EQUALITY">GENDER_EQUALITY</option>
+                <option value="CLEAN_WATER_AND_SANITATION">
+                  CLEAN_WATER_AND_SANITATION
+                </option>
+                <option value="AFFORDABLE_AND_CLEAN_ENERGY">
+                  AFFORDABLE_AND_CLEAN_ENERGY
+                </option>
+                <option value="DECENT_WORK_AND_ECONOMIC_GROWTH">
+                  DECENT_WORK_AND_ECONOMIC_GROWTH
+                </option>
+                <option value="INDUSTRY_INNOVATION_AND_INFRASTRUCTURE">
+                  INDUSTRY_INNOVATION_AND_INFRASTRUCTURE
+                </option>
+                <option value="REDUCED_INEQUALITIES">
+                  REDUCED_INEQUALITIES
+                </option>
+                <option value="SUSTAINABLE_CITIES_AND_COMMUNITIES">
+                  SUSTAINABLE_CITIES_AND_COMMUNITIES
+                </option>
+                <option value="RESPONSIBLE_CONSUMPTION_AND_PRODUCTION">
+                  RESPONSIBLE_CONSUMPTION_AND_PRODUCTION
+                </option>
+                <option value="CLIMATE_ACTION">CLIMATE_ACTION</option>
+                <option value="LIFE_BELOW_WATER">LIFE_BELOW_WATER</option>
+                <option value="LIFE_ON_LAND">LIFE_ON_LAND</option>
+                <option value="PEACE_JUSTICE_AND_STRONG_INSTITUTIONS">
+                  PEACE_JUSTICE_AND_STRONG_INSTITUTIONS
+                </option>
+                <option value="PARTNERSHIPS_FOR_THE_GOALS">
+                  PARTNERSHIPS_FOR_THE_GOALS
+                </option>
               </select>
             </div>
 

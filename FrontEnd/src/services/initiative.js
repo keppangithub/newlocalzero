@@ -93,7 +93,7 @@ async function getMyNotifications(userID) {
 }
 
 async function postNewInitiative(
-  userID,
+  userId,
   title,
   description,
   imageURL,
@@ -104,7 +104,7 @@ async function postNewInitiative(
 ) {
   try {
     const response = await axios.post(port + "/api/inits", {
-      userID,
+      userId,
       title,
       description,
       imageURL,
@@ -175,13 +175,14 @@ async function postInitiativeComment(
   }
 }
 
-async function joinInitiative(userID, initiativeID) {
+async function joinInitiative(userID, initiativeId) {
+
   try {
     const response = await axios.post(
-      port + "/api/users/" + userID + "/inits/",
+      port + "/api/users/" + userID + "/inits",
       {
         userID,
-        initiativeID,
+        initiativeId,
       }
     );
 

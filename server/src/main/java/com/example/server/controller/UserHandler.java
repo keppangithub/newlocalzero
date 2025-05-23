@@ -65,7 +65,7 @@ public class UserHandler {
             return "User does not exist";
         }
 
-        Initiative initiative = initiativeRepository.findInitiativeById(initiativeId);
+        Initiative initiative = initiativeRepository.findByInitiativeId(initiativeId);
 
         String title = initiative.getTitle();
         String description = initiative.getDescription();

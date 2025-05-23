@@ -88,20 +88,20 @@ public class UsersAPIHandler {
     }
 
     @PostMapping("/users/{id}/inits")
-    public ResponseEntity<String> joinInit(@RequestBody Map<String,String> initiativeInfo) {
+    public ResponseEntity<?> joinInit(@RequestBody Map<String,String> initiativeInfo) {
         try {
-            String initiativeId = initiativeInfo.get("initativeId");
+            String initiativeId = initiativeInfo.get("initiativeId");
             String userId = initiativeInfo.get("userID");
             String response = userHandler.joinInitiative(initiativeId,userId);
             switch (response) {
                 case "Initiative is empty":
-                    return ResponseEntity.status(400).body("Initiative is empty");
+                    return ResponseEntity.status(500).body(Map.of("fail",false));
                 case "User does not exist":
-                    return ResponseEntity.status(404).body("User not found");
+                    return ResponseEntity.status(500).body(Map.of("fail",false));
                 case "User has already joined this initiative":
-                    return ResponseEntity.status(409).body("User has already joined this initiative");
+                    return ResponseEntity.status(500).body(Map.of("fail",false));
                 default:
-                    return ResponseEntity.ok("User joined initiative successfully");
+                    return ResponseEntity.ok(Map.of("success",true));
             }
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error: " + e.getMessage());
