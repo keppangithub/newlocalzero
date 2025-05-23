@@ -21,7 +21,7 @@ public class CommentHandler {
 
     //        initiativeID, posterID, comment, date, imageURL
 
-    public String postComment(Map<String, String> body) {
+    public Boolean postComment(Map<String, String> body) {
         String initiativeId = body.get("initiativeID");
         String posterId = body.get("posterID");
         String comment = body.get("comment");
@@ -29,28 +29,28 @@ public class CommentHandler {
         String imageURL = body.get("imageURL");
 
         if(initiativeId == null || initiativeId.isEmpty()) {
-            return "Initiative ID cannot be null or empty";
+            return false;
         }
         if(posterId == null || posterId.isEmpty()) {
-            return "Poster ID cannot be null or empty";
+            return false;
         }
         if (comment == null || comment.isEmpty()) {
-            return "Comment cannot be null or empty";
+            return false;
         }
         if (date == null || date.isEmpty()) {
-            return "Date cannot be null or empty";
+            return false;
         }
         if (imageURL == null || imageURL.isEmpty()) {
-            return "Image URL cannot be null or empty";
+            return false;
         }
 
         Initiative initiative = initiativeRepository.findByInitiativeId(initiativeId);
         if (initiative == null) {
-            return "Initiative does not exist";
+            return false;
         }
         User commenter = userRepository.findByUserID(posterId);
         if (commenter == null) {
-            return "User does not exist";
+            return false;
         }
         String commenterId = commenter.getUserID();
         String commenterName = commenter.getUsername();
@@ -59,6 +59,6 @@ public class CommentHandler {
         notificationHandeler.createNotification(NotificationType.COMMENT,receivers);
         initiative.addComment(comment, date, commenterName, commenterId,imageURL);
         initiativeRepository.save(initiative);
-        return "Comment added successfully";
+        return true;
     }
 }

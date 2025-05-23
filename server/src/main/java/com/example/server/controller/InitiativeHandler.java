@@ -69,16 +69,23 @@ public class InitiativeHandler {
         return result;
     }
 
-    public ArrayList<String> getInitiativeByUserId(String userId) {
+    public List<ArrayList<String>> getInitiativeByUserId(String userId) {
         List<Initiative> initiatives = initiativeRepository.findAllByUserId(userId);
 
-        ArrayList<String> initiativeInfo = new ArrayList<>();
+        if(initiatives == null || initiatives.isEmpty()){
+            return null;
+        }
+
+        List<ArrayList<String>> result = new ArrayList<>();
+
         for(Initiative initiative : initiatives){
+            ArrayList<String> initiativeInfo = new ArrayList<>();
             initiativeInfo.add(initiative.getTitle());
             initiativeInfo.add(initiative.getDescription());
             initiativeInfo.add(initiative.getId());
+            result.add(initiativeInfo);
         }
-        return initiativeInfo;
+        return result;
     }
 
     public String changeInitsDescription(String id, String description) {

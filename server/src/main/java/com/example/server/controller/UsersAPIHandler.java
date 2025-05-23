@@ -73,8 +73,8 @@ public class UsersAPIHandler {
     }
 
     @GetMapping("/users/{id}/inits")
-    public ResponseEntity<ArrayList<String>> getUserInits(@PathVariable String id) {
-        ArrayList<String> inits = initiativeHandler.getInitiativeByUserId(id);
+    public ResponseEntity<List<ArrayList<String>>> getUserInits(@PathVariable String id) {
+        List<ArrayList<String>> inits = initiativeHandler.getInitiativeByUserId(id);
         if(inits != null) {
             return ResponseEntity.ok(inits);
         }else{
