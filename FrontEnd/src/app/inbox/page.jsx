@@ -53,7 +53,11 @@ function InboxPage() {
   };
   const renderMessages = () => {
     const foundInbox = allInbox.find((inbox) => inbox.name === selectedChat);
-    if (foundInbox && Array.isArray(foundInbox) && foundInbox.length > 0) {
+    if (
+      foundInbox &&
+      Array.isArray(foundInbox.messages) &&
+      foundInbox.messages.length > 0
+    ) {
       return foundInbox.messages.map((message, messageIndex) => (
         <div key={messageIndex}>
           <MessageBox

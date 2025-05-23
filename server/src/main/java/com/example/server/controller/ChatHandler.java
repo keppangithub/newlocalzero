@@ -53,20 +53,23 @@ public class ChatHandler {
         List<Chat> chats = chatRepository.findByUserIdsContaining(userId);
         User user = userRepository.findByUserID(userId);
 
+
         List<List<Object>> formattedChats = new ArrayList<>();
 
         for (Chat chat : chats) {
             List<Object> chatData = new ArrayList<>();
+            String receiverId = chat.getOtherUserId(userId);
+            User user1 = userRepository.findByUserID(receiverId);
 
-            chatData.add(user.getUsername());
+            chatData.add(user1.getUsername());
             chatData.add(chat.getChatId());
 
             List<List<String>> formattedMessages = new ArrayList<>();
-            List<Message> messages = messageRepository.findBySenderId(userId);
+            List<Message> messages = messageRepository.findBySenderIdAndChatId(userId,chat.getChatId());
             for (Message message : messages) {
                 List<String> messageData = new ArrayList<>();
                 messageData.add(message.getContent());
-                messageData.add(message.getSenderId());
+                messageData.add(user.getUsername());
                 messageData.add(String.valueOf(message.getDate()));
                 formattedMessages.add(messageData);
             }

@@ -17,8 +17,8 @@ public class ChatAPIHandler {
 
     @PostMapping("/chats")
     public ResponseEntity<?> startChatWithUser(@RequestBody Map<String,String> userIds) {
-        String user1Id = userIds.get("user1Id");
-        String user2Id = userIds.get("user2Id");
+        String user1Id = userIds.get("sender");
+        String user2Id = userIds.get("receiver");
         Boolean ok = chatHandler.startChatWithUser(user1Id, user2Id);
         if(ok){
             return ResponseEntity.ok(Map.of("success",true));
@@ -29,8 +29,8 @@ public class ChatAPIHandler {
 
 
      @GetMapping("/chats")
-    public List<List<Object>> getChats(@RequestBody Map<String,String> userInfo) {
-        return chatHandler.getFormattedMessages(userInfo.get("userId"));
+    public List<List<Object>> getChats(@RequestParam String userId) {
+        return chatHandler.getFormattedMessages(userId);
     }
 
 
