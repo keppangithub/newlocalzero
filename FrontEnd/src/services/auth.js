@@ -55,11 +55,10 @@ async function register(name, email, password, location, role) {
 }
 
 function logout() {
-  currentUser = null;
+  localStorage.removeItem("currentUser");
 }
 
 function getCurrentUser() {
-  
   const user = localStorage.getItem("currentUser");
   console.log("current user: " + user);
   return user ? JSON.parse(user) : null;
