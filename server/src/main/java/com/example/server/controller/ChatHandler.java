@@ -31,18 +31,18 @@ public class ChatHandler {
         return chat;
     }
 
-    public String startChatWithUser(String user1Id, String user2Id) {
+    public boolean startChatWithUser(String user1Id, String user2Id) {
         String chatId = generateChatId(user1Id, user2Id);
         List<Chat> chatBetweenUser = chatRepository.findByChatId(chatId);
         if(chatBetweenUser.size() != 0) {
-            return "Chat already exists";
+            return false;
         }
 
         Chat chat = createChat(chatId, user1Id, user2Id, System.currentTimeMillis());
         if(chat == null) {
-            return "Failed to create chat";
+            return false;
         }
-        return "Successfully started chat";
+        return true;
     }
 
     public String generateChatId(String user1Id, String user2Id) {
