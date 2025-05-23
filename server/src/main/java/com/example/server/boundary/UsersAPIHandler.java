@@ -63,9 +63,17 @@ public class UsersAPIHandler {
         }
     }
 
+    /*
+      title: action[0],
+          type: action[1],
+          metric: action[2],
+          date: action[3],
+     */
+
     @GetMapping("/users/{id}/actions")
-    public ArrayList<ArrayList<String>> getUserActions(@PathVariable String id) {
-        ArrayList<ArrayList<String>> response = userHandler.getUserActions(id);
+    public List<List<Object>> getUserActions(@PathVariable String id) {
+        List<List<Object>> response = userHandler.getUserActions(id);
+
         if(response != null) {
             return response;
         }
@@ -85,8 +93,13 @@ public class UsersAPIHandler {
     }
 
     @PostMapping("/users/{id}/actions")
-    public Boolean postActionWithUserID(@RequestBody Map<String, String> actionInfo)  {
-        return userHandler.postUserAction(actionInfo);
+    public ResponseEntity<String> postActionWithUserID(@RequestBody Map<String, String> actionInfo)  {
+        boolean ok = userHandler.postUserAction(actionInfo);
+        if(ok){
+            return ResponseEntity.ok("Action posted successfully");
+        }else{
+            return ResponseEntity.status(400).body("Failed to post action");
+        }
     }
 
     @PostMapping("/users/{id}/inits")

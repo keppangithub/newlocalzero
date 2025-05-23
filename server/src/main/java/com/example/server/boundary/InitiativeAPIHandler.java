@@ -34,8 +34,13 @@ public class InitiativeAPIHandler {
         return ResponseEntity.ok(initiativeHandler.getInitiatives(location));
     }
     @PostMapping("/inits")
-    public boolean postInits(@RequestBody Map<String,String> initiativeInfo) {
-        return initiativeMediator.createInitiative(initiativeInfo);
+    public ResponseEntity<String> postInits(@RequestBody Map<String,String> initiativeInfo) {
+        boolean ok = initiativeMediator.createInitiative(initiativeInfo);
+        if(ok){
+            return ResponseEntity.ok("Initiative created successfully");
+        }else{
+            return ResponseEntity.status(400).body("Failed to create initiative");
+        }
     }
 
     @GetMapping("/inits/{initiativeId}") //dubbelkolla

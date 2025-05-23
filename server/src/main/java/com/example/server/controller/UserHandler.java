@@ -22,13 +22,13 @@ public class UserHandler {
     private ActionRepository actionRepository;
 
     //unfinished mpste fixa databas collection för den
-    public ArrayList<ArrayList<String>> getUserActions(String userID) {
+    public List<List<Object>> getUserActions(String userID) {
         List<Action> actions = actionRepository.findActionByUserID(userID);
 
-        ArrayList<ArrayList<String>> results = new ArrayList<>();
+        List<List<Object>> results = new ArrayList<>();
 
             for(Action action : actions) {
-                ArrayList<String> actionInfo = new ArrayList<>();
+                List<Object> actionInfo = new ArrayList<>();
                 actionInfo.add(action.getTitle());
                 actionInfo.add(action.getActionType().toString());
                 actionInfo.add(action.getMetric());
