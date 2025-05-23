@@ -60,60 +60,6 @@ async function getMyActions(userID) {
     console.error("Getting my actions failed:", error);
     throw error;
   }
-
-  /* TEST DATA
-  const allActions = [];
-  allActions[0] = {
-    title: "My morning route to work",
-    type: "Public Transport",
-    metric: "5",
-    date: "2025-05-09",
-  };
-  allActions[1] = {
-    title: "running with friends",
-    type: "Running/Jogging/Biking",
-    metric: "10",
-    date: "2025-05-12",
-  };
-  allActions[2] = {
-    title: "running with friends again",
-    type: "Running/Jogging/Biking",
-    metric: "4",
-    date: "2025-05-20",
-  };
-
-  let kmBiked = 0;
-  let publicTransport = 0;
-  let itemsThrifted = 0;
-  let trashPickedUp = 0;
-
-  allActions.forEach((action) => {
-    switch (action.type) {
-      case "Running/Jogging/Biking":
-        kmBiked += Number(action.metric);
-        break;
-      case "Public Transport":
-        publicTransport += Number(action.metric);
-        break;
-      case "Thrifting":
-        itemsThrifted += Number(action.metric);
-        break;
-      case "Trash Pickup":
-        trashPickedUp += Number(action.metric);
-        break;
-      default:
-    }
-  });
-
-  actionStats = {
-    kmBiked: kmBiked,
-    publicTransport: publicTransport,
-    itemsThrifted: itemsThrifted,
-    trashPickedUp: trashPickedUp,
-  };
-
-  return allActions;
-     */
 }
 
 async function postNewAction(userID, title, date, type, metric) {
@@ -129,8 +75,13 @@ async function postNewAction(userID, title, date, type, metric) {
       }
     );
 
-    // response is true/false
-    return response.data;
+    if (response.data.success) {
+      console.log("Posting new Action successful!");
+      return true;
+    } else {
+      console.log("Posting new Action failed");
+      return false;
+    }
   } catch (error) {
     console.error("Posting new action failed:", error);
     throw error;
