@@ -65,11 +65,12 @@ public class ChatHandler {
             chatData.add(chat.getChatId());
 
             List<List<String>> formattedMessages = new ArrayList<>();
-            List<Message> messages = messageRepository.findBySenderIdAndChatId(userId,chat.getChatId());
+            List<Message> messages = messageRepository.findByChatId(chat.getChatId());
             for (Message message : messages) {
                 List<String> messageData = new ArrayList<>();
                 messageData.add(message.getContent());
-                messageData.add(user.getUsername());
+                User sender = userRepository.findByUserID(message.getSenderId());
+                messageData.add(sender.getUsername());
                 messageData.add(String.valueOf(message.getDate()));
                 formattedMessages.add(messageData);
             }
