@@ -1,32 +1,38 @@
 import axios from "axios";
 
-const port = "localhost:8080";
+const port = "http://localhost:8080";
 
-async function getChats(userID) {
-  /*
+async function getChats(userId) {
   try {
     const response = await axios.get(port + "/api/chats", {
-      userID,
+      params: { userId },
     });
 
     const inboxArray = [];
-    
-    response.data.array.forEach((chat) => {
-      const messages = [];
-      chat[3].array.forEach((message) => {
-        messages.push({
-          text: message[0],
-          sender: message[1],
-          date: message[2]
-        });
+
+    console.log("inbox item:");
+    console.log(response.data);
+
+    if (response.data !== undefined && Array.isArray(response.data)) {
+      response.data.forEach((chat) => {
+        const messages = [];
+        if (chat[2] !== undefined && Array.isArray(chat[2])) {
+          chat[2].forEach((message) => {
+            messages.push({
+              text: message[0],
+              sender: message[1],
+              date: message[2],
+            });
+          });
+        }
+        const chatObject = {
+          name: chat[0],
+          id: chat[1],
+          messages: messages,
+        };
+        inboxArray.push(chatObject);
       });
-      const chatObject = {
-        name: chat[0],
-        id: chat[1],
-        messages: messages
-      };
-      inboxArray.push(chatObject);
-    });
+    }
     return inboxArray;
   } catch (error) {
     console.error("Getting chats failed:", error);
@@ -81,15 +87,21 @@ async function getChats(userID) {
   return allInbox;
 }
 
-async function sendMessage(chatID, text, date, sender) {
+async function sendMessage(chatId, text, date, sender) {
   try {
     const response = await axios.post(port + "/api/messages", {
-      chatID,
+      chatId,
       text,
       date,
       sender,
     });
-    return response.data;
+    if (response.data.success) {
+      console.log("Message sent successfully!");
+      return true;
+    } else {
+      console.log("Sending message failed (unexpected success value)");
+      return false;
+    }
   } catch (error) {
     console.error("Sending message failed:", error);
     throw error;
@@ -98,11 +110,17 @@ async function sendMessage(chatID, text, date, sender) {
 
 async function startChat(sender, receiver) {
   try {
-    const response = await axios.post(port + "/api/chats/", {
+    const response = await axios.post(port + "/api/chats", {
       sender,
       receiver,
     });
-    return response.data;
+    if (response.data.success) {
+      console.log("Started Chat successfully!");
+      return true;
+    } else {
+      console.log("Starting chat failed (unexpected success value)");
+      return false;
+    }
   } catch (error) {
     console.error("Starting chat with user failed:", error);
     throw error;

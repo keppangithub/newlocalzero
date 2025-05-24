@@ -1,19 +1,20 @@
 import axios from "axios";
 
-const port = "localhost:8080";
+const port = "http://localhost:8080";
 
 async function getProfile(userID) {
   try {
     const response = await axios.get(port + "/api/users/" + userID);
+    console.log(response);
 
     // Extracting data from the nested ArrayList structure
     if (response.data.length > 0) {
-      const userInfo = response.data[0];
+      //const userInfo = response.data[0];
       return {
-        id: userInfo[0],
-        username: userInfo[1],
-        location: userInfo[2],
-        role: userInfo[3],
+        id: response.data[0],
+        username: response.data[1],
+        location: response.data[2],
+        role: response.data[3],
       };
     } else {
       throw new Error("User not found");
@@ -24,13 +25,16 @@ async function getProfile(userID) {
   }
 
 
-  // TEST DATA
+
+  /* TEST DATA
   return {
     id: "123460",
     username: "Another User",
     location: "Stockholm",
     role: "Resident",
   };
+
+   */
 }
 
 async function updateLocation(userID, location) {

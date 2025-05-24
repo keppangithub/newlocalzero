@@ -31,6 +31,8 @@ public class NotificationHandler {
                 strategies.put(NotificationType.INITIATIVE_UPDATE, template);
             } else if (template instanceof MessageNotification) {
                 strategies.put(NotificationType.MESSAGE, template);
+            } else if (template instanceof NewInitiativeNotification) {
+                strategies.put(NotificationType.NEW_INITIATIVE, template);
             }
         }
     }

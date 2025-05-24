@@ -1,9 +1,6 @@
 package main.java.com.example.server.controller;
 
-import main.java.com.example.server.entity.Category;
-import main.java.com.example.server.entity.Initiative;
-import main.java.com.example.server.entity.NotificationType;
-import main.java.com.example.server.entity.User;
+import main.java.com.example.server.entity.*;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,16 +41,13 @@ public class InitiativeHandler {
     }
 
 
-    public ArrayList<ArrayList<String>> getInitiativeById(String initiativeId) {
+    public List<Object> getInitiativeById(String initiativeId) {
         Initiative initiative = initiativeRepository.findByInitiativeId(initiativeId);
         User user = userRepository.findByUserID(initiative.getUserId());
         if(initiative == null) {
             return new ArrayList<>();
         }
-        ArrayList<ArrayList<String>> result = new ArrayList<>();
         ArrayList<String> initiativeInfo = new ArrayList<>();
-        ArrayList<String> comments = new ArrayList<>();
-
         initiativeInfo.add(initiative.getTitle());
         initiativeInfo.add(initiative.getDescription());
         initiativeInfo.add(initiative.getStart());
@@ -61,19 +55,37 @@ public class InitiativeHandler {
         initiativeInfo.add(initiative.getLocation());
         initiativeInfo.add(initiative.getCategory().toString());
         initiativeInfo.add(user.getUsername());
-        initiativeInfo.add(initiative.getId());
+        initiativeInfo.add(initiative.getUserId());
         initiativeInfo.add(initiative.getImage());
 
-        commentsRepository.findByInitiativeId(initiativeId).forEach(comment -> {
-            ArrayList<String> commentInfo = new ArrayList<>();
-            commentInfo.add(comment.getCommenter().getUsername());
-            commentInfo.add(comment.getContent());
-            commentInfo.add(comment.getImage());
-            comments.add(commentInfo.toString());
-        });
+        ArrayList<ArrayList<String>> commentList = initiative.getComments();
 
+
+
+        List<Object> result = new ArrayList<>();
         result.add(initiativeInfo);
-        result.add(comments);
+        result.add(commentList);
+
+        return result;
+    }
+
+    public List<ArrayList<String>> getInitiativeByUserId(String userId) {
+        List<Initiative> initiatives = initiativeRepository.findByUserIdOrUserIdsContaining(userId, userId);
+
+
+        if(initiatives == null || initiatives.isEmpty()){
+            return null;
+        }
+
+        List<ArrayList<String>> result = new ArrayList<>();
+
+        for(Initiative initiative : initiatives){
+            ArrayList<String> initiativeInfo = new ArrayList<>();
+            initiativeInfo.add(initiative.getTitle());
+            initiativeInfo.add(initiative.getDescription());
+            initiativeInfo.add(initiative.getId());
+            result.add(initiativeInfo);
+        }
         return result;
     }
 

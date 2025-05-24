@@ -31,18 +31,18 @@ public class ChatHandler {
         return chat;
     }
 
-    public String startChatWithUser(String user1Id, String user2Id) {
+    public boolean startChatWithUser(String user1Id, String user2Id) {
         String chatId = generateChatId(user1Id, user2Id);
         List<Chat> chatBetweenUser = chatRepository.findByChatId(chatId);
         if(chatBetweenUser.size() != 0) {
-            return "Chat already exists";
+            return false;
         }
 
         Chat chat = createChat(chatId, user1Id, user2Id, System.currentTimeMillis());
         if(chat == null) {
-            return "Failed to create chat";
+            return false;
         }
-        return "Successfully started chat";
+        return true;
     }
 
     public String generateChatId(String user1Id, String user2Id) {
@@ -53,20 +53,24 @@ public class ChatHandler {
         List<Chat> chats = chatRepository.findByUserIdsContaining(userId);
         User user = userRepository.findByUserID(userId);
 
+
         List<List<Object>> formattedChats = new ArrayList<>();
 
         for (Chat chat : chats) {
             List<Object> chatData = new ArrayList<>();
+            String receiverId = chat.getOtherUserId(userId);
+            User user1 = userRepository.findByUserID(receiverId);
 
-            chatData.add(user.getUsername());
+            chatData.add(user1.getUsername());
             chatData.add(chat.getChatId());
 
             List<List<String>> formattedMessages = new ArrayList<>();
-            List<Message> messages = messageRepository.findBySenderId(userId);
+            List<Message> messages = messageRepository.findByChatId(chat.getChatId());
             for (Message message : messages) {
                 List<String> messageData = new ArrayList<>();
                 messageData.add(message.getContent());
-                messageData.add(message.getSenderId());
+                User sender = userRepository.findByUserID(message.getSenderId());
+                messageData.add(sender.getUsername());
                 messageData.add(String.valueOf(message.getDate()));
                 formattedMessages.add(messageData);
             }

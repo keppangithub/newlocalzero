@@ -29,7 +29,11 @@ function LandingPage() {
         locationText,
         selectedRole
       );
-      alert(signupStatus);
+      if (signupStatus) {
+        alert("signup successful");
+      } else {
+        alert("signup failed");
+      }
     }
   }
   async function loginClicked() {
@@ -79,13 +83,20 @@ function LandingPage() {
               placeholder="••••••••"
             ></input>
             <p>Location</p>
-            <input
-              type="text"
-              value={locationText}
-              onChange={(e) => setLocationText(e.target.value)}
-              className="rounded-sm border-2 p-2 focus:outline-0 w-full"
-              placeholder="Malmö, Sweden"
-            ></input>
+            <select
+            className="rounded-md border-2 p-2 focus:outline-0 w-full"
+            value={locationText}
+            onChange={(e) => setLocationText(e.target.value)}
+          >
+            <option value="" disabled>
+              Select a location
+            </option>
+            <option value="Malmö">Malmö</option>
+            <option value="Trelleborg">Trelleborg</option>
+            <option value="Lund">Lund</option>
+            <option value="Helsingborg">Helsingborg</option>
+            <option value="Perstorp">Perstorp</option>
+          </select>
           </div>
 
           {/*Role selection */}

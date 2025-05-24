@@ -65,7 +65,7 @@ public class UserHandler {
             return "User does not exist";
         }
 
-        Initiative initiative = initiativeRepository.findInitiativeById(initiativeId);
+        Initiative initiative = initiativeRepository.findByInitiativeId(initiativeId);
 
         String title = initiative.getTitle();
         String description = initiative.getDescription();
@@ -101,15 +101,15 @@ public class UserHandler {
         User user = userRepository.findByUserID(userID);
 
         ArrayList<String> info = new ArrayList<>();
-        info.add("User ID: " + user.getUserID());
-        info.add("Username: " + user.getUsername());
-        info.add("Location ID: " + user.getLocationID());
-        info.add("Role: " + user.getRole());
+        info.add(user.getUserID());
+        info.add(user.getUsername());
+        info.add(user.getLocationID());
+        info.add(user.getRole());
 
         return info;
     }
 
-    public String setUserLocation(int locationID, String userID) {
+    public String setUserLocation(String locationID, String userID) {
         User user = userRepository.findByUserID(userID);
 
         if(user != null) {
@@ -122,6 +122,6 @@ public class UserHandler {
     }
 
     public List<User> getUsersByLocationId(String locationId) {
-        return userRepository.findByLocationID(Integer.parseInt(locationId));
+        return userRepository.findByLocationID(locationId);
     }
 }

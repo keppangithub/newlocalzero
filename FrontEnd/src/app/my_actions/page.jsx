@@ -75,10 +75,16 @@ function MyActions() {
 
       <div className="w-[45%] p-20 h-[70%] text-md">
         <p className="text-xl">Statistics</p>
-        <p>Biked/jogged/ran {myStats.kmBiked} kms</p>
-        <p>Public transport taken {myStats.publicTransport} instances</p>
-        <p>Items thrifted: {myStats.itemsThrifted}</p>
-        <p>Picked up {myStats.trashPickedUp} bags of trash </p>
+        <p>Biked {myStats.kmBiked} kms</p>
+        <p>Walked {myStats.kmWalked} kms</p>
+        <p>Took Public Transport {myStats.publicTransport} times</p>
+        <p>Picked up {myStats.pickupTrash} bags of trash</p>
+        <p>Recycled {myStats.recycle} times</p>
+        <p>Shared {myStats.toolSharing} tools</p>
+        <p>Recycling Drive: {myStats.recyclingDrive}</p>
+        <p>Shared rides {myStats.rideSharing} time</p>
+        <p>Community Garedened {myStats.communityGardening} times</p>
+        <p>Food Swapped {myStats.foodSwaps} times</p>
       </div>
     </div>
   );

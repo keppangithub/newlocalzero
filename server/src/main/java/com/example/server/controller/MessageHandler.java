@@ -27,10 +27,10 @@ public class MessageHandler {
     @Autowired
     private NotificationHandler notificationHandler;
 
-    public String sendMessage(String chatId, String senderId, String message ,String date) {
+    public Boolean sendMessage(String chatId, String senderId, String message ,String date) {
         List<Chat> chats = chatRepository.findByChatId(chatId);
         if (chats.isEmpty()) {
-            return "Chat not found";
+            return false;
         }
         Chat chat = chats.get(0);
         String recieverId = chat.getOtherUserId(senderId); // This is just to ensure the chat exists, you can add more logic if needed
@@ -39,7 +39,7 @@ public class MessageHandler {
         receivers.add(recieverId);
         notificationHandler.createNotification(NotificationType.MESSAGE, receivers);
         messageRepository.save(newMessage);
-        return "Message sent successfully";
+        return true;
     }
 /*
     public Map<String, Object> getFormatedMessages(String userId) {

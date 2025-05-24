@@ -1,7 +1,7 @@
 import axios from "axios";
 
 let currentUser;
-const port = "localhost:8080";
+const port = "http://localhost:8080";
 
 async function login(email, password) {
   try {
@@ -11,13 +11,14 @@ async function login(email, password) {
     });
 
     if (response) {
-      currentUser = {
+      const user = {
         id: response.data[0],
         username: response.data[1],
         email: response.data[2],
         location: response.data[3],
         userRole: response.data[4],
       };
+      localStorage.setItem("currentUser", JSON.stringify(user));
       return true;
     } else {
       return false;
@@ -38,7 +39,13 @@ async function register(name, email, password, location, role) {
       role,
     });
 
-    return response.data;
+    if (response.data.success) {
+      console.log("Registration successful!");
+      return true;
+    } else {
+      console.log("Registration failed (unexpected success value)");
+      return false;
+    }
   } catch (error) {
     console.error("Signup failed:", error);
     if (error.response && error.response.data) {
@@ -48,19 +55,13 @@ async function register(name, email, password, location, role) {
 }
 
 function logout() {
-  currentUser = null;
+  localStorage.removeItem("currentUser");
 }
 
 function getCurrentUser() {
-  //return currentUser;
-
-  // TEST DATA
-  return {
-    id: "123456",
-    username: "Ranaciita",
-    location: "Malmö",
-    role: "Community Organizer",
-  };
+  const user = localStorage.getItem("currentUser");
+  console.log("current user: " + user);
+  return user ? JSON.parse(user) : null;
 }
 
 export default {

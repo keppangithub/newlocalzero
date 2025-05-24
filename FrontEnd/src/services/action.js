@@ -1,113 +1,95 @@
 import axios from "axios";
 
-const port = "localhost:8080";
-let actionStats;
+const port = "http://localhost:8080";
 
 async function getMyActions(userID) {
-  /*try {
+  try {
     const response = await axios.get(
       port + "/api/users/" + userID + "/actions",
       {}
     );
 
     const actionsArray = [];
-    response.data.array.forEach((action) => {
-      const actionObject = {
-        title: action[0],
-        type: action[1],
-        metric: action[2],
-        date: action[3],
-      };
-      actionsArray.push(actionObject);
-    });
+    if (response.data !== undefined && Array.isArray(response.data)) {
+      response.data.forEach((action) => {
+        const actionObject = {
+          title: action[0],
+          type: action[1],
+          metric: action[2],
+          date: action[3],
+        };
+        actionsArray.push(actionObject);
+      });
+    }
 
-    const kmBiked = 0;
-    const publicTransport = 0;
-    const itemsThrifted = 0;
-    const trashPickedUp = 0;
+    let kmBiked1 = 0;
+    let kmWalked1 = 0;
+    let publicTransport1 = 0;
+    let pickupTrash1 = 0;
+    let recycle1 = 0;
+    let toolSharing1 = 0;
+    let recyclingDrive1 = 0;
+    let rideSharing1 = 0;
+    let communityGardening1 = 0;
+    let foodSwaps1 = 0;
+
+
     actionsArray.forEach((action) => {
       switch (action.type) {
-        case "Running/Jogging/Biking":
-          kmBiked += Number(action.metric);
+        case "BIKING":
+          kmBiked1 += Number(action.metric);
           break;
-        case "Public Transport":
-          publicTransport += Number(action.metric);
+        case "WALKING":
+          kmWalked1 += Number(action.metric);
           break;
-        case "Thrifting":
-          itemsThrifted += Number(action.metric);
+        case "PUBLIC_TRANSPORT":
+          publicTransport1 += Number(action.metric);
           break;
-        case "Trash Pickup":
-          trashPickedUp += Number(action.metric);
+        case "PICK_UP_TRASH":
+          pickupTrash1 += Number(action.metric);
+          break;
+        case "RECYCLING":
+          recycle1 += Number(action.metric);
+          break;
+        case "TOOL_SHARING":
+          toolSharing1 += Number(action.metric);
+          break;
+        case "RECYCLING_DRIVE":
+          recyclingDrive1 += Number(action.metric);
+          break;
+        case "RIDE_SHARING":
+          rideSharing1 += Number(action.metric);
+          break;
+        case "COMMUNITY_GARDENING":
+          communityGardening1 += Number(action.metric);
+          break;
+        case "FOOD_SWAPS":
+          foodSwaps1 += Number(action.metric);
           break;
         default:
       }
     });
-    actionStats = {
-      kmBiked: kmBiked,
-      publicTransport: publicTransport,
-      itemsThrifted: itemsThrifted,
-      trashPickedUp: trashPickedUp,
+
+    const actionStats = {
+    kmBiked : kmBiked1,
+    kmWalked : kmWalked1,
+    publicTransport : publicTransport1,
+    pickupTrash : pickupTrash1,
+    recycle : recycle1,
+    toolSharing : toolSharing1,
+    recyclingDrive : recyclingDrive1,
+    rideSharing : rideSharing1, 
+    communityGardening : communityGardening1, 
+    foodSwaps : foodSwaps1
     };
 
-    return actionsArray;
+    localStorage.setItem("actionStats", JSON.stringify(actionStats));
 
+    return actionsArray;
   } catch (error) {
     console.error("Getting my actions failed:", error);
     throw error;
-  }*/
-
-    // TEST DATA
-  const allActions = [];
-  allActions[0] = {
-    title: "My morning route to work",
-    type: "Public Transport",
-    metric: "5",
-    date: "2025-05-09",
-  };
-  allActions[1] = {
-    title: "running with friends",
-    type: "Running/Jogging/Biking",
-    metric: "10",
-    date: "2025-05-12",
-  };
-  allActions[2] = {
-    title: "running with friends again",
-    type: "Running/Jogging/Biking",
-    metric: "4",
-    date: "2025-05-20",
-  };
-
-  let kmBiked = 0;
-  let publicTransport = 0;
-  let itemsThrifted = 0;
-  let trashPickedUp = 0;
-
-  allActions.forEach((action) => {
-    switch (action.type) {
-      case "Running/Jogging/Biking":
-        kmBiked += Number(action.metric);
-        break;
-      case "Public Transport":
-        publicTransport += Number(action.metric);
-        break;
-      case "Thrifting":
-        itemsThrifted += Number(action.metric);
-        break;
-      case "Trash Pickup":
-        trashPickedUp += Number(action.metric);
-        break;
-      default:
-    }
-  });
-
-  actionStats = {
-    kmBiked: kmBiked,
-    publicTransport: publicTransport,
-    itemsThrifted: itemsThrifted,
-    trashPickedUp: trashPickedUp,
-  };
-
-  return allActions;
+  }
 }
 
 async function postNewAction(userID, title, date, type, metric) {
@@ -123,8 +105,13 @@ async function postNewAction(userID, title, date, type, metric) {
       }
     );
 
-    // response is true/false
-    return response.data;
+    if (response.data.success) {
+      console.log("Action added successfully!");
+      return true;
+    } else {
+      console.log("Action adding failed (unexpected success value)");
+      return false;
+    }
   } catch (error) {
     console.error("Posting new action failed:", error);
     throw error;
@@ -132,7 +119,8 @@ async function postNewAction(userID, title, date, type, metric) {
 }
 
 async function getActionStats() {
-  return actionStats;
+  const storedStats = localStorage.getItem("actionStats");
+  return storedStats ? JSON.parse(storedStats) : null;
 }
 
 export default {
