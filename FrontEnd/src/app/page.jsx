@@ -12,6 +12,10 @@ function LandingPage() {
   const [nameText, setNameText] = useState("");
   const [locationText, setLocationText] = useState("");
   const [selectedRole, setSelectedRole] = useState("Resident");
+  const [signupErrorMessage, setSignupErrorMessage] = useState("");
+  const [loginErrorMessage, setLoginErrorMessage] = useState("");
+
+  loginErrorMessage;
 
   // --------- user inputs: login ---------
   const [loginEmailText, setLoginEmailText] = useState("");
@@ -20,7 +24,7 @@ function LandingPage() {
   // --------- handling user moves ---------
   async function SignupClicked() {
     if (!signupEmailText || !signupPassText || !nameText || !locationText) {
-      alert("Please fill in all the fields to register!");
+      setSignupErrorMessage("Please fill in all of the fields to signup.");
     } else {
       const signupStatus = await auth.register(
         nameText,
@@ -30,19 +34,19 @@ function LandingPage() {
         selectedRole
       );
       if (signupStatus) {
-        alert("signup successful");
+        alert("Your signup was successful, you can now login.");
       } else {
-        alert("signup failed");
+        setSignupErrorMessage("An Error occured while signing up, please make sure all input matches the criteria.");
       }
     }
   }
   async function loginClicked() {
     if (!loginEmailText || !loginPassText) {
-      alert("Please fill in email/password to login!");
+      setLoginErrorMessage("Please fill in all of the fields to login.");
     } else {
       const loginStatus = await auth.login(loginEmailText, loginPassText);
       if (loginStatus === false) {
-        alert("Could not login. Please try again.");
+        setLoginErrorMessage("Could not login. Please try again.");
       } else {
         router.push(`/home`);
       }
@@ -51,19 +55,21 @@ function LandingPage() {
 
   // --------- page body ---------
   return (
-    <div className="flex w-screen min-h-screen bg-zinc-300 font-light text-sm">
-      {/*Left Side: Signup */}
-      <div className="min-w-[50%] min-h-screen flex bg-zinc-100 items-center justify-center">
+    <div className="flex flex-col md:flex-row w-screen h-fit md:min-h-screen bg-zinc-300 font-light text-sm">
+      
+      
+      {/*Left/Upper Side: Signup */}
+      <div className="min-w-[50%] h-screen md:h-screen flex bg-zinc-100 pt-20 items-top justify-center">
         <div className="space-y-4 w-[60%] h-[70%]">
-          <p>Signup with a new account</p>
+          <p className="font-normal">Signup with a new account</p>
 
-          <div className="space-y-2 w-[90%]">
+          <div className="space-y-2 w-full">
             <p>Full Name</p>
             <input
               type="text"
               value={nameText}
               onChange={(e) => setNameText(e.target.value)}
-              className="rounded-sm border-2 p-2 focus:outline-0 w-full"
+              className="rounded-sm border-1 p-2 focus:outline-0 w-full bg-white"
               placeholder="Mary Jane"
             ></input>
             <p>Email</p>
@@ -71,7 +77,7 @@ function LandingPage() {
               type="text"
               value={signupEmailText}
               onChange={(e) => setSignupEmailText(e.target.value)}
-              className="rounded-sm border-2 p-2 focus:outline-0 w-full"
+              className="rounded-sm border-1 p-2 focus:outline-0 w-full bg-white"
               placeholder="email@example.com"
             ></input>
             <p>Password</p>
@@ -79,29 +85,29 @@ function LandingPage() {
               type="password"
               value={signupPassText}
               onChange={(e) => setSignupPassText(e.target.value)}
-              className="rounded-sm border-2 p-2 focus:outline-0 w-full"
+              className="rounded-sm border-1 p-2 focus:outline-0 w-full bg-white"
               placeholder="••••••••"
             ></input>
             <p>Location</p>
             <select
-            className="rounded-md border-2 p-2 focus:outline-0 w-full"
-            value={locationText}
-            onChange={(e) => setLocationText(e.target.value)}
-          >
-            <option value="" disabled>
-              Select a location
-            </option>
-            <option value="Malmö">Malmö</option>
-            <option value="Trelleborg">Trelleborg</option>
-            <option value="Lund">Lund</option>
-            <option value="Helsingborg">Helsingborg</option>
-            <option value="Perstorp">Perstorp</option>
-          </select>
+              className="rounded-md border-1 p-2 focus:outline-0 w-full bg-white"
+              value={locationText}
+              onChange={(e) => setLocationText(e.target.value)}
+            >
+              <option value="" disabled>
+                Select a location
+              </option>
+              <option value="Malmö">Malmö</option>
+              <option value="Trelleborg">Trelleborg</option>
+              <option value="Lund">Lund</option>
+              <option value="Helsingborg">Helsingborg</option>
+              <option value="Perstorp">Perstorp</option>
+            </select>
           </div>
 
           {/*Role selection */}
           <div>
-            <div className="space-x-1">
+            <div className="space-x-1 font-light">
               <input
                 id="resident"
                 type="radio"
@@ -111,7 +117,7 @@ function LandingPage() {
                 onChange={(e) => setSelectedRole(e.target.value)}
                 className="w-4 h-4"
               />
-              <label htmlFor="resident" className="ms-2 text-sm font-medium">
+              <label htmlFor="resident" className="ms-2 text-sm">
                 Resident
               </label>
             </div>
@@ -126,25 +132,27 @@ function LandingPage() {
                 onChange={(e) => setSelectedRole(e.target.value)}
                 className="w-4 h-4"
               />
-              <label htmlFor="organizer" className="ms-2 text-sm font-medium">
+              <label htmlFor="organizer" className="ms-2 text-sm">
                 Community Organizer
               </label>
             </div>
           </div>
 
           <button
-            className="text-white bg-gray-700 hover:bg-gray-800 rounded-md p-2 w-[100px]"
+            className="text-white bg-lime-900 hover:bg-lime-950 rounded-md p-2 w-[100px]"
             onClick={SignupClicked}
           >
             Signup
           </button>
+
+          <p className="text-red-700">{signupErrorMessage}</p>
         </div>
       </div>
 
       {/*Right Side: Login */}
-      <div className="min-w-[50%] min-h-screen flex bg-white items-center justify-center">
+      <div className="min-w-[50%] h-screen md:min-h-screen flex bg-gray-200 pt-20 items-top justify-center">
         <div className="space-y-4 w-[60%] h-[70%] ">
-          <p>Login to your account</p>
+          <p className="font-normal">Login to your account</p>
 
           <div className="space-y-2 w-[90%]">
             <p>Email</p>
@@ -152,7 +160,7 @@ function LandingPage() {
               type="text"
               value={loginEmailText}
               onChange={(e) => setLoginEmailText(e.target.value)}
-              className="rounded-sm border-2 p-2 focus:outline-0 w-full"
+              className="rounded-sm border-1 p-2 focus:outline-0 w-full bg-white"
               placeholder="email@example.com"
             ></input>
             <p>Password</p>
@@ -160,17 +168,19 @@ function LandingPage() {
               type="password"
               value={loginPassText}
               onChange={(e) => setLoginPassText(e.target.value)}
-              className="rounded-sm border-2 p-2 focus:outline-0 w-full"
+              className="rounded-sm border-1 p-2 focus:outline-0 w-full bg-white"
               placeholder="••••••••"
             ></input>
           </div>
 
           <button
-            className="text-white bg-gray-700 hover:bg-gray-800 rounded-md p-2 w-[100px]"
+            className="text-white bg-lime-900 hover:bg-lime-950 rounded-md p-2 w-[100px]"
             onClick={loginClicked}
           >
             Login
           </button>
+
+          <p className="text-red-700">{loginErrorMessage}</p>
         </div>
       </div>
     </div>
