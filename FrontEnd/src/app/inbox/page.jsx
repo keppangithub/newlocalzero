@@ -86,6 +86,7 @@ function InboxPage() {
         currentUser.id
       );
       updateData();
+      setMessage("");
     }
   }
   const chatClicked = (clickedName, clickedID) => {
@@ -101,18 +102,19 @@ function InboxPage() {
 
   // --------- page body ---------
   return (
-    <div className="flex min-w-screen max-w-screen min-h-screen max-h-screen bg-zinc-100 font-light text-sm">
-      <div className="bg-gray-300 w-[10%]">
+    <div className="flex flex-col md:flex-row w-full md:min-w-screen md:max-w-screen min-h-screen md:max-h-screen bg-white font-light text-sm">
+      <div className="bg-gray-300 w-full md:w-[10%] sticky top-0 left-0 shadow-sm shadow-black/25 md:shadow-none">
         <Sidebar />
       </div>
 
-      <div className="p-10 bg-white border-r-2 border-black w-[45%] ">
+      {/*Left*/}
+      <div className="p-10 bg-white border-r-2 border-black md:w-[45%] shadow-sm shadow-black/25 md:shadow-none">
         <div className="flex items-center gap-4">
           <p className="text-2xl">Inbox</p>
         </div>
 
         <div
-          className="overflow-y-scroll pr-1 h-[90%]
+          className="overflow-y-scroll pr-1 md:h-[90%] max-h-80
         [&::-webkit-scrollbar]:w-2
         [&::-webkit-scrollbar-track]:rounded-full
         [&::-webkit-scrollbar-track]:bg-gray-100
@@ -125,15 +127,16 @@ function InboxPage() {
         </div>
       </div>
 
-      <div className="p-10 bg-white border-r-2 border-black w-[45%] space-y-4">
+      {/*Right*/}
+      <div className="p-10 bg-white border-r-2 border-black max-h-screen md:w-[45%] space-y-4">
         {/*Div1: chat header/username */}
         <div>
-          <p>Chat: {selectedChat}</p>
+          <p>Current Chat: {selectedChat}</p>
         </div>
 
         {/*Div2: chat messages, scrollable*/}
         <div
-          className="bg-gray-100 mt-6 p-4 rounded w-full overflow-y-scroll h-[65%]
+          className="bg-gray-100 mt-6 p-4 rounded w-full md:h-[65%] h-100 overflow-y-scroll 
         [&::-webkit-scrollbar]:w-2
         [&::-webkit-scrollbar-track]:rounded-full
         [&::-webkit-scrollbar-track]:bg-gray-100
@@ -152,7 +155,7 @@ function InboxPage() {
             placeholder="Leave a message"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 "
+            className="w-full bg-white p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 "
           />
           <div className="pt-5">
             <button
@@ -163,6 +166,15 @@ function InboxPage() {
             </button>
           </div>
         </div>
+      </div>
+
+      {/*Footer with logo*/}
+      <div className="block md:hidden justify-items-center bg-lime-950 mt-4">
+        <img
+          src="/logo_white.png"
+          alt="LocalZero Logo"
+          className="w-20 h-auto"
+        />
       </div>
     </div>
   );
