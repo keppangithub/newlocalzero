@@ -31,15 +31,15 @@ function SideBar() {
   };
 
   async function logoutClicked() {
-    const logoutRequest = await auth.logout();
+    const logoutRequest = auth.logout();
     router.push("/");
   };
 
   return (
-    <div>
-      <div className="bg-gray-300 w-full">
+    <div className="">
+      <div className="w-full flex flex-row md:flex-col text-sm md:h-screen">
         <button
-          className=" bg-white hover:bg-gray-500 rounded-md p-2 w-[90%] mx-1 my-1 mt-5"
+          className=" bg-white hover:bg-gray-500 rounded-md p-2 w-[90%] mx-1 my-1 md:mt-5"
           onClick={homeClicked}
         >
           Home

@@ -89,19 +89,20 @@ function HomePage() {
 
   // --------- page body ---------
   return (
-    <div className="flex min-w-screen max-w-screen min-h-screen max-h-screen bg-zinc-800 font-light text-sm">
-      <div className="bg-gray-300 w-[10%]">
+    <div className="flex flex-col md:flex-row w-full md:min-w-screen md:max-w-screen min-h-screen md:max-h-screen bg-white font-light text-sm">
+      
+      <div className="bg-gray-300 w-full md:w-[10%] sticky top-0 left-0 shadow-sm shadow-black/25 md:shadow-none">
         <SideBar />
       </div>
 
-      <div className="bg-white w-[35%]">
-        <div className="p-5">
-          <p className="text-xl">Initiatives</p>
-          <hr className="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+      <div className="bg-white w-full md:w-[35%]">
+
+        <div className="space-y-2 p-5 sticky top-0 left-0 bg-white shadow-sm shadow-black/25 md:shadow-none">
+          <p className="text-xl">All Initiatives</p>
           <p>Location: </p>
 
           <select
-            className="rounded-md border-2 p-2 focus:outline-0 w-full"
+            className="rounded-md border-1 p-2 focus:outline-0 w-full"
             value={selectedLocation}
             onChange={(e) => locationChanged(e.target.value)}
           >
@@ -115,11 +116,10 @@ function HomePage() {
             <option value="Perstorp">Perstorp</option>
           </select>
 
-          <hr className="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700"></hr>
         </div>
 
         <div
-          className="w-[95%] h-[65%] justify-self-center space-y-2 overflow-y-scroll pr-1
+          className="w-[95%] pt-4 md:h-[75%] justify-self-center space-y-2 overflow-y-scroll pr-1
         [&::-webkit-scrollbar]:w-2
         [&::-webkit-scrollbar-track]:rounded-full
         [&::-webkit-scrollbar-track]:bg-gray-100
@@ -132,14 +132,14 @@ function HomePage() {
         </div>
       </div>
 
-      <div className="bg-gray-300 w-[35%]">
-        <div className="p-5">
+      <div className="bg-white md:bg-gray-300 w-full md:w-[35%]">
+        
+        <div className="p-5 top-0 left-0 bg-white md:bg-gray-300 sticky shadow-sm shadow-black/25 md:shadow-none">
           <p className="text-xl">My Initiatives</p>
-          <hr className="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700"></hr>
         </div>
 
         <div
-          className="w-[95%] justify-self-center space-y-2 h-[80%] overflow-y-scroll pr-1
+          className="w-[95%] pt-4 justify-self-center space-y-2 md:h-[86%] overflow-y-scroll pr-1
         [&::-webkit-scrollbar]:w-2
         [&::-webkit-scrollbar-track]:rounded-full
         [&::-webkit-scrollbar-track]:bg-gray-100
@@ -152,13 +152,13 @@ function HomePage() {
         </div>
       </div>
 
-      <div className="bg-white w-[20%]">
-        <div className="p-5">
+      <div className="bg-white w-full md:w-[20%]">
+        
+        <div className="p-5 top-0 left-0 bg-white sticky shadow-sm shadow-black/25 md:shadow-none">
           <p className="text-xl">Notifications</p>
-          <hr className="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700"></hr>
         </div>
         <div
-          className="w-[95%] space-y-2 justify-self-center h-[80%] overflow-y-scroll pr-1
+          className="w-[95%] pt-4 overflow-x-hidden space-y-2 justify-self-center h-[86%] overflow-y-scroll pr-1
         [&::-webkit-scrollbar]:w-2
         [&::-webkit-scrollbar-track]:rounded-full
         [&::-webkit-scrollbar-track]:bg-gray-100
@@ -170,6 +170,12 @@ function HomePage() {
           {renderMyNotifications()}
         </div>
       </div>
+
+      {/*Footer with logo*/}
+      <div className="block md:hidden justify-items-center bg-lime-950 mt-4">
+          <img src="/logo_white.png" alt="LocalZero Logo" className="w-20 h-auto" />
+      </div>
+
     </div>
   );
 }
