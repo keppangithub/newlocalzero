@@ -38,7 +38,7 @@ async function getChats(userId) {
     console.error("Getting chats failed:", error);
     throw error;
   }
-    */
+
 
   // TEST DATA
   const allInbox = [
