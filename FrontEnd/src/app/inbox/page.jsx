@@ -108,7 +108,7 @@ function InboxPage() {
       </div>
 
       {/*Left*/}
-      <div className="p-10 bg-white border-r-2 border-black md:w-[45%] shadow-sm shadow-black/25 md:shadow-none">
+      <div className="p-10 bg-white md:border-r-2 border-black md:w-[45%] shadow-sm shadow-black/25 md:shadow-none">
         <div className="flex items-center gap-4">
           <p className="text-2xl">Inbox</p>
         </div>
@@ -128,7 +128,7 @@ function InboxPage() {
       </div>
 
       {/*Right*/}
-      <div className="p-10 bg-white border-r-2 border-black max-h-screen md:w-[45%] space-y-4">
+      <div className="p-10 bg-white border-black max-h-screen md:w-[45%] space-y-4">
         {/*Div1: chat header/username */}
         <div>
           <p>Current Chat: {selectedChat}</p>

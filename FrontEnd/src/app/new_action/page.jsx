@@ -37,12 +37,12 @@ function NewAction() {
 
   // --------- page body ---------
   return (
-    <div className="flex min-w-screen max-w-screen min-h-screen max-h-screen bg-white font-light text-sm">
-      <div className="bg-gray-300 w-[10%]">
+    <div className="flex flex-col md:flex-row w-full md:min-w-screen md:max-w-screen min-h-screen md:max-h-screen bg-white font-light text-sm">
+      <div className="bg-gray-300 w-full md:w-[10%] sticky top-0 left-0 shadow-sm shadow-black/25 md:shadow-none">
         <SideBar />
       </div>
 
-      <div className="w-[45%] p-10 space-y-4">
+      <div className="md:w-[45%] p-10 space-y-4">
         <p className="text-xl">New Action</p>
         <hr className="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700"></hr>
 
@@ -52,7 +52,7 @@ function NewAction() {
             type="date"
             value={actionDate}
             onChange={(e) => setActionDate(e.target.value)}
-            className="rounded-md border-2 p-2 focus:outline-0 w-[90%]"
+            className="rounded-md border-1 p-2 focus:outline-0 w-[90%]"
           ></input>
         </div>
 
@@ -62,7 +62,7 @@ function NewAction() {
             type="text"
             value={actionName}
             onChange={(e) => setActionName(e.target.value)}
-            className="rounded-md border-2 p-2 focus:outline-0 w-[90%]"
+            className="rounded-md border-1 p-2 focus:outline-0 w-[90%]"
           ></input>
         </div>
 
@@ -71,21 +71,21 @@ function NewAction() {
           <br />
           <select
             id="type"
-            className="rounded-md border-2 p-2 focus:outline-0 w-[90%]"
+            className="rounded-md border-1 p-2 focus:outline-0 w-[90%]"
             onChange={(e) => setActionType(e.target.value)}
             value={actionType}
           >
             <option defaultValue={null}>Select Type...</option>
-            <option value="BIKING">BIKING</option>
-            <option value="WALKING">WALKING</option>
-            <option value="PUBLIC_TRANSPORT">PUBLIC_TRANSPORT</option>
-            <option value="PICK_UP_TRASH">PICK_UP_TRASH</option>
-            <option value="RECYCLING">RECYCLING</option>
-            <option value="TOOL_SHARING">TOOL_SHARING</option>
-            <option value="RECYCLING_DRIVE">RECYCLING_DRIVE</option>
-            <option value="RIDE_SHARING">RIDE_SHARING</option>
-            <option value="COMMUNITY_GARDENING">COMMUNITY_GARDENING</option>
-            <option value="FOOD_SWAPS">FOOD_SWAPS</option>
+            <option value="BIKING">Biking</option>
+            <option value="WALKING">Walking</option>
+            <option value="PUBLIC_TRANSPORT">Public Transport</option>
+            <option value="PICK_UP_TRASH">Trash Pickup</option>
+            <option value="RECYCLING">Recycling</option>
+            <option value="TOOL_SHARING">Tool Sharing</option>
+            <option value="RECYCLING_DRIVE">Recycling Drive</option>
+            <option value="RIDE_SHARING">Ride Sharing</option>
+            <option value="COMMUNITY_GARDENING">Community Gardening</option>
+            <option value="FOOD_SWAPS">Food Swaps</option>
           </select>
         </div>
 
@@ -95,21 +95,21 @@ function NewAction() {
             type="text"
             value={metricsText}
             onChange={(e) => setMetricsText(e.target.value)}
-            className="rounded-md border-2 p-2 focus:outline-0 w-[90%]"
+            className="rounded-md border-1 p-2 focus:outline-0 w-[90%]"
           ></input>
         </div>
 
         <br/>
 
         <button
-          className="text-white bg-gray-700 hover:bg-gray-800 rounded-md p-2 w-[100px]"
+          className="text-white bg-lime-900 hover:bg-lime-950 rounded-md p-2 w-[100px]"
           onClick={postClicked}
         >
           POST
         </button>
       </div>
 
-      <div className="w-[45%] p-10 space-y-1">
+      <div className="md:w-[45%] pt-0 p-10 md:pt-10 space-y-1">
         <p>
           *Metrics for actions
         </p>
@@ -125,6 +125,16 @@ function NewAction() {
         <p>Community Garedening: number of times </p>
         <p>Food Swapped: number of times</p>
       </div>
+
+      {/*Footer with logo*/}
+      <div className="block md:hidden justify-items-center bg-lime-950 mt-4">
+        <img
+          src="/logo_white.png"
+          alt="LocalZero Logo"
+          className="w-20 h-auto"
+        />
+      </div>
+
     </div>
   );
 }
