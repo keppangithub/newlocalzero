@@ -36,7 +36,9 @@ function LandingPage() {
       if (signupStatus) {
         alert("Your signup was successful, you can now login.");
       } else {
-        setSignupErrorMessage("An Error occured while signing up, please make sure all input matches the criteria.");
+        setSignupErrorMessage(
+          "An Error occured while signing up, please make sure all input matches the criteria."
+        );
       }
     }
   }
@@ -55,134 +57,145 @@ function LandingPage() {
 
   // --------- page body ---------
   return (
-    <div className="flex flex-col md:flex-row w-screen h-fit md:min-h-screen bg-zinc-300 font-light text-sm">
-      
-      
-      {/*Left/Upper Side: Signup */}
-      <div className="min-w-[50%] h-screen md:h-screen flex bg-zinc-100 pt-20 items-top justify-center">
-        <div className="space-y-4 w-[60%] h-[70%]">
-          <p className="font-normal">Signup with a new account</p>
+    <div className="max-w-screen">
 
-          <div className="space-y-2 w-full">
-            <p>Full Name</p>
-            <input
-              type="text"
-              value={nameText}
-              onChange={(e) => setNameText(e.target.value)}
-              className="rounded-sm border-1 p-2 focus:outline-0 w-full bg-white"
-              placeholder="Mary Jane"
-            ></input>
-            <p>Email</p>
-            <input
-              type="text"
-              value={signupEmailText}
-              onChange={(e) => setSignupEmailText(e.target.value)}
-              className="rounded-sm border-1 p-2 focus:outline-0 w-full bg-white"
-              placeholder="email@example.com"
-            ></input>
-            <p>Password</p>
-            <input
-              type="password"
-              value={signupPassText}
-              onChange={(e) => setSignupPassText(e.target.value)}
-              className="rounded-sm border-1 p-2 focus:outline-0 w-full bg-white"
-              placeholder="••••••••"
-            ></input>
-            <p>Location</p>
-            <select
-              className="rounded-md border-1 p-2 focus:outline-0 w-full bg-white"
-              value={locationText}
-              onChange={(e) => setLocationText(e.target.value)}
+      {/*Header with logo*/}
+      <div className="sticky top-0 left-0 max-w-screen bg-gray-300 shadow-sm shadow-black/25">
+        <div className="md:min-w-[80%] justify-self-center items-start">
+          <img src="/logo.png" alt="LocalZero Logo" className="w-25 h-auto" />
+        </div>
+      </div>
+
+      {/*large div containing signup + login */}
+      <div className="flex flex-col md:flex-row max-w-screen overflow-x-hidden md:w-full h-fit md:min-h-screen bg-zinc-300 font-light text-sm">
+        
+        {/*Left/Upper Side: Signup */}
+        <div className="md:w-[50%] h-fit min-h-screen flex bg-zinc-100 pt-20 items-top justify-center">
+          <div className="space-y-4 w-[60%] h-[70%]">
+            <p className="font-normal">Signup with a new account</p>
+
+            <div className="space-y-2 w-full">
+              <p>Full Name</p>
+              <input
+                type="text"
+                value={nameText}
+                onChange={(e) => setNameText(e.target.value)}
+                className="rounded-sm border-1 p-2 focus:outline-0 w-full bg-white"
+                placeholder="Mary Jane"
+              ></input>
+              <p>Email</p>
+              <input
+                type="text"
+                value={signupEmailText}
+                onChange={(e) => setSignupEmailText(e.target.value)}
+                className="rounded-sm border-1 p-2 focus:outline-0 w-full bg-white"
+                placeholder="email@example.com"
+              ></input>
+              <p>Password</p>
+              <input
+                type="password"
+                value={signupPassText}
+                onChange={(e) => setSignupPassText(e.target.value)}
+                className="rounded-sm border-1 p-2 focus:outline-0 w-full bg-white"
+                placeholder="••••••••"
+              ></input>
+              <p>Location</p>
+              <select
+                className="rounded-md border-1 p-2 focus:outline-0 w-full bg-white"
+                value={locationText}
+                onChange={(e) => setLocationText(e.target.value)}
+              >
+                <option value="" disabled>
+                  Select a location
+                </option>
+                <option value="Malmö">Malmö</option>
+                <option value="Trelleborg">Trelleborg</option>
+                <option value="Lund">Lund</option>
+                <option value="Helsingborg">Helsingborg</option>
+                <option value="Perstorp">Perstorp</option>
+              </select>
+            </div>
+
+            {/*Role selection */}
+            <div>
+              <div className="space-x-1 font-light">
+                <input
+                  id="resident"
+                  type="radio"
+                  value="Resident"
+                  name="userRole"
+                  checked={selectedRole === "Resident"}
+                  onChange={(e) => setSelectedRole(e.target.value)}
+                  className="w-4 h-4"
+                />
+                <label htmlFor="resident" className="ms-2 text-sm">
+                  Resident
+                </label>
+              </div>
+
+              <div className="space-x-1">
+                <input
+                  id="organizer"
+                  type="radio"
+                  value="Organizer"
+                  name="userRole"
+                  checked={selectedRole === "Organizer"}
+                  onChange={(e) => setSelectedRole(e.target.value)}
+                  className="w-4 h-4"
+                />
+                <label htmlFor="organizer" className="ms-2 text-sm">
+                  Community Organizer
+                </label>
+              </div>
+            </div>
+
+            <button
+              className="text-white bg-lime-900 hover:bg-lime-950 rounded-md p-2 w-[100px]"
+              onClick={SignupClicked}
             >
-              <option value="" disabled>
-                Select a location
-              </option>
-              <option value="Malmö">Malmö</option>
-              <option value="Trelleborg">Trelleborg</option>
-              <option value="Lund">Lund</option>
-              <option value="Helsingborg">Helsingborg</option>
-              <option value="Perstorp">Perstorp</option>
-            </select>
-          </div>
+              Signup
+            </button>
 
-          {/*Role selection */}
-          <div>
-            <div className="space-x-1 font-light">
+            <p className="text-red-700">{signupErrorMessage}</p>
+          </div>
+        </div>
+
+        {/*Right Side: Login */}
+        <div className="md:w-[50%] h-screen md:min-h-screen flex bg-gray-200 pt-20 items-top justify-center">
+          <div className="space-y-4 w-[60%] h-[70%] ">
+            <p className="font-normal">Login to your account</p>
+
+            <div className="space-y-2 w-[90%]">
+              <p>Email</p>
               <input
-                id="resident"
-                type="radio"
-                value="Resident"
-                name="userRole"
-                checked={selectedRole === "Resident"}
-                onChange={(e) => setSelectedRole(e.target.value)}
-                className="w-4 h-4"
-              />
-              <label htmlFor="resident" className="ms-2 text-sm">
-                Resident
-              </label>
+                type="text"
+                value={loginEmailText}
+                onChange={(e) => setLoginEmailText(e.target.value)}
+                className="rounded-sm border-1 p-2 focus:outline-0 w-full bg-white"
+                placeholder="email@example.com"
+              ></input>
+              <p>Password</p>
+              <input
+                type="password"
+                value={loginPassText}
+                onChange={(e) => setLoginPassText(e.target.value)}
+                className="rounded-sm border-1 p-2 focus:outline-0 w-full bg-white"
+                placeholder="••••••••"
+              ></input>
             </div>
 
-            <div className="space-x-1">
-              <input
-                id="organizer"
-                type="radio"
-                value="Organizer"
-                name="userRole"
-                checked={selectedRole === "Organizer"}
-                onChange={(e) => setSelectedRole(e.target.value)}
-                className="w-4 h-4"
-              />
-              <label htmlFor="organizer" className="ms-2 text-sm">
-                Community Organizer
-              </label>
-            </div>
+            <button
+              className="text-white bg-lime-900 hover:bg-lime-950 rounded-md p-2 w-[100px]"
+              onClick={loginClicked}
+            >
+              Login
+            </button>
+
+            <p className="text-red-700">{loginErrorMessage}</p>
           </div>
-
-          <button
-            className="text-white bg-lime-900 hover:bg-lime-950 rounded-md p-2 w-[100px]"
-            onClick={SignupClicked}
-          >
-            Signup
-          </button>
-
-          <p className="text-red-700">{signupErrorMessage}</p>
         </div>
       </div>
 
-      {/*Right Side: Login */}
-      <div className="min-w-[50%] h-screen md:min-h-screen flex bg-gray-200 pt-20 items-top justify-center">
-        <div className="space-y-4 w-[60%] h-[70%] ">
-          <p className="font-normal">Login to your account</p>
-
-          <div className="space-y-2 w-[90%]">
-            <p>Email</p>
-            <input
-              type="text"
-              value={loginEmailText}
-              onChange={(e) => setLoginEmailText(e.target.value)}
-              className="rounded-sm border-1 p-2 focus:outline-0 w-full bg-white"
-              placeholder="email@example.com"
-            ></input>
-            <p>Password</p>
-            <input
-              type="password"
-              value={loginPassText}
-              onChange={(e) => setLoginPassText(e.target.value)}
-              className="rounded-sm border-1 p-2 focus:outline-0 w-full bg-white"
-              placeholder="••••••••"
-            ></input>
-          </div>
-
-          <button
-            className="text-white bg-lime-900 hover:bg-lime-950 rounded-md p-2 w-[100px]"
-            onClick={loginClicked}
-          >
-            Login
-          </button>
-
-          <p className="text-red-700">{loginErrorMessage}</p>
-        </div>
-      </div>
     </div>
   );
 }
