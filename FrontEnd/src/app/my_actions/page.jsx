@@ -51,16 +51,16 @@ function MyActions() {
 
   // --------- page body ---------
   return (
-    <div className="flex min-w-screen max-w-screen min-h-screen max-h-screen bg-zinc-white font-light text-sm">
-      <div className="bg-gray-300 w-[10%]">
+    <div className="flex flex-col md:flex-row w-full md:min-w-screen md:max-w-screen min-h-screen md:max-h-screen bg-white font-light text-sm">
+      <div className="bg-gray-300 w-full md:w-[10%] sticky top-0 left-0 shadow-sm shadow-black/25 md:shadow-none">
         <SideBar />
       </div>
 
-      <div className="w-[45%] p-8">
+      <div className="md:w-[45%] p-8">
         <p className="text-xl">My Actions</p>
         <hr className="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700"></hr>
         <div
-          className="w-[95%] h-[90%] justify-self-center space-y-2 overflow-y-scroll pr-1
+          className="w-[95%] md:h-[90%] justify-self-center space-y-2 overflow-y-scroll pr-1
         [&::-webkit-scrollbar]:w-2
         [&::-webkit-scrollbar-track]:rounded-full
         [&::-webkit-scrollbar-track]:bg-gray-100
@@ -73,7 +73,7 @@ function MyActions() {
         </div>
       </div>
 
-      <div className="w-[45%] p-20 h-[70%] text-md">
+      <div className="md:w-[45%] p-20 h-[70%] text-md">
         <p className="text-xl">Statistics</p>
         <p>Biked {myStats.kmBiked} kms</p>
         <p>Walked {myStats.kmWalked} kms</p>
@@ -86,6 +86,16 @@ function MyActions() {
         <p>Community Garedened {myStats.communityGardening} times</p>
         <p>Food Swapped {myStats.foodSwaps} times</p>
       </div>
+
+      {/*Footer with logo*/}
+      <div className="block md:hidden justify-items-center bg-lime-950 mt-4">
+        <img
+          src="/logo_white.png"
+          alt="LocalZero Logo"
+          className="w-20 h-auto"
+        />
+      </div>
+
     </div>
   );
 }

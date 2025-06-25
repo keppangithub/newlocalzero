@@ -56,25 +56,34 @@ function Profile() {
   // --------- handling user moves ---------
   async function messageUserClicked() {
     const openChat = await inbox.startChat(currentUser.id, profileID);
-    if (openChat){
+    if (openChat) {
       router.push("/inbox");
-    }else{
+    } else {
       alert("Failed to start chat with user.");
     }
   }
 
   // --------- page body ---------
   return (
-    <div className="flex min-w-screen max-w-screen min-h-screen max-h-screen bg-white font-light text-sm">
-      <div className="bg-gray-300 w-[10%]">
+    <div className="flex flex-col md:flex-row w-full md:min-w-screen md:max-w-screen min-h-screen md:max-h-screen bg-white font-light text-sm">
+      <div className="bg-gray-300 w-full md:w-[10%] sticky top-0 left-0 shadow-sm shadow-black/25 md:shadow-none">
         <SideBar />
       </div>
 
-      <div className="p-10 w-[50%] space-y-3">
+      <div className="p-10 h-screen md:w-[50%] space-y-3">
         <p className="text-xl">{userName}</p>
         <hr className="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700"></hr>
         <p className="text-md">Role: {userRole}</p>
         <div>{renderMessageButton()}</div>
+      </div>
+
+      {/*Footer with logo*/}
+      <div className="block md:hidden justify-items-center bg-lime-950 mt-4">
+        <img
+          src="/logo_white.png"
+          alt="LocalZero Logo"
+          className="w-20 h-auto"
+        />
       </div>
     </div>
   );

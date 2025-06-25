@@ -60,21 +60,21 @@ function NewInitiative() {
 
   // --------- page body ---------
   return (
-    <div className="flex min-w-screen max-w-screen min-h-screen max-h-screen bg-zinc-800 font-light text-sm">
-      <div className="bg-gray-300 w-[10%]">
+    <div className="flex flex-col md:flex-row w-full md:min-w-screen md:max-w-screen min-h-screen md:max-h-screen bg-white font-light text-sm">
+      <div className="bg-gray-300 w-full md:w-[10%] sticky top-0 left-0 shadow-sm shadow-black/25 md:shadow-none">
         <SideBar />
       </div>
 
-      <div className="bg-white w-[90%]">
-        <div className="mx-28 my-10 ">
+      <div className="bg-white md:w-[45%]">
+        <div className="p-15 md:p-0 md:mx-28 md:my-10 ">
           <p className="text-lg  mb-4">New Initiative</p>
-          <p className=" border-b-2 max-w-64 mb-6"></p>
+          <hr className="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700"></hr>
 
           <div className="flex flex-col max-w-fit ">
             <p className="text-md">Title</p>
             <input
               type="text"
-              className="rounded-md border-2 p-1 focus:outline-0 w-full mb-2"
+              className="rounded-md border-1 p-2 focus:outline-0 w-full mb-2"
               placeholder="e.g. Community Garden Project"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -83,7 +83,7 @@ function NewInitiative() {
             <p className="text-md">Caption</p>
             <input
               type="text"
-              className="rounded-md border-2 p-1 focus:outline-0 w-full mb-2"
+              className="rounded-md border-1 p-2 focus:outline-0 w-full mb-2"
               placeholder="e.g. Bringing neighbors together to grow fresh food and flowers."
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
@@ -92,7 +92,7 @@ function NewInitiative() {
             <p className="text-md">IMG url</p>
             <input
               type="text"
-              className="rounded-md border-2 p-1 focus:outline-0 w-full mb-2"
+              className="rounded-md border-1 p-2 focus:outline-0 w-full mb-2"
               placeholder="e.g. https://images.unsplash.com/photo-1506744038136-46273834b3fb"
               value={imgUrl}
               onChange={(e) => setImgUrl(e.target.value)}
@@ -100,7 +100,7 @@ function NewInitiative() {
 
             <p className="text-md">Location</p>
             <select
-              className="rounded-md border-2 p-1 focus:outline-0 w-full"
+              className="rounded-md border-1 p-2 focus:outline-0 w-full"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               disabled={notLocationSpecific}
@@ -133,7 +133,7 @@ function NewInitiative() {
                 <p className="text-md">Start date:</p>
                 <input
                   type="date"
-                  className="rounded-md border-2 p-1 focus:outline-0"
+                  className="rounded-md border-1 p-2 focus:outline-0"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
                 ></input>
@@ -143,7 +143,7 @@ function NewInitiative() {
                 <p className="text-md">End date:</p>
                 <input
                   type="date"
-                  className="rounded-md border-2 p-1 focus:outline-0"
+                  className="rounded-md border-1 p-2 focus:outline-0"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
                 ></input>
@@ -153,7 +153,7 @@ function NewInitiative() {
             <div>
               <p className="text-md mt-3">Category</p>
               <select
-                className="rounded-md border-2 p-1 focus:outline-0 w-full"
+                className="rounded-md border-1 p-2 focus:outline-0 w-full"
                 defaultValue=""
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
@@ -204,7 +204,7 @@ function NewInitiative() {
 
             <div className="mt-3 flex justify-center gap-4">
               <button
-                className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600"
+                className="bg-lime-900 text-white px-6 py-2 rounded-md hover:bg-lime-950"
                 onClick={handlePost}
               >
                 Post
@@ -219,6 +219,15 @@ function NewInitiative() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/*Footer with logo*/}
+      <div className="block md:hidden justify-items-center bg-lime-950 mt-4">
+        <img
+          src="/logo_white.png"
+          alt="LocalZero Logo"
+          className="w-20 h-auto"
+        />
       </div>
     </div>
   );
