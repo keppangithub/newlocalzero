@@ -74,7 +74,10 @@ function HomePage() {
     if (Array.isArray(notifications) && notifications.length > 0) {
       return notifications.map((notif, notifIndex) => (
         <div key={notifIndex}>
-          <Notification title={notif.title} date={notif.date} id={notif.id} />
+          <Notification
+            title={notif.title}
+            date={(notif.date.slice(0, 10)) + " at " + (notif.date.slice(11, 16))}
+            id={notif.id} />
         </div>
       ));
     }
@@ -139,7 +142,7 @@ function HomePage() {
         </div>
 
         <div
-          className="w-[95%] pt-4 justify-self-center space-y-2 md:h-[86%] overflow-y-scroll pr-1
+          className="w-[95%] pt-4 overflow-x-hidden space-y-2 justify-self-center h-[86%] overflow-y-scroll pr-1
         [&::-webkit-scrollbar]:w-2
         [&::-webkit-scrollbar-track]:rounded-full
         [&::-webkit-scrollbar-track]:bg-gray-100

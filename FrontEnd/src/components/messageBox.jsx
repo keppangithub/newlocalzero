@@ -15,7 +15,7 @@ function MessageBox({sender, messageText, date}) {
       </div>
 
       <div className="">
-        <p>{date}</p>
+        <p className="text-xs text-gray-600">{date}</p>
       </div>
 
     </div>

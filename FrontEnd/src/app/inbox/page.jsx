@@ -63,7 +63,7 @@ function InboxPage() {
           <MessageBox
             messageText={message.text}
             sender={message.sender}
-            date={message.date}
+            date={(message.date.slice(0, 10)) + " at " + (message.date.slice(11, 16))}
           />
         </div>
       ));
