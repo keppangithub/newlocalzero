@@ -60,9 +60,9 @@ function LandingPage() {
     <div className="max-w-screen">
 
       {/*Header with logo*/}
-      <div className="sticky top-0 left-0 max-w-screen bg-gray-300 shadow-sm shadow-black/25">
+      <div className="sticky top-0 left-0 max-w-screen bg-lime-950 shadow-sm shadow-black/25">
         <div className="md:min-w-[80%] justify-self-center items-start">
-          <img src="/logo.png" alt="LocalZero Logo" className="w-25 h-auto" />
+          <img src="/logo_white.png" alt="LocalZero Logo" className="w-20 h-auto" />
         </div>
       </div>
 
