@@ -130,13 +130,13 @@ function InitiativeView() {
 
   // --------- page body ---------
   return (
-    <div className="flex min-w-screen max-w-screen min-h-screen max-h-screen bg-zinc-100 font-light text-sm">
-      <div className="bg-gray-300 w-[10%]">
+    <div className="flex flex-col md:flex-row w-full md:min-w-screen md:max-w-screen min-h-screen md:max-h-screen bg-white font-light text-sm">
+      <div className="bg-gray-300 w-full md:w-[10%] sticky top-0 left-0 shadow-sm shadow-black/25 md:shadow-none">
         <Sidebar />
       </div>
 
       <div
-        className="p-10 bg-white border-r-2 border-black w-[45%] overflow-y-scroll
+        className="p-10 bg-white md:border-r-1 md:border-black md:w-[45%] overflow-y-scroll
       [&::-webkit-scrollbar]:w-2
         [&::-webkit-scrollbar-track]:rounded-full
         [&::-webkit-scrollbar-track]:bg-gray-100
@@ -180,24 +180,26 @@ function InitiativeView() {
         </div>
 
         <div>{renderUpdateField()}</div>
+        <hr className="block md:hidden h-px my-5 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+
       </div>
 
-      <div className="pl-[3%] pt-[5%] pr-[7.5%] bg-white border-r-2 border-black w-[45%] ">
+      <div className="p-10 bg-white md:w-[45%] ">
         <p className="text-2xl">Comments</p>
-        <div className="bg-gray-100 mt-6 p-4 rounded">
+        <div className="bg-gray-100 mt-6 p-4 rounded space-y-1">
           <input
             type="text"
             value={commentText}
             onChange={(POST) => setComment(POST.target.value)}
             placeholder="Leave a comment"
-            className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 "
+            className="bg-white w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 "
           />
           <input
             type="text"
             value={commentImageURL}
             onChange={(POST) => setCommentImageURL(POST.target.value)}
             placeholder="image URL (optional)"
-            className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 "
+            className="bg-white w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 "
           />
           <div className="pt-5">
             <button
@@ -222,6 +224,16 @@ function InitiativeView() {
           {renderComments()}
         </div>
       </div>
+
+      {/*Footer with logo*/}
+      <div className="block md:hidden justify-items-center bg-lime-950 mt-4">
+        <img
+          src="/logo_white.png"
+          alt="LocalZero Logo"
+          className="w-20 h-auto"
+        />
+      </div>
+
     </div>
   );
 }
