@@ -37,51 +37,51 @@ function SideBar() {
 
   return (
     <div className="">
-      <div className="w-full flex flex-row md:flex-col text-sm md:h-screen">
+      <div className="w-full flex flex-row md:flex-col text-xs md:text-sm md:h-screen">
         <button
-          className=" bg-white hover:bg-gray-500 rounded-md p-2 w-[90%] mx-1 my-1 md:mt-5"
+          className=" bg-white hover:bg-gray-500 rounded-md p-1 md:p-2 w-[90%] mx-1 my-1 md:mt-5"
           onClick={homeClicked}
         >
           Home
         </button>
 
         <button
-          className=" bg-white hover:bg-gray-500 rounded-md p-2 w-[90%] mx-1 my-1"
+          className=" bg-white hover:bg-gray-500 rounded-md p-1 md:p-2 w-[90%] mx-1 my-1"
           onClick={myProfileClicked}
         >
           My Profile
         </button>
 
         <button
-          className=" bg-white hover:bg-gray-500 rounded-md p-2 w-[90%] mx-1 my-1"
+          className=" bg-white hover:bg-gray-500 rounded-md p-1 md:p-2 w-[90%] mx-1 my-1"
           onClick={newInitClicked}
         >
           + New Initiative
         </button>
 
         <button
-          className=" bg-white hover:bg-gray-500 rounded-md p-2 w-[90%] mx-1 my-1"
+          className=" bg-white hover:bg-gray-500 rounded-md p-1 md:p-2 w-[90%] mx-1 my-1"
           onClick={myActionsClicked}
         >
           My Actions
         </button>
 
         <button
-          className=" bg-white hover:bg-gray-500 rounded-md p-2 w-[90%] mx-1 my-1"
+          className=" bg-white hover:bg-gray-500 rounded-md p-1 md:p-2 w-[90%] mx-1 my-1"
           onClick={newActionClicked}
         >
           + New Action
         </button>
 
         <button
-          className=" bg-white hover:bg-gray-500 rounded-md p-2 w-[90%] mx-1 my-1"
+          className=" bg-white hover:bg-gray-500 rounded-md p-1 md:p-2 w-[90%] mx-1 my-1"
           onClick={inboxClicked}
         >
           Inbox
         </button>
 
         <button
-          className=" bg-white hover:bg-gray-500 rounded-md p-2 w-[90%] mx-1 my-1"
+          className=" bg-white hover:bg-gray-500 rounded-md p-1 md:p-2 w-[90%] mx-1 my-1"
           onClick={logoutClicked}
         >
           Logout

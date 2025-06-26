@@ -94,13 +94,13 @@ function HomePage() {
   return (
     <div className="flex flex-col md:flex-row w-full md:min-w-screen md:max-w-screen min-h-screen md:max-h-screen bg-white font-light text-sm">
       
-      <div className="bg-gray-300 w-full md:w-[10%] sticky top-0 left-0 shadow-sm shadow-black/25 md:shadow-none">
+      <div className="bg-gray-300 w-full md:w-[10%] sticky top-0 left-0 z-10 shadow-sm shadow-black/25 md:shadow-none">
         <SideBar />
       </div>
 
       <div className="bg-white w-full md:w-[35%]">
 
-        <div className="space-y-2 p-5 sticky top-0 left-0 bg-white shadow-sm shadow-black/25 md:shadow-none">
+        <div className="space-y-2 p-5 sticky top-0 left-0 z-10 bg-white shadow-sm shadow-black/25 md:shadow-none">
           <p className="text-xl">All Initiatives</p>
           <p>Location: </p>
 
@@ -137,7 +137,7 @@ function HomePage() {
 
       <div className="bg-white md:bg-gray-300 w-full md:w-[35%]">
         
-        <div className="p-5 top-0 left-0 bg-white md:bg-gray-300 sticky shadow-sm shadow-black/25 md:shadow-none">
+        <div className="p-5 top-0 left-0 bg-white md:bg-gray-300 sticky z-10 shadow-sm shadow-black/25 md:shadow-none">
           <p className="text-xl">My Initiatives</p>
         </div>
 
@@ -157,7 +157,7 @@ function HomePage() {
 
       <div className="bg-white w-full md:w-[20%]">
         
-        <div className="p-5 top-0 left-0 bg-white sticky shadow-sm shadow-black/25 md:shadow-none">
+        <div className="p-5 top-0 left-0 bg-white sticky z-10 shadow-sm shadow-black/25 md:shadow-none">
           <p className="text-xl">Notifications</p>
         </div>
         <div

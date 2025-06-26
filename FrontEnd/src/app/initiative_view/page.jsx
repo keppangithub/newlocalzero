@@ -212,7 +212,7 @@ function InitiativeView() {
         </div>
 
         <div
-          className="overflow-y-scroll pr-1 h-[55%]
+          className="w-full overflow-y-scroll pr-1 h-[55%]
         [&::-webkit-scrollbar]:w-2
         [&::-webkit-scrollbar-track]:rounded-full
         [&::-webkit-scrollbar-track]:bg-gray-100

@@ -67,10 +67,10 @@ function LandingPage() {
       </div>
 
       {/*large div containing signup + login */}
-      <div className="flex flex-col md:flex-row max-w-screen overflow-x-hidden md:w-full h-fit md:min-h-screen bg-zinc-300 font-light text-sm">
+      <div className="flex flex-col md:flex-row max-w-screen overflow-x-hidden md:w-full h-fit md:min-h-screen bg-gray-200 font-light text-sm">
         
         {/*Left/Upper Side: Signup */}
-        <div className="md:w-[50%] h-fit min-h-screen flex bg-zinc-100 pt-20 items-top justify-center">
+        <div className="md:w-[50%] h-fit min-h-screen flex bg-zinc-100 py-20 items-top justify-center">
           <div className="space-y-4 w-[60%] h-[70%]">
             <p className="font-normal">Signup with a new account</p>
 
@@ -157,6 +157,9 @@ function LandingPage() {
             </button>
 
             <p className="text-red-700">{signupErrorMessage}</p>
+
+            <p className="text-xs">* Username and Password must be between 10 to 65 characters, can only contain letters and digits, cannot contain space.
+            <br/> Email must be in a valid email format and unique. </p>
           </div>
         </div>
 
